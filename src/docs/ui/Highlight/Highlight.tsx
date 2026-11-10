@@ -8,7 +8,7 @@ import { useEffect, useStyles } from '../../../hooks'
 import type { JSXElement, ObservableProp } from '../../../types'
 import type { BaseIconProps, FlexElement, FlexProps, FlexStyles } from '../../../ui'
 import { Button, CopyIcon, Flex, HtmlIcon, JsonIcon, Markdown, SuccessIcon, TerminalIcon, TypeScriptIcon, Typography } from '../../../ui'
-import { inject, injectAll, Ref, use, viewTransition } from '../../../utils'
+import { inject, Ref, use, viewTransition } from '../../../utils'
 import $styles from './Highlight.module.scss'
 
 export type HighlightExamples = Record<string, JSXElement>

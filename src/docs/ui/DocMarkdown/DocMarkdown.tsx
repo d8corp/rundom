@@ -6,7 +6,6 @@ import type { TxtCodeBlockNode, TxtHeaderNode, TxtNode } from '@textlint/ast-nod
 import type { HighlightExamples } from '../Highlight/Highlight'
 import { Highlight } from '../Highlight/Highlight'
 
-import type { ObservableProp } from '../../../types'
 import { JSXNode } from '../../../types'
 import type { MarkdownProps } from '../../../ui'
 import { Code, Divider, Markdown } from '../../../ui'
