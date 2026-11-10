@@ -224,14 +224,13 @@ export default function IconsPage () {
                       element='button'
                       type='button'
                       size='s'
-                      interactive
                       aria-label={`Copy <${item.value.name} />`}
                       onclick={copy(item.value.name)}
                     >
                       <CardPreview class={styles.preview}>
                         {() => item.value.icon}
                       </CardPreview>
-                      <CardContent class={styles.info}>
+                      <CardContent vertical class={styles.info}>
                         <CardTitle class={styles.name}>{() => item.value.name}</CardTitle>
                         <CardDescription>{() => item.value.description}</CardDescription>
                       </CardContent>
