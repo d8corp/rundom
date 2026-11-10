@@ -175,7 +175,7 @@ body {
       label:hover &:is(.box_hoverable, .box_clickable),
       &:is(.box_hoverable, .box_clickable):hover {
         --box-main-color: light-dark(#{$color-primary-50}, #{$color-primary-65});
-        --box-light-color: light-dark(#{$color-primary-90}, #{$color-primary-30});
+        --box-light-color: light-dark(#{$color-primary-90}, #{$color-primary-25});
         --box-border-color: light-dark(#{$color-primary-70}, #{$color-primary-45});
 
         &.box_bordered {
@@ -185,8 +185,8 @@ body {
     }
 
     &.box_clickable:active {
-      --box-main-color: light-dark(#{$color-primary-40}, #{$color-primary-50});
-      --box-light-color: light-dark(#{$color-primary-85}, #{$color-primary-40});
+      --box-main-color: light-dark(#{$color-primary-40}, #{$color-primary-70});
+      --box-light-color: light-dark(#{$color-primary-85}, #{$color-primary-30});
 
       &.box_bordered {
         color: light-dark(var(--box-main-color), white);
