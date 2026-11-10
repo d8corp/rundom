@@ -13,10 +13,9 @@ import { Code, Divider, Markdown } from '../../../ui'
 
 export interface DocMarkdownProps extends MarkdownProps {
   examples?: HighlightExamples
-  glow?: ObservableProp<boolean>
 }
 
-export function DocMarkdown ({ text, map, glow, ...props }: DocMarkdownProps) {
+export function DocMarkdown ({ text, map, ...props }: DocMarkdownProps) {
   if (!text) return
 
   return (
@@ -67,7 +66,7 @@ export function DocMarkdown ({ text, map, glow, ...props }: DocMarkdownProps) {
 
           return sections
         },
-        HorizontalRule: () => new JSXNode(Divider, { glow }),
+        HorizontalRule: () => new JSXNode(Divider, {}),
         Header: ({ children, depth }, render) => {
           const jsxChildren = children?.map(child => render(child, render))
           const text = jsxChildren?.length === 1 && typeof jsxChildren[0] === 'string' ? jsxChildren[0] : undefined
@@ -80,7 +79,6 @@ export function DocMarkdown ({ text, map, glow, ...props }: DocMarkdownProps) {
         CodeBlock: ({ value, lang }: TxtCodeBlockNode) => new JSXNode(Highlight, {
           code: value,
           lang: String(lang),
-          glow,
           examples: props.examples,
         }),
         ...map,

@@ -1,5 +1,3 @@
-@use "src/docs/styles/proximityGlow" as *;
-
 @keyframes show {
   from {
     opacity: 0;
@@ -57,8 +55,6 @@
     width: 309px;
     z-index: 1;
 
-    @include proximityGlow(0 1px 0 0);
-
     & > .background {
       width: 100vw;
       left: 100%;
@@ -104,7 +100,6 @@
 
   @media (min-width: 802px) {
     border: none;
-    @include proximityGlow;
   }
 
   &:before {

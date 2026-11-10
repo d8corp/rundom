@@ -24,14 +24,12 @@ const icons = {
 export type HighlightProps<T extends FlexElement = 'div'> = FlexProps<T, typeof $styles & FlexStyles> & {
   code: string
   lang: string
-  glow?: ObservableProp<boolean>
   examples?: HighlightExamples
 }
 
 export function Highlight<T extends FlexElement = 'div'> ({
   code,
   lang,
-  glow,
   examples,
   ...props
 }: HighlightProps<T>) {
@@ -173,12 +171,7 @@ export function Highlight<T extends FlexElement = 'div'> ({
   }
 
   return (
-    <Flex<T>
-      vertical {...(props as any)} class={injectAll([
-        styles.root,
-        inject(glow, glow => glow && styles.glow),
-      ], classes)}
-    >
+    <Flex<T> vertical {...(props as any)} class={styles.root}>
       <Content />
     </Flex>
   )

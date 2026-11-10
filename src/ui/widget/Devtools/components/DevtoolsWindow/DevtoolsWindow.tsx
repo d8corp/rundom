@@ -99,7 +99,6 @@ export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends
         <div class={styles.aside}>
           <div class={styles.asideHeader}>
             <Input
-              data-glow
               flex
               size='s'
               circle
@@ -160,7 +159,7 @@ export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends
               Errors: {() => errors.value.size}
             </Button>
             <Divider vertical />
-            <Button size='s' data-glow data-shine onclick={handleExport}>
+            <Button size='s' onclick={handleExport}>
               Export
             </Button>
           </div>

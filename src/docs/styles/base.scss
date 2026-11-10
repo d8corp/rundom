@@ -1,5 +1,3 @@
-@use "src/docs/styles/proximityGlow" as *;
-
 $mobileSize: 600px;
 
 ::view-transition-old(*),
@@ -10,18 +8,6 @@ $mobileSize: 600px;
 :root {
   color-scheme: light dark;
   --color-alpha-border-hover: light-dark(#7C3AED4D, #8B5CF64D);
-
-  // --rd-[component_name]-[element_name]-[param_name]-[mod?]
-  // component_name: button | dot | ...
-  // element_name:
-  //    (root) [view | size | rest]
-  //    (primary | secondary | disabled | success | error | warning) [view]
-  //    (m | s | l) [size]
-  // param_name:
-  //    (text | color | border | blur) [view]
-  //    (text | radius) [size]
-  //    (outline | outline_offset | text_weight | text_decoration) [rest]
-  // mod: hover | focus
 
   --rd__root_outline_focus: 2px solid var(--rd__primary_background);
   --rd__root_transition: all .2s;
@@ -120,8 +106,6 @@ $mobileSize: 600px;
 
   --rd_button_accent_background: linear-gradient(135deg, var(--rd__primary_background), var(--rd__accent_background)) 0% 0% / 100% 100%;
   --rd_button_accent_background_hover: linear-gradient(135deg, var(--rd__primary_background), var(--rd__accent_background)) 0% 0% / 200% 200%;
-
-  --rd-glow-bg: var(--rd__secondary_border);
 }
 
 pre, code {
@@ -173,8 +157,6 @@ blockquote {
   & > :last-child {
     margin-bottom: 0;
   }
-
-  @include proximityGlow;
 
   &:after {
     content: '';
@@ -296,7 +278,6 @@ th {
   letter-spacing: 0.02em;
   color: var(--rd__primary_background_hover);
   position: relative;
-  @include proximityGlow(1px 0);
 
   &:first-child:before {
     padding-left: 1px;
@@ -315,8 +296,6 @@ td {
   position: relative;
 
   @media (max-width: $mobileSize) {
-    @include proximityGlow(0 1px);
-
     &:first-child {
       padding-top: 8px;
 
@@ -336,7 +315,6 @@ td {
 
   @media (min-width: $mobileSize) {
     padding: 14px 18px;
-    @include proximityGlow(0 0 1px);
 
     &:first-child:before {
       padding-left: 1px;

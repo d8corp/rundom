@@ -18,7 +18,7 @@ export default function HomePage () {
     <Page class={styles.root}>
       <Flex padding={[40, 24]} align='center' justify='center' vertical class={styles.hero}>
         <div class={styles.content}>
-          <div data-glow class={styles.version}>
+          <div class={styles.version}>
             <Box
               circle
               size='xxs'
@@ -41,13 +41,7 @@ export default function HomePage () {
             <Button color='accent' view='filled' style={{ width: '182px' }} element='a' size='l' href='/quick-start'>
               Get Started
             </Button>
-            <Button
-              data-glow
-              view='bordered'
-              size='l'
-              element='a'
-              href='/ui'
-            >
+            <Button view='bordered' size='l' element='a' href='/ui'>
               View Rundom UI
             </Button>
           </div>

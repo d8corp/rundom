@@ -1,5 +1,3 @@
-@use "src/docs/styles/proximityGlow" as *;
-
 .root {
   margin-bottom: 32px;
   font-size: 14px;
@@ -22,12 +20,6 @@
   background: light-dark(var(--rd-color-bg-elevated), var(--rd-color-bg-surface));
   border-radius: 16px 16px 0 0;
   height: 48px;
-
-  .glow & {
-    border: none;
-    position: relative;
-    @include proximityGlow;
-  }
 }
 
 .titleText {
@@ -41,12 +33,6 @@
   background: light-dark(var(--rd-color-bg-contrast), var(--rd-color-bg-deep));
   border-radius: 0 0 16px 16px;
   margin-top: -56px;
-
-  .glow & {
-    border: none;
-    position: relative;
-    @include proximityGlow(0 1px 1px);
-  }
 }
 
 .tabs {

@@ -10,7 +10,7 @@ export function MarkdownTemplate ({ text, examples }: MarkdownTemplateProps) {
   return (
     <Page>
       <Typography>
-        <DocMarkdown text={text} glow examples={examples} />
+        <DocMarkdown text={text} examples={examples} />
       </Typography>
     </Page>
   )

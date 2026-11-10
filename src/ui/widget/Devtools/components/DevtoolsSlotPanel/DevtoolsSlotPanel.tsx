@@ -37,7 +37,7 @@ export function DevtoolsSlotPanelComponent (props: DevtoolsSlotPanelProps) {
     <Show when={selected}>
       <div {...props} class={styles.root}>
         <Flex gap={8} align='center'>
-          <Button data-glow data-shine size='s' onclick={handleClose}>
+          <Button size='s' onclick={handleClose}>
             <CloseIcon />
           </Button>
           <SlotStatus slot={selected} />
