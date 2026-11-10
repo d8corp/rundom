@@ -528,12 +528,12 @@ body {
   }
 
   &_accent.button_bordered {
-    --box-light-color: #{$color-accent-95};
+    --box-light-color: light-dark(#{$color-accent-95}, #{$color-accent-10});
 
     border: 1px solid transparent;
     background:
-      linear-gradient(var(--box-light-color), var(--box-light-color)) padding-box,
-      linear-gradient(135deg, light-dark(#{$color-primary-60}, #{$color-primary-40}), light-dark(#{$color-accent-60}, #{$color-accent-40})) border-box;
+            linear-gradient(var(--box-light-color), var(--box-light-color)) padding-box,
+            linear-gradient(135deg, light-dark(#{$color-primary-60}, #{$color-primary-40}), light-dark(#{$color-accent-60}, #{$color-accent-40})) border-box;
 
     background-color: var(--box-light-color);
 
@@ -543,8 +543,13 @@ body {
   }
 
   &_accent.button_bordered:not(&_disabled) {
-    &:hover, &:active {
-      color: var(--box-main-color);
+    &:hover {
+      --box-light-color: light-dark(#{$color-accent-90}, #{$color-accent-15});
+      color: light-dark(var(--box-main-color), white);
+    }
+
+    &:active {
+      --box-light-color: light-dark(#{$color-accent-85}, #{$color-accent-20});
     }
   }
 
