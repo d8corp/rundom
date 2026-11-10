@@ -1,0 +1,11 @@
+.root {
+  height: 9999px;
+  font-size: 64px;
+  color: var(--rd__primary_background);
+}
+
+.content {
+  position: sticky;
+  top: calc(var(--header-size) + 40px);
+  height: calc(100vh - var(--header-size) - 80px);
+}

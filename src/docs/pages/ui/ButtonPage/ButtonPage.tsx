@@ -1,0 +1,142 @@
+import type { HighlightExamples } from '@docs/ui'
+import { Slot } from 'rune-hub'
+
+import { Button, Flex, SearchIcon, Text } from '../../../../ui'
+import { MarkdownTemplate } from '../../../templates'
+import description from './ButtonPage.md'
+
+export default function ButtonPage () {
+  const loading = new Slot(() => false)
+  const isLoading = new Slot(() => false)
+  const isDisabled = new Slot(() => false)
+  const toggle = () => isLoading.set(!isLoading.raw)
+  const toggleDisabled = () => isDisabled.set(!isDisabled.raw)
+
+  const colors = ['primary', 'secondary', 'accent', 'success', 'warning', 'danger', 'disabled'] as const
+
+  const handleSave = async () => {
+    await new Promise(resolve => setTimeout(resolve, 5000))
+  }
+
+  const handleAlert = () => alert('Clicked!')
+
+  const examples: HighlightExamples = {
+    flexProps: (
+      <Flex gap={8} wrap>
+        <Button flex>
+          Flex button
+        </Button>
+        <Button vertical gap={0}>
+          <SearchIcon />
+          <Text size='xxs'>
+            Vertical
+          </Text>
+        </Button>
+      </Flex>
+    ),
+    onclick: (
+      <Button onclick={handleAlert}>
+        Click Me
+      </Button>
+    ),
+    onclickAsync: (
+      <Button onclick={handleSave}>
+        Save Changes
+      </Button>
+    ),
+    onclickLoading: (
+      <div>
+        <Button loading={loading} onclick={handleSave}>
+          Save Changes
+        </Button>
+        {() => loading.value ? ' Saving...' : ''}
+      </div>
+    ),
+    color: (
+      <Flex vertical gap={8}>
+        <Flex gap={8} wrap>
+          {colors.map(color => (
+            <Button color={color} view='filled'>{color}</Button>
+          ))}
+          <Button disabled view='filled'>Disabled</Button>
+        </Flex>
+        <Flex gap={8} wrap>
+          {colors.map(color => (
+            <Button view='bordered' color={color}>{color}</Button>
+          ))}
+          <Button view='bordered' disabled>Disabled</Button>
+        </Flex>
+        <Flex gap={8} wrap>
+          {colors.map(color => (
+            <Button view='dashed' color={color}>{color}</Button>
+          ))}
+          <Button view='dashed' disabled>Disabled</Button>
+        </Flex>
+        <Flex gap={8} wrap>
+          {colors.map(color => (
+            <Button view='ghost' color={color}>{color}</Button>
+          ))}
+          <Button view='ghost' disabled>Disabled</Button>
+        </Flex>
+      </Flex>
+    ),
+    size: (
+      <Flex gap={8} align='center'>
+        <Button size='l'>Large</Button>
+        <Button size='m'>Medium</Button>
+        <Button size='s'>Small</Button>
+      </Flex>
+    ),
+    loading: (
+      <Flex gap={8} align='center'>
+        <Button loading={isLoading}>
+          Processing...
+        </Button>
+        <Button onclick={toggle}>
+          Toggle Spinner
+        </Button>
+      </Flex>
+    ),
+    squareCircle: (
+      <Flex gap={8} align='center'>
+        <Button square>
+          <SearchIcon />
+        </Button>
+        <Button circle color='accent'>
+          Pill Button
+        </Button>
+        <Button circle square>
+          <SearchIcon />
+        </Button>
+        <Button circle square='left'>
+          <SearchIcon />
+          Square left
+        </Button>
+      </Flex>
+    ),
+    element: (
+      <Flex gap={8}>
+        <Button element='a' href='/quick-start' color='accent'>
+          Get Started
+        </Button>
+        <Button element='a' href='https://github.com/d8corp/rundom'>
+          GitHub
+        </Button>
+      </Flex>
+    ),
+    disabled: (
+      <Flex gap={8} align='center'>
+        <Button disabled={isDisabled} onclick={handleAlert}>
+          Disabled Action
+        </Button>
+        <Button onclick={toggleDisabled}>
+          Toggle Disabled
+        </Button>
+      </Flex>
+    ),
+  }
+
+  return (
+    <MarkdownTemplate text={description} examples={examples} />
+  )
+}

@@ -1,0 +1,246 @@
+# Components
+
+Components are the fundamental building blocks of an application.
+A component is simply a function that returns renderable content, which you can then use directly as a JSX element.
+
+```tsx
+//! src/Content.tsx
+export const Content = () => (
+  <h1>
+    Hello World!
+  </h1>
+)
+```
+
+You can render this component just like any built-in HTML element:
+
+```tsx
+//! src/index.tsx
+import { rundom } from 'rundom'
+import { Content } from './Content'
+
+rundom(<Content />)
+```
+
+## Props
+---
+
+Every component receives a single argument: an object containing its `props`.
+You can use standard TypeScript interfaces to type your component's properties.
+
+```tsx
+//! src/Content.tsx
+interface ContentProps {
+  color: string
+}
+
+export function Content ({ color }: ContentProps) {
+  return (
+    <p style={{ color }}>
+      Hello World!
+    </p>
+  )
+}
+```
+
+When using the component, you pass the required props as JSX attributes:
+
+```tsx
+//! src/index.tsx
+import { rundom } from 'rundom'
+import { Content } from './Content'
+
+rundom(<Content color='red' />)
+```
+
+### State Props
+
+In `rundom`, **components do not "re-render"**. 
+A component is either inserted into the DOM (mounted) or removed from it (unmounted) — the component function itself is never called again.
+
+Use the `StateProp<T>` type to allow a prop to receive either:
+
+- A **plain value** (e.g., `'red'`).
+- A **reactive getter function** (e.g., `() => state.value`).
+- A **reactive `Slot` object**
+
+When you pass a reactive object into a DOM attribute (like `style`), `rundom` establishes a direct, fine-grained binding.
+When the state changes, `rundom` surgically updates only the specific DOM property, completely bypassing the component function.
+
+```tsx
+//! src/Content.tsx
+interface ContentProps {
+  color: StateProp<string>
+  onClick: () => void
+}
+
+export function Content ({ color, onClick }: ContentProps) {
+  return (
+    <button onclick={onClick} style={{ color }}>
+      Hello World!
+    </button>
+  )
+}
+```
+
+In the parent component, create a `Slot` instance and pass it directly as a prop:
+
+```tsx
+//! src/index.tsx
+import { rundom } from 'rundom'
+import { Slot } from 'rune-hub'
+import { Content } from './Content'
+
+const color = new Slot(() => 'red')
+const handleClick = () => color.set('blue')
+
+rundom(
+  <Content
+    onClick={handleClick}
+    color={color}
+  />
+)
+```
+
+Now, clicking the button updates the `color` to `'blue'`. The `Content` function is **not** executed again.
+Instead, `rundom` detects the state change and directly updates the button's `style` property in the real DOM.
+
+## Children
+---
+
+Use the `children` prop to render content passed between the opening and closing tags of your component.
+`rundom` provides a built-in `ChildrenProps` type for convenience.
+
+```tsx
+//! src/Content.tsx
+import { ChildrenProps } from 'rundom'
+
+export function Content ({ children }: ChildrenProps) {
+  return <h1>{children}!</h1>
+}
+```
+
+You can pass nested JSX or text directly inside the component tags:
+
+```tsx
+//! src/index.tsx
+import { rundom } from 'rundom'
+import { Content } from './Content'
+
+rundom(<Content color='red'>Hello</Content>)
+```
+
+## Return Type
+---
+
+`rundom` handles different return types gracefully to set up the initial DOM structure and reactive bindings:
+
+`string` and `number` are rendered as static text nodes.
+```tsx
+//! Primitives
+const TextNum = () => 123
+const TextStr = () => '123'
+```
+
+`null`, `undefined`, `boolean`, and `symbol` render nothing.
+```tsx
+//! Ignored Values
+const Empty1 = () => null
+const Empty2 = () => {} // undefined
+const Empty3 = () => true
+const Empty4 = () => Symbol()
+```
+Raw DOM elements (e.g., created via `document.createElement`) are inserted directly into the DOM.
+```tsx
+//! DOM Elements
+const RawDiv = () => document.createElement('div')
+```
+Standard JSX elements, Fragments, or arrays of elements are rendered into the DOM.
+```tsx
+//! JSX Elements & Fragments
+const FragmentComp = () => <>content</>
+const ArrayComp = () => ['content']
+const JsxComp = () => <div>content</div>
+const BrComp = () => <br />
+```
+
+```tsx
+//! Function & Slot
+const state = new Slot(() => {})
+
+const Test1 = () => () => state.value
+const Test2 = () => state
+const Test3 = () => <div>{() => state.value}</div>
+const Test4 = () => <div>{state}</div>
+```
+
+## Lifecycle
+---
+
+Simple, predictable lifecycle hooks. Components render once — effects run inline.
+
+```tsx
+//! Counter.tsx
+import { useEffect } from 'rundom'
+import { Slot } from 'rune-hub'
+
+export function Counter () {
+  const count = new Slot(() => 0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      count.value++
+    }, 1000)
+
+    return () => clearInterval(timer)
+  })
+
+  return count
+}
+```
+
+## Async Components
+---
+
+In `rundom`, components can be `async` functions that return a `Promise<BaseJSXElement>`.
+You can fetch data directly within the component using `await` without extra data-fetching hooks:
+
+```tsx
+//! src/UserProfile.tsx
+export async function UserProfile () {
+  const response = await fetch('/api/user')
+  const user = await response.json()
+
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  )
+}
+```
+
+You can render async components directly, or wrap them in [\<Suspense>](/suspense) to display fallback content (such as a loader or placeholder) while the data is loading:
+
+```tsx
+//! src/App.tsx
+import { Suspense } from 'rundom'
+import { UserProfile } from './UserProfile'
+
+export function App () {
+  return (
+    <Suspense fallback={<div>Loading profile...</div>}>
+      <UserProfile />
+    </Suspense>
+  )
+}
+```
+
+## What's Next?
+---
+
+- **[State Management](/state-management)** — Deep dive into reactive state with `rune-hub`.
+- **[\<Suspense>](/suspense)** — Display fallback content while asynchronous components are loading.
+- **[Styling](/styling)** — CSS Modules, dynamic styles, and theming patterns.
+- **[Context](/context)** — Share state across components without prop drilling.
+- **[Ref](/ref)** — Access DOM elements directly.

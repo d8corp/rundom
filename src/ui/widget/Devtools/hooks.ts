@@ -1,0 +1,178 @@
+import { batch, Hub, type Slot } from 'rune-hub'
+
+import type { DevtoolsProps } from './Devtools'
+
+import { Context, SystemSlot } from '../../../utils'
+
+export type DevtoolsStore = ReturnType<typeof useCreateDevtoolsStore>
+export const devtoolsStoreContext = new Context<DevtoolsStore | undefined>(undefined)
+
+export function useCreateDevtoolsStore (props: DevtoolsProps, devHub: Hub) {
+  const hub = Hub.cur || Hub.root
+
+  const search = new SystemSlot(() => '', devHub)
+  const anonFilter = new SystemSlot<boolean | null>(() => false, devHub)
+  const systemFilter = new SystemSlot<boolean | null>(() => false, devHub)
+  const errorFilter = new SystemSlot<boolean | null>(() => null, devHub)
+  const selected = new SystemSlot<Slot | undefined>(() => {}, devHub)
+  const show = new SystemSlot(() => false, devHub)
+  const slots = new SystemSlot<Set<Slot>>(() => new Set(Array.from(hub.slots.values()).filter(slot => !(slot instanceof SystemSlot))), devHub)
+
+  const filteredSlots = new SystemSlot(() => {
+    const isSystem = systemFilter.value
+    const isAnon = anonFilter.value
+    const isError = errorFilter.value
+
+    if (isSystem === null && isAnon === null && isError === null) {
+      return Array.from(slots.value)
+    }
+
+    return Array.from(slots.value).filter(slot => {
+      if (isSystem !== null) {
+        const isSystemSlot = slot instanceof SystemSlot
+
+        if (isSystem && !isSystemSlot) return false
+        if (!isSystem && isSystemSlot) return false
+      }
+
+      if (isAnon !== null) {
+        const inHub = hub.slots.has(slot.rune)
+
+        if (isAnon && inHub) return false
+        if (!isAnon && !inHub) return false
+      }
+
+      if (isError !== null) {
+        return Boolean(slot.err) === isError
+      }
+
+      return true
+    })
+  }, devHub)
+
+  const searchSlots = new SystemSlot(() => {
+    const value = search.value.toLowerCase()
+
+    return value ? filteredSlots.value.filter(slot => slot.rune.name.toLowerCase().includes(value)) : filteredSlots.value
+  }, devHub)
+
+  const values = new SystemSlot<Map<Slot, unknown>>(() => new Map(Array.from(slots.raw).map(slot => [slot, slot.raw])), devHub)
+  const errors = new SystemSlot<Map<Slot, unknown>>(() => new Map(), devHub)
+  const ups = new SystemSlot<Map<Slot, boolean>>(() => new Map(Array.from(slots.raw).map(slot => [slot, slot.up])), devHub)
+
+  let isWillUpdate = false
+  const willUpdate = new Set<Slot>()
+
+  const update = (slot: Slot) => {
+    willUpdate.add(slot)
+    if (isWillUpdate) return
+    isWillUpdate = true
+
+    queueMicrotask(() => {
+      const slots = Array.from(willUpdate)
+      willUpdate.clear()
+      isWillUpdate = false
+
+      batch(() => {
+        for (const slot of slots) {
+          slot.update()
+        }
+      })
+    })
+  }
+
+  const check = (slot: Slot) => {
+    if (!props.system && slot instanceof SystemSlot) return true
+    if (!props.anon && !hub.slots.has(slot.rune)) return true
+
+    return false
+  }
+
+  const clear = (slot: Slot) => {
+    slots.raw.delete(slot)
+    values.raw.delete(slot)
+    errors.raw.delete(slot)
+    ups.raw.delete(slot)
+
+    update(slots)
+    update(values)
+    update(errors)
+    update(ups)
+  }
+
+  hub.on('init', slot => {
+    if (check(slot)) return
+
+    if (!slot.anon) {
+      slots.raw.add(slot)
+      values.raw.set(slot, slot.raw)
+      update(slots)
+      update(values)
+    }
+  })
+
+  hub.on('change', slot => {
+    if (check(slot)) return
+
+    if (values.raw.has(slot)) {
+      values.raw.set(slot, slot.raw)
+      update(values)
+    }
+  })
+
+  hub.on('error', slot => {
+    errors.raw.set(slot, slot.err)
+    update(errors)
+  })
+
+  hub.on('up', slot => {
+    if (check(slot)) return
+
+    if (values.raw.has(slot)) {
+      ups.raw.set(slot, true)
+      update(ups)
+    } else {
+      slots.raw.add(slot)
+      values.raw.set(slot, slot.raw)
+      ups.raw.set(slot, true)
+      update(slots)
+      update(values)
+      update(ups)
+    }
+  })
+
+  hub.on('down', slot => {
+    if (check(slot)) return
+
+    if (!slot.anon) {
+      ups.raw.set(slot, false)
+      update(ups)
+
+      return
+    }
+
+    clear(slot)
+  })
+
+  hub.on('destroy', slot => {
+    if (check(slot)) return
+
+    clear(slot)
+  })
+
+  return {
+    search,
+    selected,
+    show,
+    slots,
+    searchSlots,
+    values,
+    errors,
+    ups,
+    hub,
+    props,
+    systemFilter,
+    errorFilter,
+    anonFilter,
+  }
+}

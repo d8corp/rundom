@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "target": "ES2018",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": ["node", "jest"],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "strict": true,
+    "declaration": true,
+    "jsx": "react-jsxdev",
+    "jsxImportSource": "@",
+    "paths": {
+      "@docs/*": ["./src/docs/*"],
+      "@/jsx-runtime": ["./src/jsx-runtime"],
+      "@/jsx-dev-runtime": ["./src/jsx-dev-runtime"]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}

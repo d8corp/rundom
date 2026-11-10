@@ -1,0 +1,268 @@
+import { Hub, Slot } from 'rune-hub'
+
+import { catchContext, parentContext } from './constants'
+import { useClear } from './hooks'
+import type { JSXElement, JSXIntrinsicElements, JSXSource, ReactiveProp } from './types'
+import { JSXNode } from './types'
+import { append, Content, Context, observablePropToStaticOrReactive, remove, SystemSlot, use } from './utils'
+
+Context.render = rundom
+
+function getSourceUrl (source?: JSXSource): string {
+  if (source) {
+    return `\n    at /${source.fileName}:${source.lineNumber}:${source.columnNumber}`
+  }
+
+  return ''
+}
+
+export const promiseCounterContext = new Context<Slot<number> | undefined>(undefined)
+export const svgNamespaceContext = new Context<string>('')
+
+export function runReactive (target: ReactiveProp<JSXElement>) {
+  const content = new Content()
+  const context = Context.nest()
+  parentContext.set(content, context)
+  runElement(content)
+
+  const reactiveContent = () => {
+    return Context.use(() => {
+      rundom(use(target))
+    }, context)
+  }
+
+  new SystemSlot(reactiveContent).on()
+}
+
+export function runElement (target: HTMLElement | SVGElement | Text | Content) {
+  append(parentContext.get(), target)
+  useClear(() => remove(target))
+}
+
+export function runArray (target: JSXElement[]) {
+  target.forEach(rundom)
+}
+
+export function runNode (target: JSXNode) {
+  if (typeof target.type === 'function') {
+    const catchFn = catchContext.get()
+
+    if (!catchFn) return rundom(target.type(target.props))
+
+    try {
+      rundom(target.type(target.props))
+    } catch (e) {
+      const error = Error(`Exception in <${target.type.name}>${getSourceUrl(target.source)}`, { cause: e })
+
+      queueMicrotask(() => {
+        catchFn(error)
+      })
+
+      throw error
+    }
+
+    return
+  }
+
+  if (typeof target.type === 'string') {
+    const element = svgNamespaceContext.get() || target.type === 'svg'
+      ? document.createElementNS(svgNamespaceContext.get() || 'http://www.w3.org/2000/svg', target.type)
+      : document.createElement(target.type)
+
+    runElement(element)
+
+    for (const prop in target.props) {
+      if (prop === 'children') continue
+
+      if (prop === 'ref') {
+        if (target.props.ref) {
+          target.props.ref.value = element
+        }
+
+        continue
+      }
+
+      if (prop.startsWith('on')) {
+        // @ts-expect-error TODO: Check it
+        element[prop] = target.props[prop]
+        continue
+      }
+
+      const value = target.props[prop]
+
+      if (prop === 'style') {
+        for (const property in value) {
+          const rawValue = observablePropToStaticOrReactive(value[property])
+
+          if (typeof rawValue === 'function') {
+            let prev: unknown
+
+            const styleParamEffect = () => {
+              const value = rawValue()
+
+              if (value === prev) return
+
+              if (value) {
+                element.style.setProperty(property, value)
+              } else {
+                element.style.removeProperty(property)
+              }
+
+              prev = value
+            }
+
+            new SystemSlot(styleParamEffect).on()
+          } else if (rawValue !== undefined) {
+            element.style.setProperty(property, rawValue)
+          }
+        }
+
+        continue
+      }
+
+      if (value instanceof Slot || typeof value === 'function') {
+        let prev: unknown
+
+        const attributeEffect = () => {
+          const result = use(value)
+
+          if (result === prev) return
+          prev = result
+
+          if (typeof result === 'boolean') {
+            element.toggleAttribute(prop, result)
+          } else if (result === undefined || result === '') {
+            element.removeAttribute(prop)
+          } else {
+            element.setAttribute(prop, result)
+          }
+        }
+
+        new SystemSlot(attributeEffect).on()
+
+        continue
+      }
+
+      if (value !== undefined && value !== '' && value !== false) {
+        if (value === true) {
+          element.toggleAttribute(prop, true)
+        } else {
+          element.setAttribute(prop, value)
+        }
+      }
+    }
+
+    if ('children' in target.props) {
+      const context = Context.nest()
+      parentContext.set(element, context)
+
+      if (target.type === 'svg') {
+        svgNamespaceContext.set('http://www.w3.org/2000/svg', context)
+      }
+
+      Context.use(() => rundom(target.props.children), context)
+    }
+
+    return
+  }
+
+  if (target.type === undefined && 'children' in target.props) {
+    rundom(target.props.children)
+  }
+}
+
+export function runPromise (target: Promise<JSXElement>) {
+  const content = new Content()
+  const context = Context.nest()
+  const counter = promiseCounterContext.get()
+  const slot = Hub.ctx
+
+  let done = false
+
+  parentContext.set(content, context)
+
+  if (counter) {
+    counter.set(counter.raw + 1)
+  }
+
+  useClear(() => {
+    if (!done) {
+      done = true
+
+      if (counter) {
+        counter.set(counter.raw - 1)
+      }
+    }
+  })
+
+  runElement(content)
+
+  target.then(children => {
+    if (done) return
+    done = true
+
+    Context.use(() => {
+      if (slot) {
+        slot.use(() => {
+          rundom(children)
+        })
+      } else {
+        rundom(children)
+      }
+    }, context)
+
+    if (counter) {
+      counter.set(counter.raw - 1)
+    }
+  })
+}
+
+export function rundom (target: JSXElement) {
+  if (target === undefined) return
+
+  if (Array.isArray(target)) {
+    runArray(target)
+
+    return
+  }
+
+  if (target instanceof Promise) {
+    runPromise(target)
+
+    return
+  }
+
+  if (target instanceof HTMLElement || target instanceof SVGElement || target instanceof Text || target instanceof Content) {
+    runElement(target)
+
+    return
+  }
+
+  if (target instanceof JSXNode) {
+    runNode(target)
+
+    return
+  }
+
+  if (target instanceof Slot || typeof target === 'function') {
+    runReactive(target)
+
+    return
+  }
+
+  if (typeof target === 'string' || typeof target === 'number') {
+    runElement(document.createTextNode(String(target)))
+  }
+}
+
+declare global {
+  namespace JSX {
+    type Element = JSXElement
+
+    interface ElementChildrenAttribute {
+      children: {}
+    }
+
+    type IntrinsicElements = JSXIntrinsicElements
+  }
+}

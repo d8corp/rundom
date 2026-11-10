@@ -1,0 +1,118 @@
+import { classes } from 'html-classes'
+
+import { type HTMLStyleProps, useStyles } from '../../../hooks'
+import type { Merge, ObservableProp } from '../../../types'
+import type { LinkToParams } from '../../../utils'
+import { addUiCSS, inject, linkTo, locationURL, startViewTransition, SystemSlot, use } from '../../../utils'
+
+if (import.meta.env?.RD_THEME_LINK) {
+  addUiCSS(import.meta.env.RD_THEME_LINK, 'link')
+}
+
+export const linkStyles = {
+  root: import.meta.env?.RD_THEME_LINK__ROOT,
+  active: import.meta.env?.RD_THEME_LINK__ACTIVE,
+}
+
+export type LinkStyles = typeof linkStyles
+
+const CLEAR_HREF = /([?#].*)?$/
+
+function clearHref (url: string) {
+  return url.replace(CLEAR_HREF, '')
+}
+
+export interface BaseLinkProps {
+  target?: '_blank' | '_parent' | '_self' | '_top'
+  exact?: boolean
+  transition?: boolean
+  disabled?: ObservableProp<boolean>
+  children?: JSX.Element
+}
+
+export type LinkProps<S extends LinkStyles = LinkStyles> = Merge<HTMLStyleProps<'a', S>, LinkToParams & BaseLinkProps>
+
+export function LinkComponent (props: LinkProps) {
+  const styles = useStyles(linkStyles, props.class)
+  const { onclick, href, scroll = 'after', scrollTo, replace, exact, transition, ...rest } = props
+
+  if (!href || (typeof href === 'string' && href.startsWith('http'))) {
+    return (
+      <a
+        {...rest}
+        class={styles.root}
+        href={inject(rest.disabled, disabled => disabled ? '' : href)}
+        rel={rest.rel ?? (href ? 'noopener noreferrer nofollow' : undefined)}
+        target={rest.target ?? (href ? '_blank' : undefined)}
+        onclick={onclick}
+      />
+    )
+  }
+
+  const getHref = () => {
+    const result = use(href) || ''
+
+    return result.startsWith('/') ? `${import.meta.env?.RD_BASE_URL || ''}${result}` : result
+  }
+
+  const linkRegString = () => {
+    const href = getHref()
+
+    const prefix = href.startsWith('?')
+      ? '[^?]*'
+      : href.startsWith('#')
+        ? '[^#]*'
+        : ''
+
+    return `^${prefix}${clearHref(href)}${exact ? '$' : ''}`
+  }
+
+  const regString = new SystemSlot(linkRegString)
+  const linkReg = () => new RegExp(regString.value)
+  const reg = new SystemSlot(linkReg)
+
+  const linkClass = () => {
+    return classes([
+      styles.root,
+      reg.value.test(locationURL.value) && styles.active,
+    ])
+  }
+
+  const className = new SystemSlot(linkClass)
+
+  function handleClick (e: MouseEvent) {
+    if (use(rest.disabled)) {
+      e.preventDefault()
+
+      return
+    }
+
+    if (e.ctrlKey || e.metaKey) {
+      // @ts-expect-error TODO: fix types
+      return onclick?.call(this, e)
+    }
+
+    const currentHref = getHref()
+
+    e.preventDefault()
+
+    const run = () => {
+      linkTo(currentHref, { scroll, replace, scrollTo })
+
+      // @ts-expect-error TODO: fix types
+      onclick?.call(this, e)
+    }
+
+    if (transition ?? import.meta.env?.RD_VIEW_TRANSITION === 'true') {
+      startViewTransition(run)
+    } else {
+      run()
+    }
+  }
+
+  return <a {...rest} class={className} href={getHref} onclick={handleClick} />
+}
+
+export const Link = import.meta.env?.RD_UI_LINK
+  ? import.meta.require?.(import.meta.env.RD_UI_LINK).Link as typeof LinkComponent
+  : LinkComponent

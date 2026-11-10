@@ -1,0 +1,41 @@
+::view-transition-group(header) {
+  z-index: 2;
+}
+
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--rd-color-bg-surface);
+  height: 64px;
+  z-index: 2;
+  view-transition-name: header;
+}
+
+.content {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: var(--header-size);
+}
+
+.logo {
+  font-weight: 700;
+  background: var(--gradient-base);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: text-shadow .2s;
+
+  &:hover {
+    text-shadow: var(--shadow-accent);
+  }
+}
+
+.link {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+  color: var(--rd__root_color-muted);
+}
