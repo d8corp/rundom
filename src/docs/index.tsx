@@ -43,7 +43,7 @@ if (import.meta.env?.RD_THEME__ROOT) {
   addUiCSS(import.meta.env.RD_THEME__ROOT, 'root')
 }
 
-if (import.meta.env?.DEV) {
+if (import.meta.env?.DEV === 'true') {
   rundom(<Devtools anon system />)
 }
 
