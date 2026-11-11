@@ -84,11 +84,11 @@ Contains only a re-export: `export * from './Box'`.
 
 ## 6. Card composition
 
-`Card` is only the surface: border, background, radius, clickable/interactive states. Its content is composed from separate components: `CardPreview`, `CardInfo`, `CardTitle` and `CardDescription`. `Card` sizes change only the corner radius. `--rd-card-background` overrides the card background.
+`Card` is only the surface: border, background, radius, clickable/interactive states. Its content is composed from separate components: `CardPreview`, `CardInfo`, `CardTitle` and `Description`. `Description` lives in the typography layer and inherits from `Text`. `Card` sizes change only the corner radius. `--rd-card-background` overrides the card background.
 
 ## 7. Inheriting another component
 
-A component can extend another component's props and render it. `Eyebrow` extends `TextProps`, keeps only its own root class in `eyebrowStyles`, and renders `<Text>`:
+A component can extend another component's props and render it. `Eyebrow` and `Description` extend `TextProps`, keep only their own root class in their styles, and render `<Text>`. `Description` defaults to `color='muted'` and `size='xs'`:
 
 ```tsx
 export interface EyebrowProps extends TextProps {}

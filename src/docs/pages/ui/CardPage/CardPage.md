@@ -5,7 +5,7 @@ Its content is assembled from separate components, so a card can contain only th
 
 - `<CardPreview>` renders the dotted preview area.
 - `<CardInfo>` wraps the card body.
-- `<CardTitle>` and `<CardDescription>` set the body typography.
+- `<CardTitle>` and `<Description>` set the body typography.
 
 | Prop            | Type                            | Description                                                                       |
 |-----------------|---------------------------------|-----------------------------------------------------------------------------------|
@@ -18,7 +18,7 @@ Its content is assembled from separate components, so a card can contain only th
 
 In addition to the props listed above, `<Card>` accepts all props inherited from `<Flex>`, including `element`, `href`, `gap`, `padding`, and event handlers.
 
-`<CardPreview>`, `<CardInfo>`, `<CardTitle>`, and `<CardDescription>` also accept all `<Flex>` props.
+`<CardPreview>`, `<CardInfo>`, and `<CardTitle>` also accept all `<Flex>` props. `<Description>` accepts all `<Text>` props.
 
 ## Basic usage
 ---
@@ -29,13 +29,13 @@ Assemble a card from the body parts:
 //! View
 //> basic
 //! Code
-import { rundom, Card, CardDescription, CardInfo, CardTitle } from 'rundom'
+import { rundom, Card, CardInfo, CardTitle, Description } from 'rundom'
 
 rundom(
   <Card style={{ width: '220px' }}>
     <CardInfo>
       <CardTitle>Card title</CardTitle>
-      <CardDescription>Card content goes here.</CardDescription>
+      <Description>Card content goes here.</Description>
     </CardInfo>
   </Card>
 )
@@ -50,7 +50,7 @@ Add `<CardPreview>` to place content above the card body:
 //! View
 //> preview
 //! Code
-import { rundom, Card, CardDescription, CardInfo, CardPreview, CardTitle, SearchIcon } from 'rundom'
+import { rundom, Card, CardInfo, CardPreview, CardTitle, Description, SearchIcon } from 'rundom'
 
 rundom(
   <Card style={{ width: '220px' }}>
@@ -59,7 +59,7 @@ rundom(
     </CardPreview>
     <CardInfo>
       <CardTitle>Search</CardTitle>
-      <CardDescription>Find anything in the documentation.</CardDescription>
+      <Description>Find anything in the documentation.</Description>
     </CardInfo>
   </Card>
 )
@@ -115,7 +115,7 @@ Set `interactive` to add hover and focus feedback:
 //! View
 //> interactive
 //! Code
-import { rundom, Card, CardDescription, CardInfo, CardPreview, CardTitle, SunIcon } from 'rundom'
+import { rundom, Card, CardInfo, CardPreview, CardTitle, Description, SunIcon } from 'rundom'
 
 rundom(
   <Card interactive clickable style={{ width: '220px' }}>
@@ -124,7 +124,7 @@ rundom(
     </CardPreview>
     <CardInfo>
       <CardTitle>Interactive</CardTitle>
-      <CardDescription>Hover or focus the card to see the state.</CardDescription>
+      <Description>Hover or focus the card to see the state.</Description>
     </CardInfo>
   </Card>
 )
@@ -139,7 +139,7 @@ Use `element='a'` with `href` to render a navigable card:
 //! View
 //> link
 //! Code
-import { rundom, Card, CardDescription, CardInfo, CardPreview, CardTitle, SearchIcon } from 'rundom'
+import { rundom, Card, CardInfo, CardPreview, CardTitle, Description, SearchIcon } from 'rundom'
 
 rundom(
   <Card element='a' href='/ui/overview' interactive style={{ width: '220px' }}>
@@ -148,7 +148,7 @@ rundom(
     </CardPreview>
     <CardInfo>
       <CardTitle>Overview</CardTitle>
-      <CardDescription>Browse all components from a single page.</CardDescription>
+      <Description>Browse all components from a single page.</Description>
     </CardInfo>
   </Card>
 )

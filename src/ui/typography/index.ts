@@ -1,3 +1,4 @@
+export * from './Description'
 export * from './Eyebrow'
 export * from './Markdown'
 export * from './Text'

@@ -8,12 +8,12 @@ import {
   BurgerIcon,
   Card,
   CardContent,
-  CardDescription,
   CardPreview,
   CardTitle,
   CheckIcon,
   CloseIcon,
   CopyIcon,
+  Description,
   Flex,
   HtmlIcon,
   Input,
@@ -225,7 +225,7 @@ export default function IconsPage () {
                       </CardPreview>
                       <CardContent vertical class={styles.info}>
                         <CardTitle class={styles.name}>{() => item.value.name}</CardTitle>
-                        <CardDescription>{() => item.value.description}</CardDescription>
+                        <Description>{() => item.value.description}</Description>
                       </CardContent>
                     </Card>
                   )}

@@ -21,7 +21,7 @@ updated: 2026-11-09
   - `block/` (`Button`, `Field`)
   - `inline/` (`Code`, `Divider`)
   - `interaction/` (`Input`, `CheckBox`, `RadioBox`, `Toggle`)
-  - `typography/` (`Eyebrow`, `Text`, `Typography`, `Markdown`)
+  - `typography/` (`Description`, `Eyebrow`, `Text`, `Typography`, `Markdown`)
   - `popup/` (`Window`, `Message`, ...)
   - `widget/` (`Devtools`, ...)
   - `icons/`

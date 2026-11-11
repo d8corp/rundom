@@ -1,10 +1,10 @@
 import { CardContent } from '../CardContent'
-import { CardDescription } from '../CardDescription'
 import { CardPreview } from '../CardPreview'
 import { CardTitle } from '../CardTitle'
 import { Card } from './Card'
 
 import { rundom } from '../../../rundom'
+import { Description } from '../../typography/Description'
 
 afterEach(() => {
   document.body.innerHTML = ''
@@ -25,12 +25,12 @@ describe('Card', () => {
         </CardPreview>
         <CardContent>
           <CardTitle>Title</CardTitle>
-          <CardDescription>Description</CardDescription>
+          <Description>Description</Description>
         </CardContent>
       </Card>,
     )
 
     expect(document.body.innerHTML)
-      .toBe('<div style="flex-direction: column;"><div><span>Preview</span></div><div style="flex-direction: column;"><div>Title</div><div>Description</div></div></div>')
+      .toBe('<div style="flex-direction: column;"><div><span>Preview</span></div><div><div>Title</div><span>Description</span></div></div>')
   })
 })

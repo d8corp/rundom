@@ -3,10 +3,10 @@ import type { HighlightExamples } from '@docs/ui'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardPreview,
   CardTitle,
   CopyIcon,
+  Description,
   Flex,
   SearchIcon,
   SunIcon,
@@ -20,7 +20,7 @@ export default function CardPage () {
       <Card style={{ width: '220px' }}>
         <CardContent>
           <CardTitle>Card title</CardTitle>
-          <CardDescription>Card content goes here.</CardDescription>
+          <Description>Card content goes here.</Description>
         </CardContent>
       </Card>
     ),
@@ -31,7 +31,7 @@ export default function CardPage () {
         </CardPreview>
         <CardContent>
           <CardTitle>Search</CardTitle>
-          <CardDescription>Find anything in the documentation.</CardDescription>
+          <Description>Find anything in the documentation.</Description>
         </CardContent>
       </Card>
     ),
@@ -70,7 +70,7 @@ export default function CardPage () {
         </CardPreview>
         <CardContent>
           <CardTitle>Interactive</CardTitle>
-          <CardDescription>Hover or focus the card to see the state.</CardDescription>
+          <Description>Hover or focus the card to see the state.</Description>
         </CardContent>
       </Card>
     ),
@@ -81,7 +81,7 @@ export default function CardPage () {
         </CardPreview>
         <CardContent>
           <CardTitle>Overview</CardTitle>
-          <CardDescription>Browse all components from a single page.</CardDescription>
+          <Description>Browse all components from a single page.</Description>
         </CardContent>
       </Card>
     ),

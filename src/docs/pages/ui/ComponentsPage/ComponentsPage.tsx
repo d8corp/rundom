@@ -7,11 +7,11 @@ import {
   Button,
   Card,
   CardContent,
-  CardDescription,
   CardPreview,
   CardTitle,
   CheckBox,
   Code,
+  Description,
   Divider,
   Eyebrow,
   Flex,
@@ -138,7 +138,7 @@ export default function ComponentsPage () {
             <Card size='s' style={{ width: '130px' }}>
               <CardContent>
                 <CardTitle>Card</CardTitle>
-                <CardDescription>Preview and body</CardDescription>
+                <Description>Preview and body</Description>
               </CardContent>
             </Card>
           ),
@@ -309,7 +309,7 @@ export default function ComponentsPage () {
                       <CardPreview>{() => item.value.preview}</CardPreview>
                       <CardContent vertical>
                         <CardTitle>{() => item.value.title}</CardTitle>
-                        <CardDescription>{() => item.value.description}</CardDescription>
+                        <Description>{() => item.value.description}</Description>
                       </CardContent>
                     </Card>
                   )}

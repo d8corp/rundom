@@ -7,7 +7,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardPreview,
   CardTitle,
@@ -15,6 +14,7 @@ import {
   CheckIcon,
   Code,
   CopyIcon,
+  Description,
   Divider,
   Eyebrow,
   Flex,
@@ -202,9 +202,9 @@ export default function UIPage () {
                 Controls
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <CardDescription class={styles.atlasText}>
+              <Description class={styles.atlasText}>
                 Buttons, inputs, and choices that respond instantly to user intent.
-              </CardDescription>
+              </Description>
               <div class={styles.atlasTags}>
                 <span class={styles.atlasTag}>Button</span>
                 <span class={styles.atlasTag}>Input</span>
@@ -236,9 +236,9 @@ export default function UIPage () {
                 Layout
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <CardDescription class={styles.atlasText}>
+              <Description class={styles.atlasText}>
                 Flexible primitives for arranging content without fighting the browser.
-              </CardDescription>
+              </Description>
               <div class={styles.atlasTags}>
                 <span class={styles.atlasTag}>Flex</span>
                 <span class={styles.atlasTag}>Box</span>
@@ -265,9 +265,9 @@ export default function UIPage () {
                 Typography
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <CardDescription class={styles.atlasText}>
+              <Description class={styles.atlasText}>
                 Headings, paragraphs, and rich content with consistent spacing.
-              </CardDescription>
+              </Description>
               <div class={styles.atlasTags}>
                 <span class={styles.atlasTag}>Typography</span>
                 <span class={styles.atlasTag}>Text</span>
@@ -298,9 +298,9 @@ export default function UIPage () {
                 Icons
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <CardDescription class={styles.atlasText}>
+              <Description class={styles.atlasText}>
                 A compact stroke set that inherits color and scales with your text.
-              </CardDescription>
+              </Description>
               <div class={styles.atlasTags}>
                 <span class={styles.atlasTag}>17 icons</span>
                 <span class={styles.atlasTag}>BaseIcon</span>
@@ -337,9 +337,9 @@ export default function UIPage () {
                 Surfaces
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <CardDescription class={styles.atlasText}>
+              <Description class={styles.atlasText}>
                 Color, borders, and depth drawn from one set of theme tokens.
-              </CardDescription>
+              </Description>
               <div class={styles.atlasTags}>
                 <span class={styles.atlasTag}>Box</span>
                 <span class={styles.atlasTag}>Card</span>
@@ -368,9 +368,9 @@ export default function UIPage () {
                 Content
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <CardDescription class={styles.atlasText}>
+              <Description class={styles.atlasText}>
                 Code, Markdown, and inline details for documentation-grade UI.
-              </CardDescription>
+              </Description>
               <div class={styles.atlasTags}>
                 <span class={styles.atlasTag}>Code</span>
                 <span class={styles.atlasTag}>Markdown</span>
