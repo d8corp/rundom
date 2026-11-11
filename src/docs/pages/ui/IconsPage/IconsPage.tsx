@@ -23,7 +23,6 @@ import {
   MoonIcon,
   SearchIcon,
   SideIcon,
-  SuccessIcon,
   SunIcon,
   TerminalIcon,
   TypeScriptIcon,
@@ -97,12 +96,6 @@ export default function IconsPage () {
           description: 'A simple checkmark.',
           keywords: 'check done confirm',
           icon: <CheckIcon size={32} />,
-        },
-        {
-          name: 'SuccessIcon',
-          description: 'Confirms a successful operation.',
-          keywords: 'success done complete',
-          icon: <SuccessIcon size={32} />,
         },
         {
           name: 'CopyIcon',

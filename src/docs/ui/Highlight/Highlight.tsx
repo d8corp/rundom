@@ -7,7 +7,7 @@ import { message } from '../../../helpers'
 import { useEffect, useStyles } from '../../../hooks'
 import type { JSXElement, ObservableProp } from '../../../types'
 import type { BaseIconProps, FlexElement, FlexProps, FlexStyles } from '../../../ui'
-import { Button, CopyIcon, Flex, HtmlIcon, JsonIcon, Markdown, SuccessIcon, TerminalIcon, TypeScriptIcon, Typography } from '../../../ui'
+import { Button, CheckIcon, CopyIcon, Flex, HtmlIcon, JsonIcon, Markdown, TerminalIcon, TypeScriptIcon, Typography } from '../../../ui'
 import { inject, Ref, use, viewTransition } from '../../../utils'
 import $styles from './Highlight.module.scss'
 
@@ -71,7 +71,7 @@ export function Highlight<T extends FlexElement = 'div'> ({
   }
 
   const IconCopy = (props: BaseIconProps) => () => {
-    return copied.value ? <SuccessIcon {...props} /> : <CopyIcon {...props} />
+    return copied.value ? <CheckIcon {...props} /> : <CopyIcon {...props} />
   }
 
   const Content = () => {

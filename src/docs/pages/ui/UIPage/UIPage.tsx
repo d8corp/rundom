@@ -22,7 +22,6 @@ import {
   MoonIcon,
   RadioBox,
   SearchIcon,
-  SuccessIcon,
   SunIcon,
   TerminalIcon,
   Text,
@@ -89,7 +88,7 @@ export default function UIPage () {
               </Button>
             </Flex>
             <Flex gap={18} wrap class={styles.meta}>
-              <Meta><SuccessIcon />Signal-first</Meta>
+              <Meta><CheckIcon />Signal-first</Meta>
               <Meta><SunIcon />Your theme tokens</Meta>
               <Meta><TypeScriptIcon />TypeScript</Meta>
             </Flex>
@@ -97,7 +96,7 @@ export default function UIPage () {
           <div class={styles.stage}>
             <div class={styles.stageHalo} aria-hidden='true' />
             <div class={`${styles.floatChip} ${styles.floatChipTop}`}>
-              <SuccessIcon size={14} />
+              <CheckIcon size={14} />
               <span>Signal updated</span>
             </div>
             <div class={`${styles.floatChip} ${styles.floatChipBottom}`}>
