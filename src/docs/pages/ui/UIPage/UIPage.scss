@@ -379,11 +379,6 @@ $max-width: 1280px;
     font-weight: 700;
     letter-spacing: -.02em;
   }
-
-  .atlasText {
-    margin-top: 6px;
-    font-size: 13px;
-  }
 }
 
 .atlasCard {
@@ -431,13 +426,6 @@ $max-width: 1280px;
   color: var(--rd__root_color-dim);
   font-size: 16px;
   transition: transform .2s, color .2s;
-}
-
-.atlasTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
 }
 
 .atlasTag {

@@ -176,12 +176,13 @@ export default function UIPage () {
             Compose full interfaces from focused building blocks. Every component follows the same reactive model and shares the same design tokens.
           </p>
         </div>
-        <div class={styles.atlas}>
+        <Flex class={styles.atlas}>
           <Card
             element='a'
             href='/ui/button'
             size='l'
             hoverable
+            gap={6}
             class={`${styles.atlasCard} ${styles.atlasControls}`}
           >
             <CardPreview class={styles.atlasPreview}>
@@ -202,15 +203,15 @@ export default function UIPage () {
                 Controls
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <Description class={styles.atlasText}>
+              <Description>
                 Buttons, inputs, and choices that respond instantly to user intent.
               </Description>
-              <div class={styles.atlasTags}>
+              <Flex wrap gap={6} padding={[4, 0, 0, 0]}>
                 <span class={styles.atlasTag}>Button</span>
                 <span class={styles.atlasTag}>Input</span>
                 <span class={styles.atlasTag}>CheckBox</span>
                 <span class={styles.atlasTag}>RadioBox</span>
-              </div>
+              </Flex>
             </CardContent>
           </Card>
 
@@ -236,14 +237,14 @@ export default function UIPage () {
                 Layout
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <Description class={styles.atlasText}>
+              <Description>
                 Flexible primitives for arranging content without fighting the browser.
               </Description>
-              <div class={styles.atlasTags}>
+              <Flex wrap gap={6} padding={[4, 0, 0, 0]}>
                 <span class={styles.atlasTag}>Flex</span>
                 <span class={styles.atlasTag}>Box</span>
                 <span class={styles.atlasTag}>Divider</span>
-              </div>
+              </Flex>
             </CardContent>
           </Card>
 
@@ -265,14 +266,14 @@ export default function UIPage () {
                 Typography
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <Description class={styles.atlasText}>
+              <Description>
                 Headings, paragraphs, and rich content with consistent spacing.
               </Description>
-              <div class={styles.atlasTags}>
+              <Flex wrap gap={6} padding={[4, 0, 0, 0]}>
                 <span class={styles.atlasTag}>Typography</span>
                 <span class={styles.atlasTag}>Text</span>
                 <span class={styles.atlasTag}>Markdown</span>
-              </div>
+              </Flex>
             </CardContent>
           </Card>
 
@@ -298,14 +299,14 @@ export default function UIPage () {
                 Icons
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <Description class={styles.atlasText}>
+              <Description>
                 A compact stroke set that inherits color and scales with your text.
               </Description>
-              <div class={styles.atlasTags}>
+              <Flex wrap gap={6} padding={[4, 0, 0, 0]}>
                 <span class={styles.atlasTag}>17 icons</span>
                 <span class={styles.atlasTag}>BaseIcon</span>
                 <span class={styles.atlasTag}>Reactive size</span>
-              </div>
+              </Flex>
             </CardContent>
           </Card>
 
@@ -337,14 +338,14 @@ export default function UIPage () {
                 Surfaces
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <Description class={styles.atlasText}>
+              <Description>
                 Color, borders, and depth drawn from one set of theme tokens.
               </Description>
-              <div class={styles.atlasTags}>
+              <Flex wrap gap={6} padding={[4, 0, 0, 0]}>
                 <span class={styles.atlasTag}>Box</span>
                 <span class={styles.atlasTag}>Card</span>
                 <span class={styles.atlasTag}>Theme</span>
-              </div>
+              </Flex>
             </CardContent>
           </Card>
 
@@ -368,17 +369,17 @@ export default function UIPage () {
                 Content
                 <span class={styles.atlasArrow}>↗</span>
               </CardTitle>
-              <Description class={styles.atlasText}>
+              <Description>
                 Code, Markdown, and inline details for documentation-grade UI.
               </Description>
-              <div class={styles.atlasTags}>
+              <Flex wrap gap={6} padding={[4, 0, 0, 0]}>
                 <span class={styles.atlasTag}>Code</span>
                 <span class={styles.atlasTag}>Markdown</span>
                 <span class={styles.atlasTag}>Link</span>
-              </div>
+              </Flex>
             </CardContent>
           </Card>
-        </div>
+        </Flex>
       </section>
 
       <section class={styles.liveSection}>
