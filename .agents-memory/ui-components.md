@@ -1,6 +1,6 @@
 ---
 description: component folder layout, theme styles, props typing, implementation pattern, env overrides. Read before adding or changing a UI component.
-updated: 2026-11-09
+updated: 2026-11-11
 ---
 
 # UI Component Architecture (using `Box` as an example)
@@ -88,16 +88,7 @@ Contains only a re-export: `export * from './Box'`.
 
 ## 7. Inheriting another component
 
-A component can extend another component's props and render it. `Eyebrow` and `Description` extend `TextProps`, keep only their own root class in their styles, and render `<Text>`. `Description` defaults to `color='muted'` and `size='xs'`:
-
-```tsx
-export interface EyebrowProps extends TextProps {}
-
-export function EyebrowComponent ({ color = 'primary', size = 'xs', ...props }: EyebrowProps) {
-  const styles = useStyles(eyebrowStyles, props.class)
-
-  return <Text {...props} color={color} size={size} class={styles} />
-}
-```
-
-`Text` owns the color and size variant classes, so the child component does not duplicate them in its own theme block.
+- A component can extend another component's props and render it, keeping only its own root class in its styles.
+- When possible, set default values where the base component is rendered, not as destructured defaults in the derived component's props.
+- Props passed by the caller remain overrides.
+- The derived component does not duplicate the base component's variant styles in its own theme block.
