@@ -15,17 +15,15 @@ import {
   Divider,
   Eyebrow,
   Flex,
-  Input,
   Markdown,
   RadioBox,
   Scrollbar,
-  SearchIcon,
   Text,
   Title,
   Toggle,
   Typography,
 } from '../../../../ui'
-import { Page } from '../../../ui'
+import { Page, StickySearch } from '../../../ui'
 import styles from './ComponentsPage.scss'
 
 interface ComponentItem {
@@ -321,17 +319,7 @@ export default function ComponentsPage () {
         <Show when={isEmpty}>
           <div class={styles.empty}>No components found</div>
         </Show>
-        <div class={styles.search}>
-          <Input
-            size='l'
-            circle
-            clearable
-            debounce
-            value={search}
-            placeholder='Search components'
-            before={<SearchIcon />}
-          />
-        </div>
+        <StickySearch size='l' value={search} placeholder='Search components' />
       </Flex>
     </Page>
   )

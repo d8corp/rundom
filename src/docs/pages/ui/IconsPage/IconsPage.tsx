@@ -16,7 +16,6 @@ import {
   Description,
   Flex,
   HtmlIcon,
-  Input,
   JsonIcon,
   LinkIcon,
   MonitorIcon,
@@ -28,7 +27,7 @@ import {
   TypeScriptIcon,
   Typography,
 } from '../../../../ui'
-import { Page, Title } from '../../../ui'
+import { Page, StickySearch, Title } from '../../../ui'
 import styles from './IconsPage.scss'
 
 interface IconItem {
@@ -192,18 +191,10 @@ export default function IconsPage () {
           A set of stroke icons that inherit the current text color. Click any icon to copy its component.
         </p>
       </Typography>
-      <Flex vertical>
-        <div class={styles.search}>
-          <Input
-            size='l'
-            circle
-            clearable
-            debounce
-            value={search}
-            placeholder='Search icons'
-            before={<SearchIcon />}
-          />
-        </div>
+      <Flex vertical reverse>
+        <Show when={isEmpty}>
+          <div class={styles.empty}>No icons found</div>
+        </Show>
         <For of={filteredGroups} key='title'>
           {group => (
             <section class={styles.section}>
@@ -234,9 +225,7 @@ export default function IconsPage () {
             </section>
           )}
         </For>
-        <Show when={isEmpty}>
-          <div class={styles.empty}>No icons found</div>
-        </Show>
+        <StickySearch size='l' value={search} placeholder='Search icons' />
       </Flex>
     </Page>
   )

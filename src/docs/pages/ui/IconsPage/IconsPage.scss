@@ -1,12 +1,5 @@
 @use 'src/docs/styles/colors.scss' as *;
 
-.search {
-  position: sticky;
-  top: var(--header-size);
-  padding: 16px 0;
-  background: var(--color-bg);
-}
-
 .section {
   margin-top: 24px;
 }

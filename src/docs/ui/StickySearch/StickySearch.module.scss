@@ -1,0 +1,15 @@
+.root {
+  position: sticky;
+  top: var(--header-size);
+  padding: 16px 0;
+  container-type: scroll-state;
+  container-name: sticky-search;
+}
+
+.search {
+  backdrop-filter: blur(8px);
+
+  @container sticky-search scroll-state(stuck: top)  {
+    margin: 0 40px;
+  }
+}
