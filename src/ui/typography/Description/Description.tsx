@@ -16,14 +16,10 @@ export type DescriptionStyles = typeof descriptionStyles
 
 export interface DescriptionProps extends TextProps {}
 
-export function DescriptionComponent ({
-  color = 'muted',
-  size = 'xs',
-  ...props
-}: DescriptionProps) {
+export function DescriptionComponent (props: DescriptionProps) {
   const styles = useStyles(descriptionStyles, props.class)
 
-  return <Text {...props} color={color} size={size} class={styles} />
+  return <Text color='muted' size='xs' {...props} class={styles} />
 }
 
 export const Description = import.meta.env?.RD_UI_DESCRIPTION

@@ -18,14 +18,10 @@ export type EyebrowStyles = typeof eyebrowStyles
 
 export interface EyebrowProps extends TextProps {}
 
-export function EyebrowComponent ({
-  color = 'primary',
-  size = 'xs',
-  ...props
-}: EyebrowProps) {
+export function EyebrowComponent (props: EyebrowProps) {
   const styles = useStyles(eyebrowStyles, props.class)
 
-  return <Text {...props} color={color} size={size} class={styles} />
+  return <Text color='primary' size='xs' {...props} class={styles} />
 }
 
 export const Eyebrow = import.meta.env?.RD_UI_EYEBROW
