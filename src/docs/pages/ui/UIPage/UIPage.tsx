@@ -164,7 +164,7 @@ export default function UIPage () {
           <Stat link='/ui/components' label='Components' value='20+' />
           <Stat link='/ui/icons' label='Icons' value='17' />
           <Stat link='/ui/widgets' label='Widget' value='1' />
-          <Stat link='/ui/themes' label='Theme' value='1' />
+          <Stat link='/ui/utils' label='Utils' value='1' />
         </div>
       </section>
 
