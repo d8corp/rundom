@@ -77,7 +77,7 @@ export async function init (path = '.') {
   const htmlPath = resolve(appPath, 'index.html')
   const srcPath = resolve(appPath, 'src')
   const indexPath = resolve(srcPath, 'index.ts')
-  const tscPath = resolve(srcPath, 'tsconfig.json')
+  const tscPath = resolve(appPath, 'tsconfig.json')
   const name = basename(appPath)
 
   await logger.start('Check the target folder is exist', async () => {

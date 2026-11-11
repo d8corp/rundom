@@ -28,8 +28,8 @@ The CLI creates a minimal project with an entry point, TypeScript configuration,
 my-app/
 ├── index.html         // HTML shell
 ├── src/
-│   ├── index.ts       // Application entry point
-│   └── tsconfig.json  // TypeScript configuration
+│   └── index.ts       // Application entry point
+├── tsconfig.json      // TypeScript configuration
 └── package.json
 ```
 
@@ -175,7 +175,7 @@ If you prefer to mount your app inside a specific wrapper (like `<div id="root">
 ## TypeScript & JSX
 ---
 
-To ensure TypeScript understands JSX syntax of `rundom`, the CLI configures `tsconfig.json` like this. The Rundom CLI writes it to `src/tsconfig.json`, while the Vite and InnetJS templates place it in the project root:
+To ensure TypeScript understands JSX syntax of `rundom`, the CLI configures the project root `tsconfig.json` like this, just like the Vite and InnetJS templates:
 
 ```json
 //! tsconfig.json
