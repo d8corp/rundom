@@ -36,6 +36,12 @@ type UIColor = 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'dan
 type UIView = 'filled' | 'bordered' | 'dashed' | 'ghost'
 type UISize = 's' | 'm' | 'l'
 
+interface StatProps {
+  link: string
+  value: string
+  label: string
+}
+
 const colorOptions: UIColor[] = ['primary', 'secondary', 'accent', 'success', 'warning', 'danger']
 const viewOptions: UIView[] = ['filled', 'bordered', 'dashed', 'ghost']
 const sizeOptions: UISize[] = ['s', 'm', 'l']
@@ -52,6 +58,13 @@ export default function UIPage () {
     navigator.clipboard.writeText('npx init rundom my-app')
     message('Copied to clipboard')
   }
+
+  const Stat = ({ link, value, label }: StatProps) => (
+    <Flex element='a' href={link} vertical align='center' gap={2} class={styles.stat}>
+      <span class={styles.statValue}>{value}</span>
+      <Eyebrow color='dim' size='xxs'>{label}</Eyebrow>
+    </Flex>
+  )
 
   return (
     <Page>
@@ -71,7 +84,7 @@ export default function UIPage () {
               <Button element='a' href='/ui/introduction' size='l' view='filled' color='accent'>
                 Start building
               </Button>
-              <Button element='a' href='/ui/overview' size='l' view='bordered'>
+              <Button element='a' href='/ui/components' size='l' view='bordered'>
                 Browse components
               </Button>
             </Flex>
@@ -149,22 +162,10 @@ export default function UIPage () {
 
       <section class={styles.stats}>
         <div class={styles.statsInner}>
-          <div class={styles.stat}>
-            <span class={styles.statValue}>20+</span>
-            <span class={styles.statLabel}>Components</span>
-          </div>
-          <div class={styles.stat}>
-            <span class={styles.statValue}>17</span>
-            <span class={styles.statLabel}>Icons</span>
-          </div>
-          <div class={styles.stat}>
-            <span class={styles.statValue}>1</span>
-            <span class={styles.statLabel}>Widget</span>
-          </div>
-          <div class={styles.stat}>
-            <span class={styles.statValue}>1</span>
-            <span class={styles.statLabel}>Theme</span>
-          </div>
+          <Stat link='/ui/components' label='Components' value='20+' />
+          <Stat link='/ui/icons' label='Icons' value='17' />
+          <Stat link='/ui/widgets' label='Widget' value='1' />
+          <Stat link='/ui/themes' label='Theme' value='1' />
         </div>
       </section>
 

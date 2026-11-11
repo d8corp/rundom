@@ -25,7 +25,7 @@ import {
   Typography,
 } from '../../../../ui'
 import { Page, Title } from '../../../ui'
-import styles from './OverviewPage.scss'
+import styles from './ComponentsPage.scss'
 
 interface ComponentItem {
   title: string
@@ -40,7 +40,7 @@ interface ComponentGroup {
   items: ComponentItem[]
 }
 
-export default function OverviewPage () {
+export default function ComponentsPage () {
   const search = new Slot(() => '')
 
   const groups: ComponentGroup[] = [
@@ -285,7 +285,7 @@ export default function OverviewPage () {
   return (
     <Page>
       <Typography>
-        <Title title='Overview'>Overview</Title>
+        <Title title='Rundom UI | Components'>Components</Title>
         <p>
           Explore the components of Rundom UI. Use the search to quickly find the building block you need.
         </p>

@@ -9,8 +9,8 @@ export const uiMenu: MenuItem[] = [
         children: 'Introduction',
       },
       {
-        href: '/ui/overview',
-        children: 'Overview',
+        href: '/ui/components',
+        children: 'Components',
       },
       {
         href: '/ui/icons',
