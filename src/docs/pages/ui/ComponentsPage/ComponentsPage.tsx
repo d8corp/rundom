@@ -21,10 +21,11 @@ import {
   Scrollbar,
   SearchIcon,
   Text,
+  Title,
   Toggle,
   Typography,
 } from '../../../../ui'
-import { Page, Title } from '../../../ui'
+import { Page } from '../../../ui'
 import styles from './ComponentsPage.scss'
 
 interface ComponentItem {
@@ -76,9 +77,10 @@ export default function ComponentsPage () {
           description: 'Controls font size, weight, color and wrapping.',
           keywords: 'font size weight color wrap span inline',
           preview: (
-            <Flex vertical gap={2}>
-              <Text size='xl' weight='700'>Large text</Text>
-              <Text size='s' color='muted'>Muted text</Text>
+            <Flex wrap gap={4} align='baseline'>
+              <Text color='dim'>Dim</Text>
+              <Text color='muted'>Muted</Text>
+              <Text color='text'>Text</Text>
             </Flex>
           ),
         },
@@ -90,7 +92,6 @@ export default function ComponentsPage () {
           preview: (
             <Flex vertical gap={2} align='center'>
               <Eyebrow>Eyebrow</Eyebrow>
-              <Text size='m' weight='700'>Heading</Text>
             </Flex>
           ),
         },
@@ -100,19 +101,38 @@ export default function ComponentsPage () {
       title: 'Layout',
       items: [
         {
+          title: 'Flex',
+          href: '/ui/flex',
+          description: 'Arranges elements in a flexible row or column.',
+          keywords: 'layout flexbox row column gap align justify',
+          preview: (
+            <Flex vertical gap={6} flex>
+              <Flex gap={6} justify='stretch'>
+                <Box view='dashed' flex />
+                <Box view='dashed' flex />
+              </Flex>
+              <Flex gap={6} justify='stretch'>
+                <Box view='dashed' flex />
+                <Box view='dashed' flex />
+                <Box view='dashed' flex />
+              </Flex>
+            </Flex>
+          ),
+        },
+        {
           title: 'Divider',
           href: '/ui/divider',
           description: 'Separates groups of content with a line.',
           keywords: 'separator line hr',
           preview: (
-            <Flex align='center' vertical gap={10} flex>
+            <Flex vertical gap={10} flex>
               <Flex gap={10}>
-                <Text size='s' color='muted'>Before</Text>
+                <Box view='dashed' flex />
                 <Divider vertical />
-                <Text size='s' color='muted'>divider</Text>
+                <Box view='dashed' flex />
               </Flex>
               <Divider />
-              <Text size='s' color='muted'>After divider</Text>
+              <Box view='dashed' size='s' flex />
             </Flex>
           ),
         },
@@ -136,30 +156,11 @@ export default function ComponentsPage () {
           keywords: 'card surface preview title description container',
           preview: (
             <Card size='s' style={{ width: '130px' }}>
-              <CardContent>
+              <CardContent vertical gap={4}>
                 <CardTitle>Card</CardTitle>
                 <Description>Preview and body</Description>
               </CardContent>
             </Card>
-          ),
-        },
-        {
-          title: 'Flex',
-          href: '/ui/flex',
-          description: 'Arranges elements in a flexible row or column.',
-          keywords: 'layout flexbox row column gap align justify',
-          preview: (
-            <Flex vertical gap={6} flex>
-              <Flex gap={6} justify='stretch'>
-                <Box view='dashed' flex />
-                <Box view='dashed' flex />
-              </Flex>
-              <Flex gap={6} justify='stretch'>
-                <Box view='dashed' flex />
-                <Box view='dashed' flex />
-                <Box view='dashed' flex />
-              </Flex>
-            </Flex>
           ),
         },
       ],
@@ -189,7 +190,6 @@ export default function ComponentsPage () {
               <Box view='filled' />
               <Box view='bordered' />
               <Box view='dashed' />
-              <Box view='ghost' />
             </Flex>
           ),
         },
@@ -290,13 +290,13 @@ export default function ComponentsPage () {
           Explore the components of Rundom UI. Use the search to quickly find the building block you need.
         </p>
       </Typography>
-      <Flex reverse vertical>
+      <Flex reverse vertical gap={16}>
         <For of={filteredGroups} key='title'>
           {group => (
-            <section class={styles.section}>
-              <h2 class={styles.groupTitle}>
+            <Flex vertical gap={8}>
+              <Title depth={2}>
                 {() => group.value.title}
-              </h2>
+              </Title>
               <div class={styles.grid}>
                 <For of={() => group.value.items} key='href'>
                   {item => (
@@ -308,14 +308,14 @@ export default function ComponentsPage () {
                     >
                       <CardPreview>{() => item.value.preview}</CardPreview>
                       <CardContent vertical>
-                        <CardTitle>{() => item.value.title}</CardTitle>
+                        <Title depth={3}>{() => item.value.title}</Title>
                         <Description>{() => item.value.description}</Description>
                       </CardContent>
                     </Card>
                   )}
                 </For>
               </div>
-            </section>
+            </Flex>
           )}
         </For>
         <Show when={isEmpty}>

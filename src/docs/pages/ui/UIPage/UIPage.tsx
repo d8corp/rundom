@@ -25,10 +25,11 @@ import {
   SunIcon,
   TerminalIcon,
   Text,
+  Title,
   TypeScriptIcon,
   Typography,
 } from '../../../../ui'
-import { Meta, Page, Title } from '../../../ui'
+import { Meta, Page } from '../../../ui'
 import styles from './UIPage.scss'
 
 type UIColor = 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger'
