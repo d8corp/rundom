@@ -52,6 +52,39 @@ $max-width: 1280px;
   }
 }
 
+@keyframes atlas {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes card-left {
+  from {
+    opacity: 0;
+    left: -50px;
+  }
+  to {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+@keyframes card-right {
+  from {
+    opacity: 0;
+    left: 50px;
+  }
+  to {
+    opacity: 1;
+    left: 0;
+  }
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -296,9 +329,11 @@ $max-width: 1280px;
 
 .reveal {
   @supports (animation-timeline: view()) {
-    animation: reveal linear both;
-    animation-timeline: view(block 85% 0);
-    animation-range: entry 0 entry 45%;
+    animation-timeline: view(block 80% 0);
+    animation-timing-function: ease;
+    animation-name: atlas;
+    animation-fill-mode: both;
+    animation-range: entry 100px entry 320px;
   }
 }
 
@@ -326,6 +361,7 @@ $max-width: 1280px;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 16px;
+
   --rd-card-background: var(--ui-card-bg);
 
   .atlasPreview {
@@ -355,6 +391,17 @@ $max-width: 1280px;
 }
 
 .atlasCard {
+  position: relative;
+  animation-timeline: view(block 100% 0);
+  animation-timing-function: ease;
+  animation-name: card-left;
+  animation-fill-mode: both;
+
+  &:nth-of-type(2n) {
+    animation-name: card-right;
+    animation-timeline: view(block 80% 20%);
+  }
+
   &:hover {
     .atlasArrow {
       color: var(--rd__primary_background);
@@ -487,7 +534,6 @@ $max-width: 1280px;
 
 .liveSection {
   position: relative;
-  overflow: hidden;
   border-block: $border;
   background:
     radial-gradient(ellipse 50% 60% at 14% 30%, light-dark(#8B5CF614, #8B5CF626), transparent 70%),
@@ -550,6 +596,12 @@ $max-width: 1280px;
 
 .playground {
   --rd-card-background: light-dark(#FFFFFFCC, #10101DD9);
+
+  position: relative;
+  animation-timeline: view(block 100% 0);
+  animation-timing-function: ease;
+  animation-name: card-right;
+  animation-fill-mode: both;
 
   box-shadow:
     0 32px 90px light-dark(#7C3AED1A, #00000066),

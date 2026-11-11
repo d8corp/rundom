@@ -1,3 +1,4 @@
+import { classes } from 'html-classes'
 import { get, set, slot } from 'rune-hub'
 
 import { message } from '../../../../helpers'
@@ -167,7 +168,7 @@ export default function UIPage () {
         </div>
       </section>
 
-      <section id='components' class={styles.section}>
+      <section class={styles.section}>
         <div class={`${styles.sectionHead} ${styles.reveal}`}>
           <Eyebrow style={kickerStyle}>Component atlas</Eyebrow>
           <h2 class={styles.sectionTitle}>Small pieces. Serious range.</h2>
@@ -497,7 +498,7 @@ export default function UIPage () {
       </section>
 
       <section class={styles.ctaSection}>
-        <Card size='l' class={styles.cta}>
+        <Card size='l' class={classes([styles.cta, styles.reveal])}>
           <div class={styles.ctaGlow} aria-hidden='true' />
           <Eyebrow style={kickerStyle}>Ready when you are</Eyebrow>
           <h2 class={styles.ctaTitle}>Build the next screen with Rundom UI.</h2>
