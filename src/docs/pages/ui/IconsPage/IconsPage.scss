@@ -1,37 +1,9 @@
 @use 'src/docs/styles/colors.scss' as *;
 
-.section {
-  margin-top: 24px;
-}
-
-.groupTitle {
-  color: var(--rd__root_color);
-  font-size: 22px;
-  line-height: 1.3;
-  margin: 0 0 14px;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 12px;
-
-  .preview {
-    height: 88px;
-    min-height: 88px;
-  }
-
-  .info {
-    padding: 10px 12px 12px;
-  }
-
-  .name {
-    display: block;
-    overflow: hidden;
-    font-size: 13px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
 }
 
 .empty {

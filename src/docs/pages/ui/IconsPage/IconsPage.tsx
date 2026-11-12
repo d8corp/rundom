@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   CardPreview,
-  CardTitle,
   CheckIcon,
   CloseIcon,
   CopyIcon,
@@ -24,10 +23,11 @@ import {
   SideIcon,
   SunIcon,
   TerminalIcon,
+  Title,
   TypeScriptIcon,
   Typography,
 } from '../../../../ui'
-import { Page, StickySearch, Title } from '../../../ui'
+import { Page, StickySearch } from '../../../ui'
 import styles from './IconsPage.scss'
 
 interface IconItem {
@@ -186,45 +186,47 @@ export default function IconsPage () {
   return (
     <Page>
       <Typography>
-        <Title title='Icons'>Icons</Title>
+        <Title title='Rundom UI | Icons'>Icons</Title>
         <p>
           A set of stroke icons that inherit the current text color. Click any icon to copy its component.
         </p>
       </Typography>
-      <Flex vertical reverse>
-        <Show when={isEmpty}>
-          <div class={styles.empty}>No icons found</div>
-        </Show>
-        <For of={filteredGroups} key='title'>
-          {group => (
-            <section class={styles.section}>
-              <h2 class={styles.groupTitle}>
-                {() => group.value.title}
-              </h2>
-              <div class={styles.grid}>
-                <For of={() => group.value.items} key='name'>
-                  {item => (
-                    <Card
-                      element='button'
-                      type='button'
-                      size='s'
-                      aria-label={`Copy <${item.value.name} />`}
-                      onclick={copy(item.value.name)}
-                    >
-                      <CardPreview class={styles.preview}>
-                        {() => item.value.icon}
-                      </CardPreview>
-                      <CardContent vertical class={styles.info}>
-                        <CardTitle class={styles.name}>{() => item.value.name}</CardTitle>
-                        <Description>{() => item.value.description}</Description>
-                      </CardContent>
-                    </Card>
-                  )}
-                </For>
-              </div>
-            </section>
-          )}
-        </For>
+      <Flex vertical reverse gap={16}>
+        <Flex vertical gap={16}>
+          <For of={filteredGroups} key='title'>
+            {group => (
+              <Flex vertical gap={8}>
+                <Title depth={2} class={styles.groupTitle}>
+                  {() => group.value.title}
+                </Title>
+                <div class={styles.grid}>
+                  <For of={() => group.value.items} key='name'>
+                    {item => (
+                      <Card
+                        element='button'
+                        type='button'
+                        size='s'
+                        aria-label={`Copy <${item.value.name} />`}
+                        onclick={copy(item.value.name)}
+                      >
+                        <CardPreview>
+                          {() => item.value.icon}
+                        </CardPreview>
+                        <CardContent vertical>
+                          <Title depth={3}>{() => item.value.name}</Title>
+                          <Description>{() => item.value.description}</Description>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </For>
+                </div>
+              </Flex>
+            )}
+          </For>
+          <Show when={isEmpty}>
+            <div class={styles.empty}>No icons found</div>
+          </Show>
+        </Flex>
         <StickySearch size='l' value={search} placeholder='Search icons' />
       </Flex>
     </Page>

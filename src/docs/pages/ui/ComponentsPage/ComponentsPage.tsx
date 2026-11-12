@@ -289,36 +289,38 @@ export default function ComponentsPage () {
         </p>
       </Typography>
       <Flex reverse vertical gap={16}>
-        <For of={filteredGroups} key='title'>
-          {group => (
-            <Flex vertical gap={8}>
-              <Title depth={2}>
-                {() => group.value.title}
-              </Title>
-              <div class={styles.grid}>
-                <For of={() => group.value.items} key='href'>
-                  {item => (
-                    <Card
-                      element='a'
-                      href={() => item.value.href}
-                      size='m'
-                      clickable
-                    >
-                      <CardPreview>{() => item.value.preview}</CardPreview>
-                      <CardContent vertical>
-                        <Title depth={3}>{() => item.value.title}</Title>
-                        <Description>{() => item.value.description}</Description>
-                      </CardContent>
-                    </Card>
-                  )}
-                </For>
-              </div>
-            </Flex>
-          )}
-        </For>
-        <Show when={isEmpty}>
-          <div class={styles.empty}>No components found</div>
-        </Show>
+        <Flex vertical gap={16}>
+          <For of={filteredGroups} key='title'>
+            {group => (
+              <Flex vertical gap={8}>
+                <Title depth={2}>
+                  {() => group.value.title}
+                </Title>
+                <div class={styles.grid}>
+                  <For of={() => group.value.items} key='href'>
+                    {item => (
+                      <Card
+                        element='a'
+                        href={() => item.value.href}
+                        size='m'
+                        clickable
+                      >
+                        <CardPreview>{() => item.value.preview}</CardPreview>
+                        <CardContent vertical>
+                          <Title depth={3}>{() => item.value.title}</Title>
+                          <Description>{() => item.value.description}</Description>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </For>
+                </div>
+              </Flex>
+            )}
+          </For>
+          <Show when={isEmpty}>
+            <div class={styles.empty}>No components found</div>
+          </Show>
+        </Flex>
         <StickySearch size='l' value={search} placeholder='Search components' />
       </Flex>
     </Page>
