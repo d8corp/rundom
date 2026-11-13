@@ -64,7 +64,13 @@ export function LinkComponent (props: LinkProps) {
         ? '[^#]*'
         : ''
 
-    return `^${prefix}${clearHref(href)}${exact ? '$' : ''}`
+    const suffix = exact
+      ? '$'
+      : prefix
+        ? ''
+        : '(?:[/?#]|$)'
+
+    return `^${prefix}${clearHref(href)}${suffix}`
   }
 
   const regString = new SystemSlot(linkRegString)

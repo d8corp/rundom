@@ -57,9 +57,9 @@ export function CardComponent<T extends FlexElement = 'div', S extends FlexStyle
       class={root}
       onclick={onclick}
       style={{
-        ...style,
         width: inject(width, width => typeof width === 'number' ? `${width}px` : width),
         height: inject(height, height => typeof height === 'number' ? `${height}px` : height),
+        ...style,
       }}
     />
   )

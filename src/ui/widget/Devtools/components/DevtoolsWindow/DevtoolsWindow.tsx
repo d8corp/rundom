@@ -1,22 +1,22 @@
 import type { Slot } from 'rune-hub'
 
-import { DevtoolsSlotItem } from '../DevtoolsSlotItem'
 import { DevtoolsSlotPanel } from '../DevtoolsSlotPanel'
+import { SlotStatus } from '../SlotStatus'
 
-import { For, Show } from '../../../../../components'
-import { useStyles, useVirtualList } from '../../../../../hooks'
+import { Show } from '../../../../../components'
+import { useStyles } from '../../../../../hooks'
 import type { RDColor } from '../../../../../types'
-import { addUiCSS, Ref, viewTransition } from '../../../../../utils'
+import { addUiCSS, stringify, viewTransition } from '../../../../../utils'
 import { Button } from '../../../../block'
 import { CloseIcon, SearchIcon } from '../../../../icons'
 import { Divider } from '../../../../inline'
-import { Input } from '../../../../interaction'
+import { Input, Option, Options } from '../../../../interaction'
 import type { CardProps } from '../../../../layout'
-import { Card, CardContent, Scrollbar } from '../../../../layout'
+import { Card, CardContent } from '../../../../layout'
 import { CardHeader } from '../../../../popup'
 import type { FlexElement } from '../../../../primitive'
 import { Box, Flex } from '../../../../primitive'
-import { Text } from '../../../../typography'
+import { Description, Text } from '../../../../typography'
 import { devtoolsStoreContext } from '../../hooks'
 
 if (import.meta.env?.RD_THEME_DEVTOOLS_WINDOW) {
@@ -45,16 +45,8 @@ export type DevtoolsWindowStyles = typeof devtoolsWindowStyles
 export type DevtoolsWindowProps<T extends FlexElement = 'div', S extends DevtoolsWindowStyles = DevtoolsWindowStyles> = CardProps<T, S>
 
 export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends DevtoolsWindowStyles = DevtoolsWindowStyles> (props: DevtoolsWindowProps<T, S>) {
-  const list = new Ref<HTMLDivElement>()
   const styles = useStyles(devtoolsWindowStyles, props.class)
-  const { show, search, searchSlots, slots, props: devtoolsProps, systemFilter, errorFilter, anonFilter, errors } = devtoolsStoreContext.get()!
-
-  const { virtualList, offsetTop, offsetBottom } = useVirtualList({
-    list: searchSlots,
-    scrollbar: list,
-    itemHeight: 34,
-    gap: 4,
-  })
+  const { show, search, searchSlots, slots, props: devtoolsProps, systemFilter, errorFilter, anonFilter, errors, values, selected } = devtoolsStoreContext.get()!
 
   const clickHandler = (slot: Slot<boolean | null>) => () => {
     if (slot.raw === null) {
@@ -111,19 +103,23 @@ export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends
               after={<Text lineHeight='1em'>{() => `${searchSlots.value.length} / ${slots.value.size}`}</Text>}
             />
           </div>
-          <Scrollbar class={styles.list} ref={list}>
-            <div
-              class={styles.virtualList}
-              style={{
-                'padding-top': offsetTop,
-                'padding-bottom': offsetBottom,
-              }}
-            >
-              <For of={virtualList}>
-                {(slot: Slot<Slot>) => <DevtoolsSlotItem slot={slot} />}
-              </For>
-            </div>
-          </Scrollbar>
+          <Options
+            size='l'
+            flex
+            selected={selected}
+            values={searchSlots}
+            children={props => (
+              <Option vertical align='start' {...props}>
+                <Flex gap={8} align='center'>
+                  <SlotStatus slot={props.value} />
+                  <Text nowrap>{props.value.value.rune.name || '—'}</Text>
+                </Flex>
+                <Description nowrap>
+                  {() => stringify(values.value.get(props.value.value))}
+                </Description>
+              </Option>
+            )}
+          />
         </div>
         <div class={styles.content}>
           <div class={styles.filter}>

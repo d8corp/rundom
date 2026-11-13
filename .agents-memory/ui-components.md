@@ -1,6 +1,6 @@
 ---
 description: component folder layout, theme styles, props typing, implementation pattern, env overrides. Read before adding or changing a UI component.
-updated: 2026-11-11
+updated: 2026-11-15
 ---
 
 # UI Component Architecture (using `Box` as an example)
@@ -84,7 +84,7 @@ Contains only a re-export: `export * from './Box'`.
 
 ## 6. Card composition
 
-`Card` is only the surface: border, background, radius, clickable/interactive states. Its content is composed from separate components: `CardPreview`, `CardInfo`, `CardTitle` and `Description`. `Description` lives in the typography layer and inherits from `Text`. `Card` sizes change only the corner radius. `--rd-card-background` overrides the card background.
+`Card` is only the surface: border, background, radius, clickable/hoverable states. Its content is composed from separate components: `CardHeader`, `CardPreview`, `CardContent`, `CardTitle` and `Description`. `Description` lives in the typography layer and inherits from `Text`. `Card` sizes change the corner radius and the spacing inside `CardContent`.
 
 ## 7. Inheriting another component
 

@@ -605,14 +605,29 @@ body {
 
   &_s {
     border-radius: 14px;
+
+    .card-content {
+      gap: 6px;
+      padding: 10px;
+    }
   }
 
   &_m {
     border-radius: 16px;
+
+    .card-content {
+      gap: 8px;
+      padding: 12px;
+    }
   }
 
   &_l {
     border-radius: 20px;
+
+    .card-content {
+      gap: 12px;
+      padding: 16px;
+    }
   }
 
   &_clickable {
@@ -652,12 +667,6 @@ body {
   &-content {
     flex: 1;
     min-height: 0;
-    padding: 10px;
-    gap: 6px;
-
-    &:first-child {
-      border-top: 0;
-    }
   }
 
   &-title {
@@ -1067,6 +1076,51 @@ h3.title {
     position: absolute;
     opacity: 0;
     cursor: inherit;
+  }
+}
+
+.options {
+  flex-direction: column;
+  min-height: 0;
+
+  &_s .option {
+    --box-size: 22px;
+    padding: 0 6px;
+    justify-content: left;
+  }
+
+  &_m .option {
+    --box-size: 32px;
+    justify-content: left;
+    padding: 0 10px;
+  }
+
+  &_l .option {
+    --box-size: 48px;
+  }
+
+  &_options {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .options_s > & {
+      gap: 2px;
+    }
+
+    .options_m > & {
+      gap: 4px;
+    }
+
+    .options_l > & {
+      gap: 4px;
+    }
+  }
+}
+
+.option {
+  .description {
+    color: var(--box-border-color);
   }
 }
 
@@ -1498,6 +1552,8 @@ h3.title {
 }
 
 .scrollbar {
+  --rd-scrollbar-size: 6px;
+
   &::-webkit-scrollbar {
     width: var(--rd-scrollbar-size);
     height: var(--rd-scrollbar-size);
@@ -1525,18 +1581,6 @@ h3.title {
     &:hover {
       background-color: $color-primary;
     }
-  }
-
-  &_s {
-    --rd-scrollbar-size: 4px;
-  }
-
-  &_m {
-    --rd-scrollbar-size: 6px;
-  }
-
-  &_l {
-    --rd-scrollbar-size: 8px;
   }
 
   &_stable {

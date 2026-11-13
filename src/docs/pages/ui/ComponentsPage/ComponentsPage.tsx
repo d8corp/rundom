@@ -16,6 +16,7 @@ import {
   Eyebrow,
   Flex,
   Markdown,
+  Options,
   RadioBox,
   Scrollbar,
   Text,
@@ -41,6 +42,12 @@ interface ComponentGroup {
 
 export default function ComponentsPage () {
   const search = new Slot(() => '')
+
+  const optionsPreview = [
+    'Apple',
+    'Banana',
+    'Cherry',
+  ]
 
   const groups: ComponentGroup[] = [
     {
@@ -118,6 +125,19 @@ export default function ComponentsPage () {
           ),
         },
         {
+          title: 'Box',
+          href: '/ui/box',
+          description: 'A flexible container with colors, views and sizes.',
+          keywords: 'container block card color view size square circle',
+          preview: (
+            <Flex gap={6} align='center'>
+              <Box view='filled' />
+              <Box view='bordered' />
+              <Box view='dashed' />
+            </Flex>
+          ),
+        },
+        {
           title: 'Divider',
           href: '/ui/divider',
           description: 'Separates groups of content with a line.',
@@ -140,7 +160,7 @@ export default function ComponentsPage () {
           description: 'Adds a styled scrollbar to overflowing areas.',
           keywords: 'scroll overflow list container',
           preview: (
-            <Scrollbar size='s' vertical gap={4} style={{ height: '72px', width: '140px' }}>
+            <Scrollbar vertical gap={4} style={{ height: '72px', width: '140px' }}>
               {['Apple', 'Banana', 'Cherry', 'Dragon fruit', 'Elderberry'].map(fruit => (
                 <div class={styles.scrollItem}>{fruit}</div>
               ))}
@@ -153,8 +173,8 @@ export default function ComponentsPage () {
           description: 'Groups content into a preview and a body.',
           keywords: 'card surface preview title description container',
           preview: (
-            <Card size='s' style={{ width: '130px' }}>
-              <CardContent vertical gap={4}>
+            <Card size='s' width={130}>
+              <CardContent vertical>
                 <CardTitle>Card</CardTitle>
                 <Description>Preview and body</Description>
               </CardContent>
@@ -179,19 +199,6 @@ export default function ComponentsPage () {
           ),
         },
         {
-          title: 'Box',
-          href: '/ui/box',
-          description: 'A flexible container with colors, views and sizes.',
-          keywords: 'container block card color view size square circle',
-          preview: (
-            <Flex gap={6} align='center'>
-              <Box view='filled' />
-              <Box view='bordered' />
-              <Box view='dashed' />
-            </Flex>
-          ),
-        },
-        {
           title: 'Link',
           href: '/ui/link',
           description: 'Navigates between pages of the application.',
@@ -205,7 +212,7 @@ export default function ComponentsPage () {
       ],
     },
     {
-      title: 'Block',
+      title: 'Controls',
       items: [
         {
           title: 'Button',
@@ -254,6 +261,20 @@ export default function ComponentsPage () {
               <Toggle />
               <Toggle checked />
             </Flex>
+          ),
+        },
+        {
+          title: 'Options',
+          href: '/ui/options',
+          description: 'Shows a virtualized list of selectable options with sticky groups.',
+          keywords: 'select list option group menu multiple single dropdown',
+          preview: (
+            <Options
+              values={optionsPreview}
+              selected='Apple'
+              size='s'
+              style={{ height: '86px', width: '140px' }}
+            />
           ),
         },
       ],
@@ -307,7 +328,7 @@ export default function ComponentsPage () {
                       >
                         <CardPreview>{() => item.value.preview}</CardPreview>
                         <CardContent vertical>
-                          <Title depth={3}>{() => item.value.title}</Title>
+                          <CardTitle>{() => item.value.title}</CardTitle>
                           <Description>{() => item.value.description}</Description>
                         </CardContent>
                       </Card>

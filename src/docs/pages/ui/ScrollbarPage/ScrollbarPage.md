@@ -1,21 +1,20 @@
 # Scrollbar
 
 The `<Scrollbar>` component wraps content and provides controlled scroll behavior.
-It supports configurable sizes, stable scrollbar gutter, and overflow modes.
+It supports a stable scrollbar gutter and overflow modes.
 
-| Prop         | Type                       | Description                                                                                                                                                |
-|--------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **class**    | `string` `ScrollbarStyles` | Additional CSS class(es) to apply to the root element                                                                                                      |
-| **size**     | `ObservableProp<RDSize>`   | Sets the scrollbar size. Available: `'s'`, `'m'` (default), `'l'`                                                                                          |
-| **stable**   | `ObservableProp<boolean>`  | Reserves space for the [scrollbar gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-gutter) to prevent layout shifts |
-| **overflow** | `ObservableProp<string>`   | Sets the CSS [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow) behavior.                                          |
+| Prop         | Type                                | Description                                                                                                                                                |
+|--------------|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **class**    | `string` `ScrollbarStyles`          | Additional CSS class(es) to apply to the root element                                                                                                      |
+| **stable**   | `ObservableProp<boolean>`           | Reserves space for the [scrollbar gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-gutter) to prevent layout shifts |
+| **overflow** | `ObservableProp<ScrollbarOverflow>` | Sets the CSS [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow) behavior.                                          |
 
 In addition to the props listed above, `<Scrollbar>` accepts all standard `<div>` element attributes such as `id`, `title`, and event handlers.
 
 ## Basic usage
 ---
 
-By default, `<Scrollbar>` renders as a `<div>` with `'m'` size and `'auto'` overflow:
+By default, `<Scrollbar>` renders as a `<div>` with `'auto'` overflow:
 
 ```tsx
 //! View
@@ -31,39 +30,6 @@ rundom(
   <Scrollbar style={style}>
     {text}
   </Scrollbar>
-)
-```
-
-## Size
----
-
-Use the `size` prop to control the scrollbar thickness, available values: `'s'`, `'m'`, `'l'`
-
-```tsx
-//! View
-//> size
-//! Code
-import { rundom, Scrollbar, Flex } from 'rundom'
-import type { HTMLStyleProp } from 'rundom'
-
-const text = 'Scrollable content goes here Scrollable content goes here Scrollable content goes here Longwordwithoutspace'
-const style: HTMLStyleProp = { height: '80px', width: '80px' }
-
-rundom(
-  <Flex gap={16} wrap>
-    <Scrollbar size='s' style={style}>
-      Small scrollbar
-      {text}
-    </Scrollbar>
-    <Scrollbar size='m' style={style}>
-      Medium scrollbar (default)
-      {text}
-    </Scrollbar>
-    <Scrollbar size='l' style={style}>
-      Large scrollbar
-      {text}
-    </Scrollbar>
-  </Flex>
 )
 ```
 
@@ -165,9 +131,6 @@ The default styles of `<Scrollbar>` come from the theme and are configured with 
 | `RD_THEME_SCROLLBAR`         | CSS of the component that is added to the page    |
 | `RD_THEME_SCROLLBAR__ROOT`   | Class name(s) of the root element, always applied |
 | `RD_THEME_SCROLLBAR__STABLE` | Class name(s) applied when `stable` is `true`     |
-| `RD_THEME_SCROLLBAR__S`      | Class name(s) applied when `size` is `'s'`        |
-| `RD_THEME_SCROLLBAR__M`      | Class name(s) applied when `size` is `'m'`        |
-| `RD_THEME_SCROLLBAR__L`      | Class name(s) applied when `size` is `'l'`        |
 
 ### Replacing the component
 

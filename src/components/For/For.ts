@@ -26,13 +26,21 @@ export const forValueContext = new Context<Slot | undefined>(undefined)
 
 const watcherContext = new Context<Slot | undefined>(undefined)
 
-function getKey (key: any, value: any) {
+export type GetForKey<T, K> = K extends undefined
+  ? T
+  : [K] extends [(item: T) => infer R]
+      ? R
+      : [K] extends [keyof T]
+          ? T[K]
+          : T
+
+export function getForKey<T, K> (key: K, value: T): GetForKey<T, K> {
   if (typeof key === 'function') {
     return key(value)
   } else if (key === undefined) {
-    return value
+    return value as GetForKey<T, K>
   } else {
-    return value[key]
+    return value[key as keyof T] as GetForKey<T, K>
   }
 }
 
@@ -72,7 +80,7 @@ export function For<O extends ObservableProp<Iterable<any>>> ({
       let index = 0
 
       for (const value of values) {
-        const valueKey = getKey(key, value)
+        const valueKey = getForKey(key, value)
 
         if (handlersMap.has(valueKey)) continue
 
@@ -115,7 +123,7 @@ export function For<O extends ObservableProp<Iterable<any>>> ({
     keysList = []
 
     for (const value of values) {
-      keysList.push(getKey(key, value))
+      keysList.push(getForKey(key, value))
     }
 
     const keepKeys = new Set(lcs(oldKeysList, keysList))

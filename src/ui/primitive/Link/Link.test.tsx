@@ -77,4 +77,24 @@ describe('BaseLink', () => {
 
     expect(document.body.innerHTML).toBe('<a class="test active" href="/test?phone=+7%20(999)%20999-99-99">CANT inc.</a>')
   })
+
+  it('should match the path boundary', () => {
+    rundom(
+      <Link class={{ root: 'test', active: 'active' }} href='/ui/option'>
+        Option
+      </Link>,
+    )
+
+    pushHistory('/ui/options')
+
+    expect(document.body.innerHTML).toBe('<a class="test" href="/ui/option">Option</a>')
+
+    pushHistory('/ui/option')
+
+    expect(document.body.innerHTML).toBe('<a class="test active" href="/ui/option">Option</a>')
+
+    pushHistory('/ui/option/group')
+
+    expect(document.body.innerHTML).toBe('<a class="test active" href="/ui/option">Option</a>')
+  })
 })

@@ -128,7 +128,7 @@ rundom(
 |------------|--------------------------------------------------------------------------------------------------|
 | Typography | [Typography](/ui/typography), [Markdown](/ui/markdown), [Text](/ui/text)                          |
 | Layout     | [Flex](/ui/flex), [Box](/ui/box), [Divider](/ui/divider), [Scrollbar](/ui/scrollbar)              |
-| Controls   | [Button](/ui/button), [CheckBox](/ui/check-box), [RadioBox](/ui/radio-box)                        |
+| Controls   | [Button](/ui/button), [CheckBox](/ui/check-box), [RadioBox](/ui/radio-box), [Toggle](/ui/toggle), [Options](/ui/options), [Option](/ui/option) |
 | Inline     | [Code](/ui/code), [Link](/ui/link)                                                                |
 | Icons      | 17 stroke icons — [browse the gallery](/ui/icons)                                                 |
 

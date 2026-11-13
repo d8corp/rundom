@@ -21,22 +21,6 @@ export default function ScrollbarPage () {
         {text}
       </Scrollbar>
     ),
-    size: (
-      <Flex gap={16} wrap>
-        <Scrollbar size='s' style={style}>
-          Small scrollbar
-          {text}
-        </Scrollbar>
-        <Scrollbar size='m' style={style}>
-          Medium scrollbar (default)
-          {text}
-        </Scrollbar>
-        <Scrollbar size='l' style={style}>
-          Large scrollbar
-          {text}
-        </Scrollbar>
-      </Flex>
-    ),
     stable: (
       <Flex gap={8} vertical>
         <Flex gap={8} wrap>

@@ -3,6 +3,7 @@ import type { HighlightExamples } from '@docs/ui'
 import {
   Card,
   CardContent,
+  CardHeader,
   CardPreview,
   CardTitle,
   CopyIcon,
@@ -15,29 +16,45 @@ import { MarkdownTemplate } from '../../../templates'
 import description from './CardPage.md'
 
 export default function CardPage () {
+  const handleOpen = () => alert('Card clicked')
+
   const examples: HighlightExamples = {
-    basic: (
-      <Card style={{ width: '220px' }}>
+    children: (
+      <Card>
+        Card content goes here.
+      </Card>
+    ),
+    content: (
+      <Card>
         <CardContent>
-          <CardTitle>Card title</CardTitle>
-          <Description>Card content goes here.</Description>
+          Card content goes here.
         </CardContent>
       </Card>
     ),
     preview: (
-      <Card style={{ width: '220px' }}>
+      <Card width={220}>
         <CardPreview>
           <SearchIcon size={24} />
         </CardPreview>
-        <CardContent>
+        <CardContent vertical>
           <CardTitle>Search</CardTitle>
           <Description>Find anything in the documentation.</Description>
         </CardContent>
       </Card>
     ),
-    sizes: (
-      <Flex gap={16} wrap>
-        <Card size='s' style={{ width: '180px' }}>
+    header: (
+      <Card width={260}>
+        <CardHeader>
+          Card header
+        </CardHeader>
+        <CardContent vertical>
+          <Description>Card content goes here.</Description>
+        </CardContent>
+      </Card>
+    ),
+    size: (
+      <Flex gap={16} align='center' wrap>
+        <Card size='s' width={180}>
           <CardPreview>
             <SunIcon size={20} />
           </CardPreview>
@@ -45,7 +62,7 @@ export default function CardPage () {
             <CardTitle>Small</CardTitle>
           </CardContent>
         </Card>
-        <Card size='m' style={{ width: '220px' }}>
+        <Card size='m' width={220}>
           <CardPreview>
             <CopyIcon size={24} />
           </CardPreview>
@@ -53,7 +70,7 @@ export default function CardPage () {
             <CardTitle>Medium</CardTitle>
           </CardContent>
         </Card>
-        <Card size='l' style={{ width: '260px' }}>
+        <Card size='l' width={260}>
           <CardPreview>
             <SearchIcon size={28} />
           </CardPreview>
@@ -63,24 +80,39 @@ export default function CardPage () {
         </Card>
       </Flex>
     ),
-    interactive: (
-      <Card hoverable clickable style={{ width: '220px' }}>
+    clickable: (
+      <Card width={220} onclick={handleOpen}>
+        <CardContent vertical>
+          <CardTitle>Open</CardTitle>
+          <Description>Click the card to trigger the handler.</Description>
+        </CardContent>
+      </Card>
+    ),
+    hoverable: (
+      <Card hoverable width={220}>
         <CardPreview>
           <SunIcon size={24} />
         </CardPreview>
+        <CardContent vertical>
+          <CardTitle>Hoverable</CardTitle>
+          <Description>Hover the card to see the lift.</Description>
+        </CardContent>
+      </Card>
+    ),
+    width: (
+      <Card width={120} height={120}>
         <CardContent>
-          <CardTitle>Interactive</CardTitle>
-          <Description>Hover or focus the card to see the state.</Description>
+          Card content goes here.
         </CardContent>
       </Card>
     ),
     link: (
-      <Card element='a' href='/ui/overview' hoverable style={{ width: '220px' }}>
+      <Card element='a' href='/ui/components' hoverable width={220}>
         <CardPreview>
           <SearchIcon size={24} />
         </CardPreview>
-        <CardContent>
-          <CardTitle>Overview</CardTitle>
+        <CardContent vertical>
+          <CardTitle>Components</CardTitle>
           <Description>Browse all components from a single page.</Description>
         </CardContent>
       </Card>

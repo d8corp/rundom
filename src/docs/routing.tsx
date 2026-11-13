@@ -114,6 +114,16 @@ export const routing = createRouting([
             path: 'toggle',
             component: lazy(() => import('./pages/ui/TogglePage')),
           },
+          {
+            index: true,
+            path: 'option',
+            component: lazy(() => import('./pages/ui/OptionPage')),
+          },
+          {
+            index: true,
+            path: 'options',
+            component: lazy(() => import('./pages/ui/OptionsPage')),
+          },
         ],
       },
       {

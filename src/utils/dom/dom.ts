@@ -40,44 +40,52 @@ function getParentElement (target: Child): DocumentFragment | DomElement | undef
   return parent
 }
 
+function getFirstElement (target: Child): DomElement | Text | undefined {
+  if (!(target instanceof Content)) {
+    return target instanceof DocumentFragment ? undefined : target
+  }
+
+  let child = target._first
+
+  while (child) {
+    const result = getFirstElement(child)
+
+    if (result) return result
+
+    child = child._next
+  }
+}
+
+function getLastElement (target: Child): DomElement | Text | undefined {
+  if (!(target instanceof Content)) {
+    return target instanceof DocumentFragment ? undefined : target
+  }
+
+  let child = target._last
+
+  while (child) {
+    const result = getLastElement(child)
+
+    if (result) return result
+
+    child = child._prev
+  }
+}
+
 function getNextElement (target: Child): DomElement | Text | undefined {
-  if (!target._next) {
-    return target._parent instanceof Content ? getNextElement(target._parent) : undefined
+  if (target._next) {
+    return getFirstElement(target._next) ?? getNextElement(target._next)
   }
 
-  if (target._next instanceof Content) {
-    if (target._next._first) {
-      if (target._next._first instanceof Content) {
-        return getNextElement(target._next._first)
-      } else {
-        return target._next._first instanceof DocumentFragment ? undefined : target._next._first
-      }
-    }
-
-    return getNextElement(target._next)
-  }
-
-  return target._next instanceof DocumentFragment ? undefined : target._next
+  return target._parent instanceof Content ? getNextElement(target._parent) : undefined
 }
 
 function getPrevElement (target: Child): DomElement | Text | undefined {
-  if (!target._prev) {
-    return target._parent instanceof Content ? getPrevElement(target._parent) : undefined
+  if (target._prev) {
+    return getLastElement(target._prev) ?? getPrevElement(target._prev)
   }
 
-  if (target._prev instanceof Content) {
-    if (target._prev._last) {
-      if (target._prev._last instanceof Content) {
-        return getPrevElement(target._prev._last)
-      } else {
-        return target._prev._last instanceof DocumentFragment ? undefined : target._prev._last
-      }
-    }
-
-    return getPrevElement(target._prev)
-  }
-
-  return target._prev instanceof DocumentFragment ? undefined : target._prev
+  return target._parent instanceof Content ? getPrevElement(target._parent) : undefined
 }
 
 function getElements (target: Content) {
@@ -257,11 +265,15 @@ export function prepend (parent: Parent, target: Parent) {
 export function after (node: Child, target: Parent) {
   virtualRemove(target)
 
-  target._parent = node._parent
+  const parent = node._parent
+
+  target._parent = parent
 
   if (node._next) {
     node._next._prev = target
     target._next = node._next
+  } else if (parent) {
+    parent._last = target
   }
 
   node._next = target
@@ -286,6 +298,8 @@ export function before (node: Child, target: Parent) {
   if (node._prev) {
     node._prev._next = target
     target._prev = node._prev
+  } else if (node._parent) {
+    node._parent._first = target
   }
 
   node._prev = target

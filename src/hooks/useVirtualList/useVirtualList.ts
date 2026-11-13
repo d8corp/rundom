@@ -16,23 +16,23 @@ export function useVirtualList<T> ({ scrollbar = documentElementRef, itemHeight,
   const virtualItemSize = () => use(itemHeight) + use(gap)
   const virtualScroll = () => 0
   const virtualHeight = () => 0
-  const virtualHeightCount = () => (height.value / itemSize.value) | 0
+  const virtualHeightCount = () => Math.ceil(height.value / itemSize.value) + 1
   const virtualScrollIndex = () => Math.max(0, Math.min((scroll.value / itemSize.value) | 0, use(list).length - heightCount.value))
-  const virtualOffset = () => Math.max(0, scrollIndex.value * itemSize.value)
-  const virtualOffsetTop = () => `${Math.max(0, offset.value)}px`
-  const virtualOffsetBottom = () => `${Math.max(0, (use(list).length * itemSize.value) - offset.value - height.value - itemSize.value)}px`
+  const virtualEnd = () => Math.min(use(list).length, scrollIndex.value + heightCount.value)
+  const virtualOffsetTop = () => `${scrollIndex.value * itemSize.value}px`
+  const virtualOffsetBottom = () => `${(use(list).length - end.value) * itemSize.value}px`
 
   const itemSize = new SystemSlot(virtualItemSize)
   const scroll = new SystemSlot(virtualScroll)
   const height = new SystemSlot(virtualHeight)
   const heightCount = new SystemSlot(virtualHeightCount)
   const scrollIndex = new SystemSlot(virtualScrollIndex)
-  const offset = new SystemSlot(virtualOffset)
+  const end = new SystemSlot(virtualEnd)
   const offsetTop = new SystemSlot(virtualOffsetTop)
   const offsetBottom = new SystemSlot(virtualOffsetBottom)
 
   const virtualList = new SystemSlot(function virtualList () {
-    return use(list).slice(scrollIndex.value, scrollIndex.value + heightCount.value + 2)
+    return use(list).slice(scrollIndex.value, end.value)
   })
 
   const resizeObserver = new ResizeObserver(entries => {
@@ -64,7 +64,7 @@ export function useVirtualList<T> ({ scrollbar = documentElementRef, itemHeight,
     height,
     heightCount,
     scrollIndex,
-    offset,
+    end,
     offsetTop,
     offsetBottom,
     virtualList,

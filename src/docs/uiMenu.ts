@@ -96,6 +96,14 @@ export const uiMenu: MenuItem[] = [
         href: '/ui/toggle',
         children: '<Toggle>',
       },
+      {
+        href: '/ui/options',
+        children: '<Options>',
+      },
+      {
+        href: '/ui/option',
+        children: '<Option>',
+      },
     ],
   },
 ]

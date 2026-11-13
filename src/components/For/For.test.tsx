@@ -267,5 +267,27 @@ describe('For', () => {
 
       expect(document.body.innerHTML).toBe('<ul><li>Foo</li><li>Bar</li><li>Baz</li></ul>')
     })
+
+    it('should render dynamic content', () => {
+      const values = new Slot(() => ['Foo', 'Bar', 'Baz'])
+
+      rundom(
+        <ul>
+          <For of={values}>
+            {(value) => () => <li>{value.value}</li>}
+          </For>
+        </ul>,
+      )
+
+      expect(document.body.innerHTML).toBe('<ul><li>Foo</li><li>Bar</li><li>Baz</li></ul>')
+
+      values.value = ['Bar', 'Baz']
+
+      expect(document.body.innerHTML).toBe('<ul><li>Bar</li><li>Baz</li></ul>')
+
+      values.value = ['Foo', 'Bar', 'Baz']
+
+      expect(document.body.innerHTML).toBe('<ul><li>Foo</li><li>Bar</li><li>Baz</li></ul>')
+    })
   })
 })
