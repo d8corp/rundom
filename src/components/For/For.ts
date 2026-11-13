@@ -37,10 +37,11 @@ function getKey (key: any, value: any) {
 }
 
 type GetType<O extends ObservableProp<Iterable<any>>> = O extends ObservableProp<Iterable<infer T>> ? T : never
+export type ForKey<O extends ObservableProp<Iterable<any>>> = keyof GetType<O> | ((item: GetType<O>) => any)
 
 export interface ForProps<O extends ObservableProp<Iterable<any>>> {
   of: O
-  key?: keyof GetType<O> | ((item: GetType<O>) => any)
+  key?: ForKey<O>
   children?: (value: O extends Iterable<GetType<O>> ? GetType<O> : Slot<GetType<O>>, index: O extends Iterable<GetType<O>> ? number : Slot<number>) => JSX.Element
 }
 
