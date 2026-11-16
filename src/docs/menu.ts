@@ -65,6 +65,18 @@ export const menu: MenuItem[] = [
         href: '/lazy',
         children: '<Lazy>',
       },
+      {
+        href: '/pipe',
+        children: '<Pipe>',
+      },
+      {
+        href: '/try',
+        children: '<Try>',
+      },
+      {
+        href: '/hub-provider',
+        children: '<HubProvider>',
+      },
     ],
   },
   {

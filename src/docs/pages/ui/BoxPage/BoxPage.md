@@ -6,12 +6,12 @@ It supports multiple semantic colors, sizes, views, shapes, and interactive stat
 | Prop         | Type                                           | Description                                                                                                          |
 |--------------|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | **class**    | `string \| BoxStyles`                          | Additional CSS class(es) to apply to the root element                                                                |
-| **color**    | `ObservableProp<RDColor>`                      | Sets the box color. Available: `'primary'` (default), `'secondary'`, `'accent'`, `'success'`, `'warning'`, `'danger'`, `'disabled'` |
-| **size**     | `ObservableProp<BoxSize>`                      | Sets the box size. Available: `'xxs'`, `'xs'`, `'s'`, `'m'` (default), `'l'`, `'xl'`, `'xxl'`                        |
-| **view**     | `ObservableProp<BoxView>`                      | Sets the visual style. Available: `'filled'` (default), `'bordered'`, `'ghost'`, `'dashed'`                          |
-| **square**   | `ObservableProp<boolean \| 'left' \| 'right'>` | Renders a square instead of the default rounded shape. `'left'` or `'right'` rounds only one side                    |
-| **circle**   | `ObservableProp<boolean>`                      | Renders a circle                                                                                                     |
-| **interact** | `ObservableProp<BoxInteract \| undefined>`     | Enables an interactive effect. Available: `'hoverable'`, `'clickable'`                                               |
+| [**color**](#color) | `ObservableProp<RDColor>`                      | Sets the box color. Available: `'primary'` (default), `'secondary'`, `'accent'`, `'success'`, `'warning'`, `'danger'`, `'disabled'` |
+| [**size**](#size) | `ObservableProp<BoxSize>`                      | Sets the box size. Available: `'xxs'`, `'xs'`, `'s'`, `'m'` (default), `'l'`, `'xl'`, `'xxl'`                        |
+| [**view**](#view) | `ObservableProp<BoxView>`                      | Sets the visual style. Available: `'filled'` (default), `'bordered'`, `'ghost'`, `'dashed'`                          |
+| [**square**](#square) | `ObservableProp<boolean \| 'left' \| 'right'>` | Renders a square instead of the default rounded shape. `'left'` or `'right'` rounds only one side                    |
+| [**circle**](#circle) | `ObservableProp<boolean>`                      | Renders a circle                                                                                                     |
+| [**interact**](#interact) | `ObservableProp<BoxInteract \| undefined>`     | Enables an interactive effect. Available: `'hoverable'`, `'clickable'`                                               |
 
 In addition to the props listed above, `<Box>` accepts all standard element attributes such as `id`, `title`, and event handlers, as well as the layout props inherited from `<Flex>`.
 

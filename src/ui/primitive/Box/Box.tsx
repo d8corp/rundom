@@ -45,15 +45,26 @@ export const boxStyles = {
 
 export type BoxStyles = typeof boxStyles
 
+/** Props for `<Box>`: flex props plus surface styling props. */
 export type BoxProps<T extends FlexElement = 'div', S extends BoxStyles = BoxStyles> = Merge<FlexProps<T, S>, {
+  /** Semantic color of the surface. */
   color?: ObservableProp<RDColor>
+  /** Size modifier that controls spacing and corner radius. */
   size?: ObservableProp<BoxSize>
+  /** Visual style of the surface. */
   view?: ObservableProp<BoxView>
+  /** Square corners, or only the `left`/`right` side. */
   square?: ObservableProp<boolean | 'left' | 'right'>
+  /** Fully rounded corners. */
   circle?: ObservableProp<boolean>
+  /** Adds hover or pointer feedback. */
   interact?: ObservableProp<BoxInteract | undefined>
 }>
 
+/**
+ * Basic surface primitive: a `<Flex>` with color, size, view, shape and interaction modifiers.
+ * Serves as the base for buttons, fields and other framed components.
+ */
 export function BoxComponent<T extends FlexElement = 'div', S extends BoxStyles = BoxStyles> ({
   size = 'm',
   color = 'primary',

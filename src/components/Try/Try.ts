@@ -4,14 +4,21 @@ import { JSXNode } from '../../types'
 import { Context, SystemSlot } from '../../utils'
 
 export interface ErrorProps {
+  /** Error thrown while rendering the children. */
   error: unknown
+  /** Resets the error and renders the children again. */
   retry: () => void
 }
 
 export interface TryProps extends ChildrenProps {
+  /** Renders instead of `children` when rendering fails. */
   catch?: (props: ErrorProps) => JSXElement
 }
 
+/**
+ * Catches rendering errors in its subtree and renders the `catch` handler with the error.
+ * Use `retry` from the handler props to render the children again.
+ */
 export function Try (props: TryProps) {
   const tryError = () => {}
   const errorSlot = new SystemSlot<unknown>(tryError)

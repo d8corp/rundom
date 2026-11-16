@@ -338,11 +338,12 @@ import { Slot } from 'rune-hub'
 
 const Counter = () => {
   const count = new Slot(() => 0)
+  const increment = () => count.value++
   
   return (
     <div>
       <p>{() => count.value}</p>
-      <button onclick={() => count.value++}>+</button>
+      <button onclick={increment}>+</button>
     </div>
   )
 }
@@ -373,11 +374,12 @@ import { Slot } from 'rune-hub'
 const StyledText = () => {
   const text = new Slot(() => 'Hello')
   const color = new Slot(() => 'red')
+  const update = () => text.set('Hi!')
   
   return (
     <div>
       <p style={{ color }}>{text}</p>
-      <button onclick={() => text.set('Hi!')}>
+      <button onclick={update}>
         Update
       </button>
     </div>

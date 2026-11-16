@@ -18,6 +18,17 @@ There is no virtual DOM and no re-render pass.
 - **Accessible defaults.** Focus states, keyboard interaction, disabled states, and reduced-motion behavior are built into the components.
 - **Typed API.** Props, style overrides, and theme classes are fully typed, so mistakes are caught at compile time.
 
+```tsx
+import { Button } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const saving = new Slot(() => false)
+
+<Button loading={saving} color={saving.value ? 'disabled' : 'accent'}>
+  Save
+</Button>
+```
+
 ## Installation
 ---
 
@@ -126,19 +137,35 @@ rundom(
 
 | Area       | Components                                                                                       |
 |------------|--------------------------------------------------------------------------------------------------|
-| Typography | [Typography](/ui/typography), [Markdown](/ui/markdown), [Text](/ui/text)                          |
+| Typography | [Typography](/ui/typography), [Markdown](/ui/markdown), [Text](/ui/text), [Title](/ui/title), [Description](/ui/description), [Eyebrow](/ui/eyebrow) |
 | Layout     | [Flex](/ui/flex), [Box](/ui/box), [Divider](/ui/divider), [Scrollbar](/ui/scrollbar)              |
-| Controls   | [Button](/ui/button), [CheckBox](/ui/check-box), [RadioBox](/ui/radio-box), [Toggle](/ui/toggle), [Options](/ui/options), [Option](/ui/option) |
+| Controls   | [Button](/ui/button), [Field](/ui/field), [Input](/ui/input), [CheckBox](/ui/check-box), [RadioBox](/ui/radio-box), [Toggle](/ui/toggle), [Options](/ui/options), [Option](/ui/option) |
 | Inline     | [Code](/ui/code), [Link](/ui/link)                                                                |
-| Icons      | 17 stroke icons — [browse the gallery](/ui/icons)                                                 |
+| Feedback   | [Message](/ui/message), [Spin](/ui/spin)                                                          |
+| Icons      | Stroke icons — [browse the gallery](/ui/icons)                                                    |
+| Tooling    | [Devtools](/ui/devtools)                                                                          |
 
 The documentation site itself is built with these components.
-The [Overview](/ui/overview) page gives you a searchable, visual index of the whole library.
+The [Components](/ui/components) page gives you a searchable, visual index of the whole library.
+
+```tsx
+import { Button, Divider, Flex, Spin, Text, Title } from 'rundom'
+
+<Flex vertical gap={8}>
+  <Title depth={2}>Loading</Title>
+  <Text color='muted'>Fetching the latest data...</Text>
+  <Flex gap={8} align='center'>
+    <Spin />
+    <Button view='bordered'>Cancel</Button>
+  </Flex>
+  <Divider />
+</Flex>
+```
 
 ## What's Next?
 ---
 
-- [Overview](/ui/overview) — searchable visual index of every component
+- [Components](/ui/components) — searchable visual index of every component
 - [Icons](/ui/icons) — browse the stroke set and copy icon components
 - [Button](/ui/button) — colors, sizes, loading, links, and theming
 - [Typography](/ui/typography) — headings, paragraphs, lists, and rich content

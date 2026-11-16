@@ -28,22 +28,37 @@ export type FlexJustify = 'space-between' | 'space-around' | 'space-evenly' | Fl
 export type FlexAlign = 'self-start' | 'self-end' | 'anchor-center' | 'baseline' | 'first baseline' | 'last baseline' | FlexBaseAlign
 
 export interface BaseFlexProps {
+  /** Cross-axis alignment (`align-items`). */
   align?: ObservableProp<FlexAlign | undefined>
+  /** Flex grow value; `true` behaves like `1`. */
   flex?: ObservableProp<number | boolean | undefined>
+  /** Gap between children: a number or a `[row, column]` tuple in pixels. */
   gap?: ObservableProp<FlexGap | undefined>
+  /** Renders `display: inline-flex` instead of `display: flex`. */
   inline?: ObservableProp<boolean | undefined>
+  /** Main-axis alignment (`justify-content`). */
   justify?: ObservableProp<FlexJustify | undefined>
+  /** Padding in pixels: a number or CSS-like array of 1–4 values. */
   padding?: ObservableProp<FlexPadding | undefined>
+  /** Reverses the flex direction. */
   reverse?: ObservableProp<boolean | undefined>
+  /** Sets `flex-direction: column`. */
   vertical?: ObservableProp<boolean | undefined>
+  /** Enables `flex-wrap: wrap`. */
   wrap?: ObservableProp<boolean | undefined>
 }
 
+/** Props for `<Flex>`: native props of the rendered element plus flex layout props. */
 export type FlexProps<T extends FlexElement = 'div', S extends FlexStyles = FlexStyles> = Merge<
   T extends 'a' ? Merge<HTMLStyleProps<'a', S>, LinkToParams & BaseLinkProps> : HTMLStyleProps<T, S>,
   { element?: T } & BaseFlexProps
 >
 
+/**
+ * Layout primitive that renders a flex container.
+ * Accepts any HTML/SVG tag through `element` and applies layout props as inline styles.
+ * When `element` is `'a'`, it renders `<Link>` and additionally accepts link props.
+ */
 export function FlexComponent<T extends FlexElement = 'div', S extends FlexStyles = FlexStyles> ({
   align,
   flex,

@@ -84,10 +84,16 @@ export const markdownMap = {
 } satisfies MarkdownMap
 
 export interface MarkdownProps {
+  /** Markdown source; a string is rendered once, an observable re-renders on change. */
   text?: ObservableProp<string>
+  /** Custom renderers that extend or override the default AST map. */
   map?: MarkdownMap
 }
 
+/**
+ * Parses Markdown with `@textlint/markdown-to-ast` and renders it to reactive DOM nodes.
+ * `map` can replace the renderer of any AST node type.
+ */
 export function Markdown ({ text, map }: MarkdownProps) {
   if (!text) return
 

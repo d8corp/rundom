@@ -39,21 +39,36 @@ export const inputStyles = {
 
 export type InputStyles = typeof inputStyles
 
+/** Options for focusing the input after mount. */
 export interface InputFocusOptions extends FocusOptions {
+  /** Delay before focusing, in milliseconds. */
   timeout?: number
 }
 
+/** Props for `<Input>`: field props plus native input behavior. */
 export type InputProps<T extends string = string, S extends InputStyles = InputStyles> = Merge<FieldProps<'label', S & FieldStyles>, {
+  /** Current input value. */
   value?: ObservableProp<T>
+  /** Reference to the underlying native input. */
   inputRef?: HTMLRef<'input'>
+  /** Native input name used by forms. */
   name?: ObservableProp<string>
+  /** Placeholder text of the native input. */
   placeholder?: ObservableProp<string>
+  /** Shows a clear button while the input has a value. */
   clearable?: ObservableProp<boolean>
+  /** Focuses the input after mount; a number or `timeout` delays focusing. */
   autofocus?: boolean | number | InputFocusOptions
+  /** Debounces value updates; `true` uses the default delay. */
   debounce?: ObservableProp<boolean | number>
+  /** Called with the new value after input or debounce. */
   onChange?: (newValue: string) => void
 }>
 
+/**
+ * Text input built on `<Field>` with an optional clear button, autofocus and debounce.
+ * The native `<input>` receives user input; `value` keeps it in sync reactively.
+ */
 function InputComponent<T extends string = '', S extends InputStyles = InputStyles> ({
   value = new Slot<T>(() => '' as T),
   inputRef = new Ref<HTMLInputElement>(),

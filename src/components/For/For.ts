@@ -19,13 +19,20 @@ import {
   SystemSlot,
 } from '../../utils'
 
-/** @experimental */
+/**
+ * Context that provides the reactive index of the current item inside `<For>`.
+ * @experimental
+ */
 export const forIndexContext = new Context<Slot<number> | undefined>(undefined)
-/** @experimental */
+/**
+ * Context that provides the reactive value of the current item inside `<For>`.
+ * @experimental
+ */
 export const forValueContext = new Context<Slot | undefined>(undefined)
 
 const watcherContext = new Context<Slot | undefined>(undefined)
 
+/** Resolves the key type produced by `getForKey` for an item type and a key accessor. */
 export type GetForKey<T, K> = K extends undefined
   ? T
   : [K] extends [(item: T) => infer R]
@@ -34,6 +41,10 @@ export type GetForKey<T, K> = K extends undefined
           ? T[K]
           : T
 
+/**
+ * Extracts the identity key from a list item using a field name, a mapper function,
+ * or returns the item itself when no key is given.
+ */
 export function getForKey<T, K> (key: K, value: T): GetForKey<T, K> {
   if (typeof key === 'function') {
     return key(value)
@@ -45,14 +56,25 @@ export function getForKey<T, K> (key: K, value: T): GetForKey<T, K> {
 }
 
 type GetType<O extends ObservableProp<Iterable<any>>> = O extends ObservableProp<Iterable<infer T>> ? T : never
+/** A field name or mapper function that identifies each item rendered by `<For>`. */
 export type ForKey<O extends ObservableProp<Iterable<any>>> = keyof GetType<O> | ((item: GetType<O>) => any)
 
 export interface ForProps<O extends ObservableProp<Iterable<any>>> {
+  /** Static or reactive iterable that supplies the rendered items. */
   of: O
+  /** Field name or function that identifies items for reconciliation. */
   key?: ForKey<O>
+  /**
+   * Render function for every item. Receives the item and its index,
+   * which are plain values for static lists and reactive slots for dynamic ones.
+   */
   children?: (value: O extends Iterable<GetType<O>> ? GetType<O> : Slot<GetType<O>>, index: O extends Iterable<GetType<O>> ? number : Slot<number>) => JSX.Element
 }
 
+/**
+ * Renders an iterable as a list of DOM nodes and reconciles the result on updates.
+ * Unchanged items keep their DOM through the LCS algorithm, so only moved and new items are touched.
+ */
 export function For<O extends ObservableProp<Iterable<any>>> ({
   key,
   of: ofPropRaw,

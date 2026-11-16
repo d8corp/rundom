@@ -11,13 +11,13 @@ The state can be static or reactive, and the component inherits all [\\<Box>](/u
 
 | Prop         | Type                                            | Description                                                |
 |--------------|-------------------------------------------------|------------------------------------------------------------|
-| **checked**  | `ObservableProp<boolean>`                       | Checked (on) state                                         |
-| **disabled** | `ObservableProp<boolean>`                       | Disables user interactions and applies the disabled style  |
+| [**checked**](#checked) | `ObservableProp<boolean>`                       | Checked (on) state                                         |
+| [**disabled**](#disabled) | `ObservableProp<boolean>`                       | Disables user interactions and applies the disabled style  |
 | **name**     | `ObservableProp<string>`                        | Form field name                                            |
 | **value**    | `ObservableProp<string>`                        | Value submitted with the form when the toggle is on        |
 | **class**    | `ObservableProp<string \| Partial<ToggleStyles>>` | CSS class name(s) or an object that overrides styles     |
 | **inputRef** | `HTMLRef<'input'>`                              | Reference to the underlying `<input>` element              |
-| **onChange** | `(checked: boolean) => void`                    | Callback fired when the toggle state changes               |
+| [**onChange**](#onchange) | `(checked: boolean) => void`                    | Callback fired when the toggle state changes               |
 
 In addition to the props listed above, `<Toggle>` accepts all standard element attributes and the layout, color, size, and view props inherited from [\<Box>](/ui/box).
 By default it renders `element='label'`, `view='bordered'`, `size='s'`, and `color='primary'`.
@@ -85,6 +85,9 @@ import { Slot } from 'rune-hub'
 
 const isOn = new Slot(() => true)
 
+const turnOn = () => isOn.set(true)
+const turnOff = () => isOn.set(false)
+
 rundom(
   <Flex vertical gap={8}>
     <Flex element='label' gap={8} align='center'>
@@ -92,8 +95,8 @@ rundom(
       <Text cursor='pointer'>Dynamic switch</Text>
     </Flex>
     <Flex gap={8}>
-      <Button onclick={() => isOn.set(true)}>On</Button>
-      <Button onclick={() => isOn.set(false)}>Off</Button>
+      <Button onclick={turnOn}>On</Button>
+      <Button onclick={turnOff}>Off</Button>
     </Flex>
     <div>Current state: {() => String(isOn.value)}</div>
   </Flex>

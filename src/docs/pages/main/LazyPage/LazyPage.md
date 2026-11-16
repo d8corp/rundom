@@ -2,11 +2,11 @@
 
 | Prop                 | Type                                                         | Description                                                               |
 |----------------------|--------------------------------------------------------------|---------------------------------------------------------------------------|
-| **component** [*](#) | `Reactive<LazyResult<C> \| C>` \| `Slot<LazyResult<C> \| C>` | Reactive slot or function returning a component or promise of a component |
-| **fallback**         | `JSX.Element`                                                | Element to render while the component is loading                          |
-| **show**             | `ObservableProp<boolean>`                                    | Condition to determine whether to load and render the component           |
-| **render**           | `(Component: C) => JSX.Element`                              | Custom render function for the loaded component                           |
-| **cache**            | `Map<LazyResult, Component>`                                 | Optional cache map of already loaded components                           |
+| [**component**](#component) | `Reactive<LazyResult<C> \| C>` \| `Slot<LazyResult<C> \| C>` | Reactive slot or function returning a component or promise of a component |
+| [**fallback**](#fallback)   | `JSX.Element`                                                | Element to render while the component is loading                          |
+| [**show**](#show)           | `ObservableProp<boolean>`                                    | Condition to determine whether to load and render the component           |
+| [**render**](#render)       | `(Component: C) => JSX.Element`                              | Custom render function for the loaded component                           |
+| [**cache**](#cache)         | `Map<LazyResult, Component>`                                 | Optional cache map of already loaded components                           |
 
 The `<Lazy>` component enables code-splitting and dynamic component loading.
 It defers loading a component's code until it is actually needed, reducing the initial bundle size and improving startup performance.
@@ -77,13 +77,16 @@ const tabTwo = lazy(() => import('./TabTwo'))
 
 const currentTab = new Slot(() => tabOne)
 
+const selectTabOne = () => currentTab.set(tabOne)
+const selectTabTwo = () => currentTab.set(tabTwo)
+
 rundom(
   <div>
     <nav>
-      <button onclick={() => currentTab.set(tabOne)}>
+      <button onclick={selectTabOne}>
         Tab 1
       </button>
-      <button onclick={() => currentTab.set(tabTwo)}>
+      <button onclick={selectTabTwo}>
         Tab 2
       </button>
     </nav>
@@ -110,10 +113,11 @@ import { rundom, Lazy, lazy } from 'rundom'
 import { Slot } from 'rune-hub'
 
 const isOpen = new Slot(() => false)
+const openModal = () => isOpen.set(true)
 
 rundom(
   <div>
-    <button onclick={() => isOpen.set(true)}>
+    <button onclick={openModal}>
       Open Modal
     </button>
     <Lazy
@@ -159,6 +163,79 @@ export const routing = createRouting([
     component: lazy(() => import('./SettingsPage')),
   },
 ])
+```
+
+## Component
+---
+
+`component` is a function returning a component or a promise of a component. The `lazy()` utility and `import()` produce exactly this shape, and a plain component also works.
+
+```tsx
+import { Lazy, lazy } from 'rundom'
+
+<Lazy component={lazy(() => import('./Chart'))} />
+```
+
+## Fallback
+---
+
+`fallback` is rendered while the promise is pending.
+
+```tsx
+import { Lazy, Spin, lazy } from 'rundom'
+
+<Lazy
+  component={lazy(() => import('./Chart'))}
+  fallback={<Spin />}
+/>
+```
+
+## Show
+---
+
+A reactive `show` prop enables or disables the lazy component. When it becomes truthy, the promise starts loading if it has not loaded yet.
+
+```tsx
+import { Lazy, lazy } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const isOpen = new Slot(() => false)
+
+<Lazy
+  show={isOpen}
+  component={lazy(() => import('./Dialog'))}
+  fallback={<p>Loading dialog...</p>}
+/>
+```
+
+## Render
+---
+
+`render` receives the resolved component and returns the JSX to mount. By default it renders `<Component />` without props.
+
+```tsx
+import { Lazy, lazy } from 'rundom'
+
+<Lazy
+  component={lazy(() => import('./UserCard'))}
+  render={UserCard => <UserCard id='42' name='Alice' />}
+/>
+```
+
+## Cache
+---
+
+`cache` stores resolved components by promise, so repeated renders and route changes do not load the same module twice. `<Router>` shares one cache between route components.
+
+```tsx
+import { Lazy, lazy } from 'rundom'
+
+const cache = new Map()
+
+<Lazy
+  component={lazy(() => import('./Chart'))}
+  cache={cache}
+/>
 ```
 
 ## What's Next?

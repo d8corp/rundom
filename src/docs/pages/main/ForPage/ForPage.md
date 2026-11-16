@@ -5,9 +5,9 @@ The `<For>` component is optimized for rendering dynamic collections that change
 
 | Prop          | Type                                                  | Description                                               |
 |---------------|-------------------------------------------------------|-----------------------------------------------------------|
-| **of** [*](#) | `StateProp<Iterable<T>>`                              | The collection to iterate over                            |
-| **key**       | `keyof T` \| `(item: T) => any`                       | Unique key for each item, used for DOM optimization       |
-| **children**  | `(item: Slot<T>, index: Slot<number>) => JSX.Element` | Function that returns JSX for each item in the collection |
+| [**of**](#of) | `StateProp<Iterable<T>>`                              | The collection to iterate over                            |
+| [**key**](#key-property) | `keyof T` \| `(item: T) => any`           | Unique key for each item, used for DOM optimization       |
+| [**children**](#children) | `(item: Slot<T>, index: Slot<number>) => JSX.Element` | Function that returns JSX for each item in the collection |
 
 Use `<For>` when working with reactive state collections.
 For static data that never changes, the standard JavaScript `map` method is sufficient.
@@ -211,6 +211,37 @@ rundom(
     </For>
   </div>
 )
+```
+
+## Of
+---
+
+`of` accepts a static iterable or a reactive value. Static lists are rendered once with a plain `map`; reactive lists are reconciled, so changed items update their DOM in place.
+
+```tsx
+import { For } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const fruits = new Slot(() => ['Apple', 'Banana'])
+
+<For of={fruits}>
+  {fruit => <li>{fruit}</li>}
+</For>
+```
+
+## Children
+---
+
+The children function receives the item and its index. For reactive lists both arguments are `Slot`s, so the rendered content stays fine-grained without re-rendering the list.
+
+```tsx
+<For of={users} key='id'>
+  {(user, index) => (
+    <li>
+      #{index}: {() => user.value.name}
+    </li>
+  )}
+</For>
 ```
 
 ## What's Next?

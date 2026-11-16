@@ -2,8 +2,8 @@
 
 | Prop         | Type          | Description                                                          |
 |--------------|---------------|----------------------------------------------------------------------|
-| **fallback** | `JSX.Element` | Element to display while waiting for asynchronous content to resolve |
-| **children** | `JSX.Element` | Content to render when asynchronous operations are complete          |
+| [**fallback**](#fallback) | `JSX.Element` | Element to display while waiting for asynchronous content to resolve |
+| [**children**](#children) | `JSX.Element` | Content to render when asynchronous operations are complete          |
 
 The `<Suspense>` component coordinates asynchronous rendering in your application.
 It displays a fallback element (such as a loading spinner or skeleton placeholder) while waiting for asynchronous components or promises to resolve.
@@ -106,6 +106,9 @@ import { Suspense, Show } from 'rundom'
 import { Slot } from 'rune-hub'
 
 const showDetails = new Slot(() => false)
+const revealDetails = () => {
+  showDetails.value = true
+}
 
 async function Details () {
   const details = await fetch('/api/details').then(res => res.json())
@@ -115,10 +118,7 @@ async function Details () {
 
 export default () => (
   <Suspense fallback={<div>Loading...</div>}>
-    <button
-      onclick={() => {
-        showDetails.value = true
-      }}>
+    <button onclick={revealDetails}>
       Show Details
     </button>
     <Show when={showDetails}>
@@ -126,6 +126,33 @@ export default () => (
     </Show>
   </Suspense>
 )
+```
+
+## Fallback
+---
+
+`fallback` is displayed while at least one promise inside the subtree is pending. It is replaced by the resolved content once every promise settles.
+
+```tsx
+import { Suspense, Spin } from 'rundom'
+
+<Suspense fallback={<Spin />}>
+  <UserProfile />
+</Suspense>
+```
+
+## Children
+---
+
+`children` may contain async components, promises and nested `<Suspense>` boundaries, as in the examples above.
+
+```tsx
+import { Suspense } from 'rundom'
+
+<Suspense fallback={<p>Loading article...</p>}>
+  <Article />
+  <Comments />
+</Suspense>
 ```
 
 ## What's Next?

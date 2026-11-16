@@ -1,6 +1,7 @@
 import type { HistoryState } from '../../store/historyState'
 import { updateHistoryState } from '../../store/historyState'
 
+/** Pushes a new history entry, skipping duplicate URLs and storing the scroll position. */
 export function pushHistory (url: string): void {
   const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`
 

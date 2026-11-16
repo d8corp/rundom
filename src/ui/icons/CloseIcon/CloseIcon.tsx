@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<CloseIcon>`: all `<BaseIcon>` props. */
 export type CloseIconProps = BaseIconProps
 
+/** Close (X) icon. */
 export function CloseIcon (props: CloseIconProps) {
   return (
     <BaseIcon {...props}>

@@ -2,6 +2,10 @@ import { useClear } from '../useClear'
 
 import { type HistoryState, startViewTransition, updateHistoryState } from '../../utils'
 
+/**
+ * Keeps history stores in sync with `popstate` and restores scroll positions.
+ * Mount it once at the application root.
+ */
 export function useUpdateHistory () {
   let listener: (e: any) => void = updateHistoryState
 

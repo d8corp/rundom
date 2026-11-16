@@ -37,6 +37,14 @@ export const uiMenu: MenuItem[] = [
         href: '/ui/eyebrow',
         children: '<Eyebrow>',
       },
+      {
+        href: '/ui/title',
+        children: '<Title>',
+      },
+      {
+        href: '/ui/description',
+        children: '<Description>',
+      },
     ],
   },
   {
@@ -58,6 +66,10 @@ export const uiMenu: MenuItem[] = [
         href: '/ui/flex',
         children: '<Flex>',
       },
+      {
+        href: '/ui/box',
+        children: '<Box>',
+      },
     ],
   },
   {
@@ -68,21 +80,25 @@ export const uiMenu: MenuItem[] = [
         children: '<Code>',
       },
       {
-        href: '/ui/box',
-        children: '<Box>',
-      },
-      {
         href: '/ui/link',
         children: '<Link>',
       },
     ],
   },
   {
-    title: 'Block',
+    title: 'Controls',
     children: [
       {
         href: '/ui/button',
         children: '<Button>',
+      },
+      {
+        href: '/ui/field',
+        children: '<Field>',
+      },
+      {
+        href: '/ui/input',
+        children: '<Input>',
       },
       {
         href: '/ui/check-box',
@@ -103,6 +119,28 @@ export const uiMenu: MenuItem[] = [
       {
         href: '/ui/option',
         children: '<Option>',
+      },
+    ],
+  },
+  {
+    title: 'Feedback',
+    children: [
+      {
+        href: '/ui/message',
+        children: '<Message>',
+      },
+      {
+        href: '/ui/spin',
+        children: '<Spin>',
+      },
+    ],
+  },
+  {
+    title: 'Development',
+    children: [
+      {
+        href: '/ui/devtools',
+        children: '<Devtools>',
       },
     ],
   },

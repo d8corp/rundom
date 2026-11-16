@@ -6,8 +6,8 @@ It supports a stable scrollbar gutter and overflow modes.
 | Prop         | Type                                | Description                                                                                                                                                |
 |--------------|-------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **class**    | `string` `ScrollbarStyles`          | Additional CSS class(es) to apply to the root element                                                                                                      |
-| **stable**   | `ObservableProp<boolean>`           | Reserves space for the [scrollbar gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-gutter) to prevent layout shifts |
-| **overflow** | `ObservableProp<ScrollbarOverflow>` | Sets the CSS [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow) behavior.                                          |
+| [**stable**](#stable-gutter) | `ObservableProp<boolean>`           | Reserves space for the [scrollbar gutter](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-gutter) to prevent layout shifts |
+| [**overflow**](#overflow) | `ObservableProp<ScrollbarOverflow>` | Sets the CSS [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow) behavior.                                          |
 
 In addition to the props listed above, `<Scrollbar>` accepts all standard `<div>` element attributes such as `id`, `title`, and event handlers.
 
@@ -151,5 +151,5 @@ export function Scrollbar (props: ScrollbarProps) {
 ---
 
 - Explore the [\<Flex>](/ui/flex) for layout arrangements
-- Learn about [\<Section>](/ui/section) for content grouping
-- Discover the [\<Space>](/ui/space) for spacing
+- Learn about [\<Card>](/ui/card) for content grouping
+- Discover the [\<Flex>](/ui/flex) for spacing

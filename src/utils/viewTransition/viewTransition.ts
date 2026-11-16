@@ -2,6 +2,10 @@ let ready = true
 let running = false
 let queue: Array<() => void> = []
 
+/**
+ * Runs `fn` inside a view transition when `RD_VIEW_TRANSITION` is enabled,
+ * otherwise runs it immediately.
+ */
 export function viewTransition (fn: () => void) {
   if (import.meta.env?.RD_VIEW_TRANSITION === 'true') {
     startViewTransition(fn)
@@ -10,6 +14,7 @@ export function viewTransition (fn: () => void) {
   }
 }
 
+/** Starts or queues a native view transition for `fn`. */
 export function startViewTransition (fn: () => void) {
   if (running) {
     fn()

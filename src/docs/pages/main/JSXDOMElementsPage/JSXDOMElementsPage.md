@@ -211,9 +211,10 @@ import { rundom } from 'rundom'
 import { Slot } from 'rune-hub'
 
 const count = new Slot(() => 0)
+const increment = () => count.value++
 
 rundom(
-  <button onclick={() => count.value++}>
+  <button onclick={increment}>
     Clicked {count} times
   </button>
 )
@@ -303,11 +304,12 @@ Use a `ref` prop to access the created DOM element directly:
 import { Ref, rundom } from 'rundom'
 
 const inputRef = new Ref<HTMLInputElement>()
+const focusInput = () => inputRef.value?.focus()
 
 rundom(
   <div>
     <input ref={inputRef} type='text' />
-    <button onclick={() => inputRef.value?.focus()}>
+    <button onclick={focusInput}>
       Focus input
     </button>
   </div>
@@ -390,6 +392,22 @@ The element itself is created only once, and only the affected DOM properties ar
 - Bind changing values with `Slot` or getter functions instead of recreating elements.
 - Use [\<For>](/for) for reactive lists and [\<Show>](/show) / [\<Hide>](/hide) for conditional content.
 - Use [useStyles](/use-styles) to scope styles inside components.
+
+```tsx
+import { rundom } from 'rundom'
+
+function handleSubmit (event: SubmitEvent) {
+  event.preventDefault()
+}
+
+rundom(
+  <form onsubmit={handleSubmit} style={{ 'background-color': 'white' }}>
+    <label for='email'>Email</label>
+    <input id='email' type='email' name='email' />
+    <button type='submit'>Save</button>
+  </form>
+)
+```
 
 ## What's Next?
 ---

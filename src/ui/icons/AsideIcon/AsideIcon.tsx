@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<AsideIcon>`: all `<BaseIcon>` props. */
 export type AsideIconProps = BaseIconProps
 
+/** Icon of a layout with a panel on the left. */
 export function AsideIcon (props: AsideIconProps) {
   return (
     <BaseIcon {...props}>

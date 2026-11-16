@@ -1,3 +1,4 @@
+/** Converts a value into a compact debug string, including Sets, Maps and errors. */
 export function stringify (data: any): string {
   if (typeof data === 'string') return `"${data}"`
   if (data === null) return 'null'

@@ -308,6 +308,6 @@ export function Flex (props: FlexProps) {
 ---
 
 - Learn about [\<Divider>](/ui/divider) for visual separation
-- Explore the [\<Layout>](/ui/layout) component for page structure
-- Learn about [\<Space>](/ui/space) for spacing
+- Explore the [\<Card>](/ui/card) component for content grouping
+- Learn about [\<Box>](/ui/box) for surface styling
 - Discover available [\<Icons>](/ui/icons) for visual elements

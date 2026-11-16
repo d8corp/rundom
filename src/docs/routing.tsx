@@ -116,6 +116,41 @@ export const routing = createRouting([
           },
           {
             index: true,
+            path: 'field',
+            component: lazy(() => import('./pages/ui/FieldPage')),
+          },
+          {
+            index: true,
+            path: 'input',
+            component: lazy(() => import('./pages/ui/InputPage')),
+          },
+          {
+            index: true,
+            path: 'description',
+            component: lazy(() => import('./pages/ui/DescriptionPage')),
+          },
+          {
+            index: true,
+            path: 'title',
+            component: lazy(() => import('./pages/ui/TitlePage')),
+          },
+          {
+            index: true,
+            path: 'message',
+            component: lazy(() => import('./pages/ui/MessagePage')),
+          },
+          {
+            index: true,
+            path: 'spin',
+            component: lazy(() => import('./pages/ui/SpinPage')),
+          },
+          {
+            index: true,
+            path: 'devtools',
+            component: lazy(() => import('./pages/ui/DevtoolsPage')),
+          },
+          {
+            index: true,
             path: 'option',
             component: lazy(() => import('./pages/ui/OptionPage')),
           },
@@ -208,6 +243,21 @@ export const routing = createRouting([
             index: true,
             path: 'lazy',
             component: lazy(() => import('./pages/main/LazyPage')),
+          },
+          {
+            index: true,
+            path: 'pipe',
+            component: lazy(() => import('./pages/main/PipePage')),
+          },
+          {
+            index: true,
+            path: 'try',
+            component: lazy(() => import('./pages/main/TryPage')),
+          },
+          {
+            index: true,
+            path: 'hub-provider',
+            component: lazy(() => import('./pages/main/HubProviderPage')),
           },
           {
             index: true,

@@ -51,6 +51,10 @@ export const messagesRef = new Ref<HTMLDivElement>()
 
 export const messageTimers: Set<Timer | symbol> = new Set()
 
+/**
+ * Creates a message notification and queues its auto-hide timer.
+ * Messages pause while hovered and hide the container when the queue is empty.
+ */
 export function baseMessage (text: string, { timeout = text.length / 13 + 1, type = 'info', ...props }: MessageProps = {}) {
   if (!messagesRef.value) {
     messagesRef.value = document.createElement('div')
@@ -130,6 +134,11 @@ export function baseMessage (text: string, { timeout = text.length / 13 + 1, typ
   }
 }
 
+/**
+ * Shows a short notification message.
+ * @param text - Message text.
+ * @param props - Message styling and auto-hide options.
+ */
 export function message (text: string, props?: MessageProps) {
   viewTransition(() => baseMessage(text, props))
 }

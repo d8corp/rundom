@@ -13,8 +13,10 @@ export const cardTitleStyles = {
 
 export type CardTitleStyles = typeof cardTitleStyles
 
+/** Props for `<CardTitle>`: flex props plus the component styles. */
 export type CardTitleProps<T extends FlexElement = 'div', S extends CardTitleStyles = CardTitleStyles> = FlexProps<T, S>
 
+/** Heading area of a `<Card>`. */
 export function CardTitleComponent<T extends FlexElement = 'div', S extends CardTitleStyles = CardTitleStyles> (
   props: CardTitleProps<T, S>,
 ) {

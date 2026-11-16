@@ -5,8 +5,8 @@ This is essential for building UI elements that need to break out of their paren
 
 | Prop          | Type                                  | Description                                               |
 |---------------|---------------------------------------|-----------------------------------------------------------|
-| **to** [*](#) | `TargetElement` \| `DocumentFragment` | The element where the child content will be rendered      |
-| **children**  | `JSX.Element`                         | The content to render inside the specified parent element |
+| [**to**](#to) | `TargetElement` \| `DocumentFragment` | The element where the child content will be rendered      |
+| [**children**](#children) | `JSX.Element`           | The content to render inside the specified parent element |
 
 ## Basic Usage
 ---
@@ -46,6 +46,42 @@ function App() {
 }
 
 rundom(<App />)
+```
+
+## To
+---
+
+`to` is the DOM element or fragment that receives the content. It defaults to `document.body`. The target is resolved when the component renders, so a node from `getElementById` must exist by then.
+
+```tsx
+import { Portal } from 'rundom'
+
+const target = document.getElementById('modal-root')!
+
+<Portal to={target}>
+  <div class='modal'>Rendered into #modal-root</div>
+</Portal>
+
+<Portal>
+  <p>Rendered into `document.body`</p>
+</Portal>
+```
+
+## Children
+---
+
+`children` is rendered into the target while keeping the reactive context of the current tree, so slots and contexts keep working across the portal boundary.
+
+```tsx
+import { Portal, Text } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const count = new Slot(() => 0)
+const target = document.getElementById('status')!
+
+<Portal to={target}>
+  <Text>Count: {() => count.value}</Text>
+</Portal>
 ```
 
 ## What's Next?

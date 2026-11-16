@@ -99,4 +99,4 @@ function ConditionalForm () {
 Now that you understand how to work with refs, explore related concepts:
 
 - **[Components](/components)** — Learn about component lifecycle and how refs fit into the rendering process.
-- **[useEffect](/use-effect)** — Deep dive into side effects and cleanup patterns with refs.
+- **[State Management](/state-management)** — Deep dive into side effects and cleanup patterns with refs.

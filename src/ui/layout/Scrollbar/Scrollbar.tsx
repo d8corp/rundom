@@ -20,11 +20,18 @@ export type ScrollbarStyles = typeof scrollbarStyles
 export type ScrollbarOverflowBase = 'auto' | 'hidden' | 'scroll' | 'visible' | 'clip' | GlobalCSSValue
 export type ScrollbarOverflow = ScrollbarOverflowBase | `${ScrollbarOverflowBase} ${ScrollbarOverflowBase}`
 
+/** Props for `<Scrollbar>`: flex props plus overflow behavior. */
 export type ScrollbarProps<T extends FlexElement = 'div', S extends ScrollbarStyles = ScrollbarStyles> = Merge<FlexProps<T, S>, {
+  /** Reserves the scrollbar gutter when the content does not overflow. */
   stable?: ObservableProp<boolean>
+  /** CSS `overflow` value; defaults to `'auto'`. */
   overflow?: ObservableProp<ScrollbarOverflow>
 }>
 
+/**
+ * Scrollable flex container with an optional stable gutter.
+ * Used as the viewport for virtualized lists such as `<Options>`.
+ */
 export function ScrollbarComponent<T extends keyof HTMLElementTagNameMap = 'div', S extends ScrollbarStyles = ScrollbarStyles> ({
   stable,
   overflow = 'auto',

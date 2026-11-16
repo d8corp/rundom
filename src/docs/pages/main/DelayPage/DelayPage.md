@@ -2,10 +2,10 @@
 
 | Prop         | Type                 | Description                                        |
 |--------------|----------------------|----------------------------------------------------|
-| **show**     | `number`             | Delay before showing the content (in milliseconds) |
-| **hide**     | `number`             | Delay before hiding the content (in milliseconds)  |
-| **ref**      | `Ref<Slot<boolean>>` | Reference to the visibility state                  |
-| **children** | `JSX.Element`        | Content to render with delay                       |
+| [**show**](#show) | `number`         | Delay before showing the content (in milliseconds) |
+| [**hide**](#hide) | `number`         | Delay before hiding the content (in milliseconds)  |
+| [**ref**](#ref)   | `Ref<Slot<boolean>>` | Reference to the visibility state              |
+| [**children**](#children) | `JSX.Element` | Content to render with delay                   |
 
 You can show or hide elements with a delay.
 
@@ -22,6 +22,49 @@ export function Content () {
     </Delay>
   )
 }
+```
+
+## Show
+---
+
+`show` delays the first render of the content by the given number of milliseconds. Nested `<Delay>` components can use different delays.
+
+```tsx
+<Delay show={300}>
+  <p>Appears after 300 ms</p>
+</Delay>
+```
+
+## Hide
+---
+
+`hide` keeps the content mounted after it stops matching the parent condition, so it can animate out before the DOM is removed.
+
+```tsx
+import { Delay, Show } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const visible = new Slot(() => true)
+const close = () => visible.set(false)
+
+<Show when={visible}>
+  <Delay hide={300}>
+    <p>Stays in the DOM for 300 ms after closing</p>
+    <button onclick={close}>Close</button>
+  </Delay>
+</Show>
+```
+
+## Children
+---
+
+`children` is the content mounted and unmounted with the configured delays.
+
+```tsx
+<Delay show={200} hide={400}>
+  <h2>Title</h2>
+  <p>Both nodes are mounted and removed together.</p>
+</Delay>
 ```
 
 ## useHidden
@@ -61,7 +104,7 @@ export default () => show.value && (
 )
 ```
 
-## ref
+## Ref
 ---
 
 You can use `ref` to access the hidden state.
@@ -100,3 +143,11 @@ export default () => show.value && (
   </>
 )
 ```
+
+## What's Next?
+---
+
+- Learn about [\<Show>](/show) and [\<Hide>](/hide) for instant conditional rendering
+- Explore [\<Suspense>](/suspense) for async content
+- Read [State Management](/state-management) for reactive values
+- Discover [\<Lazy>](/lazy) for deferred components

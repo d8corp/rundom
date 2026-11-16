@@ -8,7 +8,7 @@ It renders an `<article>` HTML tag by default.
 |--------------|-------------------------------------------------------|---------------------------------------------------|
 | **children** | `JSX.Element`                                         | Content to render inside the typography container |
 | **class**    | `ObservableProp<string \| Partial<TypographyStyles>>` | CSS class name(s) or style override object        |
-| **flex**     | `ObservableProp<number \| boolean>`                   | Flex layout behavior (default: `undefined`)       |
+| [**flex**](#flex) | `ObservableProp<number \| boolean>`                   | Flex layout behavior (default: `undefined`)       |
 
 In addition to the props listed above, `<Typography>` accepts all standard `<article>` element attributes such as `class`, `style`, `id`, `title`, and event handlers.
 

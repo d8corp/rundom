@@ -7,6 +7,8 @@ import description from './OptionPage.md'
 
 export default function OptionPage () {
   const manualSelected = new Slot<string | null>(() => null)
+  const selectApple = () => manualSelected.set('Apple')
+  const selectBanana = () => manualSelected.set('Banana')
   const optionsSelected = new Slot<string>(() => 'Apple')
 
   const values = [
@@ -35,14 +37,14 @@ export default function OptionPage () {
         <Option
           value='Apple'
           selected={() => manualSelected.value === 'Apple'}
-          onclick={() => manualSelected.set('Apple')}
+          onclick={selectApple}
         >
           Apple
         </Option>
         <Option
           value='Banana'
           selected={() => manualSelected.value === 'Banana'}
-          onclick={() => manualSelected.set('Banana')}
+          onclick={selectBanana}
         >
           Banana
         </Option>

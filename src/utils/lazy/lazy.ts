@@ -9,6 +9,10 @@ export interface LazyFn<C extends Component = Component> extends LazyParam<C> {
   [LAZY]: LazyParam<C>
 }
 
+/**
+ * Wraps a dynamic `import()` in a lazy component factory that loads only once.
+ * The returned function is marked with the lazy key, so `<Router>` can resolve it automatically.
+ */
 export function lazy<C extends Component> (fn: LazyParam<C>): LazyFn<C> {
   let promise: Promise<LazyResultData<C>>
 

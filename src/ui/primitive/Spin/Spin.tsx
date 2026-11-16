@@ -18,8 +18,10 @@ const dotArray = [...new Array(Number(import.meta.env?.RD_THEME__SPIN_DOT_COUNT 
 
 export type SpinStyles = typeof spinStyles
 
+/** Props for `<Spin>`: icon props plus the component styles. */
 export type SpinProps = BaseIconProps & StyledProps<SpinStyles>
 
+/** Spinning loading indicator built from the theme's dot icon. */
 export function Spin (props: SpinProps) {
   const styles = useStyles(spinStyles, props.class)
 

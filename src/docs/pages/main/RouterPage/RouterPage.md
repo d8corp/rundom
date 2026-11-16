@@ -4,8 +4,8 @@ You can render content based on the current URL.
 
 | Prop               | Type                     | Description                                          |
 |--------------------|--------------------------|------------------------------------------------------|
-| **routing** [*](#) | `StateProp<Routing>`     | Routing object that defines the route structure      |
-| **permissions**    | `StateProp<Set<string>>` | Set of permissions required to access certain routes |
+| [**routing**](#routing) | `StateProp<Routing>`     | Routing object that defines the route structure      |
+| [**permissions**](#permissions) | `StateProp<Set<string>>` | Set of permissions required to access certain routes |
 
 Use `component` to specify the component for a route.
 Use `path` to define URL path segments.
@@ -316,6 +316,37 @@ export const Content = () => (
 `/products` - Products Page  
 `/products/123` - Product: 123  
 `/foo` - NotFound Page
+
+## Routing
+---
+
+`routing` is the tree returned by `createRouting`. It describes index, nested, optional, parameterized and fallback routes.
+
+```tsx
+import { Router, createRouting } from 'rundom'
+
+const routing = createRouting([
+  { index: true, component: () => 'Home' },
+  { path: 'about', component: () => 'About' },
+  { component: () => 'Not Found' },
+])
+
+<Router routing={routing} />
+```
+
+## Permissions
+---
+
+`permissions` is the set of permissions granted to the current user. Routes that declare their own `permissions` match only when all of them are present in this set.
+
+```tsx
+import { Router } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const permissions = new Slot(() => new Set(['postlogin']))
+
+<Router routing={routing} permissions={permissions} />
+```
 
 ## What's Next?
 ---

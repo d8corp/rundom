@@ -14,9 +14,14 @@ export const typographyStyles = {
 export type TypographyStyles = typeof typographyStyles
 
 export interface TypographyProps extends HTMLStyleProps <'div', TypographyStyles> {
+  /** Makes the typography block flexible; `true` behaves like `1`. */
   flex?: ObservableProp<number | boolean>
 }
 
+/**
+ * Typographic wrapper rendered as an `<article>`.
+ * Applies paragraph and heading rhythm to Markdown and plain text content.
+ */
 function TypographyComponent ({ flex, style, ...props }: TypographyProps) {
   const styles = useStyles(typographyStyles, props.class)
 

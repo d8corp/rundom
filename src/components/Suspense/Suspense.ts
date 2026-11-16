@@ -5,9 +5,14 @@ import type { ChildrenProps, JSXElement } from '../../types'
 import { append, Content, Context, extract, remove, SystemSlot } from '../../utils'
 
 export interface SuspenseProps extends ChildrenProps {
+  /** Content rendered while any promise inside `children` is pending. */
   fallback?: JSXElement
 }
 
+/**
+ * Boundaries async rendering: shows `fallback` while promises inside its subtree
+ * are pending and swaps in the resolved content afterwards.
+ */
 export function Suspense ({ fallback, children }: SuspenseProps) {
   const content = new Content()
   const context = Context.nest()

@@ -1,5 +1,6 @@
 import type { Child, DomElement, IContent, Parent } from '../../types'
 
+/** Virtual node that groups children in the custom DOM tree. */
 export class Content implements IContent {
   _parent?: Parent
   _prev?: Child
@@ -112,6 +113,7 @@ function getElements (target: Content) {
   return result
 }
 
+/** Removes `target` from the virtual tree while keeping its children in place. */
 export function dissolve (target: Content) {
   if (!target._parent) return
 
@@ -148,6 +150,7 @@ export function dissolve (target: Content) {
   target._parent = undefined
 }
 
+/** Detaches `target` from the virtual tree and its DOM parent without dissolving children. */
 export function extract (target: Child) {
   virtualRemove(target)
 
@@ -160,6 +163,7 @@ export function extract (target: Child) {
   }
 }
 
+/** Removes `target` from the virtual tree and from the DOM. */
 export function remove (target: Child) {
   if (target instanceof Content) {
     dissolve(target)
@@ -172,6 +176,7 @@ export function remove (target: Child) {
   }
 }
 
+/** Appends `target` as the last child of `parent`. */
 export function append (parent: Parent, target: Child) {
   virtualRemove(target)
 
@@ -217,6 +222,7 @@ export function append (parent: Parent, target: Child) {
   }
 }
 
+/** Prepends `target` as the first child of `parent`. */
 export function prepend (parent: Parent, target: Parent) {
   virtualRemove(target)
 
@@ -262,6 +268,7 @@ export function prepend (parent: Parent, target: Parent) {
   }
 }
 
+/** Inserts `target` right after `node`. */
 export function after (node: Child, target: Parent) {
   virtualRemove(target)
 
@@ -290,6 +297,7 @@ export function after (node: Child, target: Parent) {
   }
 }
 
+/** Inserts `target` right before `node`. */
 export function before (node: Child, target: Parent) {
   virtualRemove(target)
 

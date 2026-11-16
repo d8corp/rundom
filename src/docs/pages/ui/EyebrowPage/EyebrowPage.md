@@ -7,8 +7,8 @@ It supports color and size variants and accepts reactive props.
 |--------------|--------------------------------|------------------------------------------------------------------------------------|
 | **children** | `JSX.Element`                  | Label content to render                                                            |
 | **class**    | `string` `TextStyles`         | Additional CSS class(es) to apply to the root element                              |
-| **color**    | `ObservableProp<TextColor>`    | Sets the label color. Available values: `primary` (default), `accent`, `secondary`, `success`, `warning`, `danger`, `disabled`, `text`, `muted`, `dim` |
-| **size**     | `ObservableProp<TextSize>`     | Sets the font size. Available values: `xxs`, `xs` (default), `s`, `m`, `l`, `xl`, `xxl`. Exact sizes depend on the theme |
+| [**color**](#color) | `ObservableProp<TextColor>`    | Sets the label color. Available values: `primary` (default), `accent`, `secondary`, `success`, `warning`, `danger`, `disabled`, `text`, `muted`, `dim` |
+| [**size**](#size) | `ObservableProp<TextSize>`     | Sets the font size. Available values: `xxs`, `xs` (default), `s`, `m`, `l`, `xl`, `xxl`. Exact sizes depend on the theme |
 | **style**    | `HTMLStyleProp`                | Inline styles to apply to the root element                                         |
 
 `<Eyebrow>` inherits all props of [\<Text>](/ui/text), including `weight`, `align`, `nowrap`, and `decoration`.

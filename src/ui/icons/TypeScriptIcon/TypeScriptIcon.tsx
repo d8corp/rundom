@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<TypeScriptIcon>`: all `<BaseIcon>` props. */
 export type TypeScriptIconProps = BaseIconProps
 
+/** Document icon with the TypeScript letters. */
 export function TypeScriptIcon (props: TypeScriptIconProps) {
   return (
     <BaseIcon {...props}>

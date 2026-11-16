@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<CopyIcon>`: all `<BaseIcon>` props. */
 export type CopyIconProps = BaseIconProps
 
+/** Two overlapping pages, used for copy actions. */
 export function CopyIcon (props: CopyIconProps) {
   return (
     <BaseIcon {...props}>

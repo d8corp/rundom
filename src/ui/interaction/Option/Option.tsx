@@ -15,11 +15,18 @@ export const optionStyles = {
 export type OptionStyles = typeof optionStyles & BoxStyles
 
 export interface OptionProps<V = unknown> extends BoxProps {
+  /** Value represented by the option; rendered as text when there are no children. */
   value: V
-  selected?: ObservableProp<boolean>;
-  disabled?: ObservableProp<boolean>;
+  /** Highlights the option as selected. */
+  selected?: ObservableProp<boolean>
+  /** Disables the option and applies the disabled color. */
+  disabled?: ObservableProp<boolean>
 }
 
+/**
+ * Single selectable row. Renders `children` or the stringified `value`
+ * and switches between filled and ghost views based on `selected`.
+ */
 export function OptionComponent<V = unknown> ({
   value,
   selected,

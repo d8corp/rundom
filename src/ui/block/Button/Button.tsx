@@ -45,13 +45,22 @@ export const buttonSizeMap = {
 
 export type ButtonStyles = typeof buttonStyles
 
+/** Props for `<Button>`: box props plus button-specific behavior. */
 export type ButtonProps<T extends FlexElement = 'button', S extends ButtonStyles = ButtonStyles> = Merge<BoxProps<T, S & BoxStyles>, {
+  /** Button size; mapped to a larger box size internally. */
   size?: ObservableProp<SMLSize>
+  /** Shows a spinner and blocks interaction while set. */
   loading?: ObservableProp<boolean>
+  /** Disables the button and applies the disabled color. */
   disabled?: ObservableProp<boolean>
+  /** Click handler; returning a promise enables the loading state automatically. */
   onclick?: (e: MouseEvent) => void | Promise<void>
 }>
 
+/**
+ * Action button based on `<Box>` and `<Spin>`.
+ * Supports colors, sizes, shapes, a loading state and async click handlers.
+ */
 function ButtonComponent<T extends keyof HTMLElementTagNameMap = 'button', S extends ButtonStyles = ButtonStyles> ({
   loading = new SystemSlot(() => false),
   onclick,

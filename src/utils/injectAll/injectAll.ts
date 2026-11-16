@@ -22,6 +22,10 @@ type HasDynamic<T extends readonly any[]> = true extends {
   ? true
   : false
 
+/**
+ * Like `inject`, but for several values at once. Returns a reactive function
+ * when at least one value is a `Slot` or a function.
+ */
 export function injectAll<T extends readonly any[], R> (
   values: readonly [...T],
   callback: (values: { [K in keyof T]: UnwrapStateProp<T[K]> }) => R,

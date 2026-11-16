@@ -6,9 +6,9 @@ It supports horizontal and vertical orientations, configurable size, and an opti
 | Prop         | Type                      | Description                                                                                    |
 |--------------|---------------------------|------------------------------------------------------------------------------------------------|
 | **class**    | `string \| DividerStyle`  | Additional CSS class(es) to apply to the root element                                          |
-| **flush**    | `ObservableProp<boolean>` | When `true`, removes the default margins so the divider reaches the edges of its container     |
-| **size**     | `ObservableProp<RDSize>`  | Sets the divider size. Available values: `'s'` (small), `'m'` (medium, default), `'l'` (large) |
-| **vertical** | `ObservableProp<boolean>` | When `true`, renders a vertical divider                                                        |
+| [**flush**](#flush) | `ObservableProp<boolean>` | When `true`, removes the default margins so the divider reaches the edges of its container     |
+| [**size**](#size) | `ObservableProp<RDSize>`  | Sets the divider size. Available values: `'s'` (small), `'m'` (medium, default), `'l'` (large) |
+| [**vertical**](#vertical) | `ObservableProp<boolean>` | When `true`, renders a vertical divider                                                        |
 
 In addition to the props listed above, `<Divider>` accepts all standard `<hr>` element attributes such as `id`, `title`, and event handlers.
 
@@ -142,6 +142,6 @@ export function Divider (props: DividerProps) {
 ---
 
 - Explore the [\<Flex>](/ui/flex) component for layout arrangements
-- Learn about [\<Section>](/ui/section) for grouping content
+- Learn about [\<Card>](/ui/card) for grouping content
 - Learn about [\<Title>](/ui/title) for headings
 - Discover available [\<Icons>](/ui/icons) for visual elements

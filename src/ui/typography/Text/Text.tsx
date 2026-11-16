@@ -47,21 +47,38 @@ export const textStyles = {
 export type TextStyles = typeof textStyles
 
 export interface TextProps extends HTMLStyleProps<'span', TextStyles> {
+  /** Horizontal alignment (`text-align`). */
   align?: ObservableProp<TextAlign | undefined>
+  /** Word breaking mode (`word-break`). */
   break?: ObservableProp<TextBreak | undefined>
+  /** Semantic text color. */
   color?: ObservableProp<TextColor | undefined>
+  /** Cursor style of the text. */
   cursor?: ObservableProp<string | undefined>
+  /** Text decoration such as underline or line-through. */
   decoration?: ObservableProp<TextDecoration | undefined>
+  /** Renders italic text. */
   italic?: ObservableProp<boolean | undefined>
+  /** Clamps the text to a number of lines; `true` means a single line. */
   nowrap?: ObservableProp<boolean | number | undefined>
+  /** Text size. */
   size?: ObservableProp<TextSize | undefined>
+  /** Line height; numbers are treated as pixels. */
   lineHeight?: ObservableProp<number | string | undefined>
+  /** Font weight. */
   weight?: ObservableProp<TextWeight | undefined>
+  /** Text wrapping mode; `'nowrap'` adds an ellipsis. */
   wrap?: ObservableProp<TextWrap | undefined>
+  /** `text-box` trimming and edge configuration. */
   box?: ObservableProp<TextBox | undefined>
+  /** Text casing transformation. */
   transform?: ObservableProp<TextTransform | undefined>
 }
 
+/**
+ * Inline text primitive with color, size, alignment, decoration, weight,
+ * wrapping and line-clamp support.
+ */
 export function TextComponent ({
   color,
   cursor,

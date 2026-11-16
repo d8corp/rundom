@@ -22,14 +22,25 @@ export const cardStyles = {
 
 export type CardStyles = typeof cardStyles
 
+/** Props for `<Card>`: flex props plus surface and sizing props. */
 export type CardProps<T extends FlexElement = 'div', S extends FlexStyles = CardStyles> = Merge<FlexProps<T, S>, {
+  /** Card size; changes corner radius and content spacing. */
   size?: ObservableProp<SMLSize | undefined>
+  /** Adds a pointer cursor; defaults to `true` when `onclick` is provided. */
   clickable?: ObservableProp<boolean | undefined>
+  /** Adds hover feedback; defaults to the value of `clickable`. */
   hoverable?: ObservableProp<boolean | undefined>
+  /** Card width; numbers are converted to pixels. */
   width?: ObservableProp<string | number | undefined>
+  /** Card height; numbers are converted to pixels. */
   height?: ObservableProp<string | number | undefined>
 }>
 
+/**
+ * Surface for grouping content. Provides border, background, radius and
+ * clickable/hoverable states; compose it with `CardHeader`, `CardPreview`,
+ * `CardContent` and `CardTitle`.
+ */
 export function CardComponent<T extends FlexElement = 'div', S extends FlexStyles = CardStyles> ({
   size = 'm',
   onclick,

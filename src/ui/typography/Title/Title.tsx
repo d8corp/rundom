@@ -14,10 +14,16 @@ export const titleStyles = {
 export type TitleStyles = typeof titleStyles
 
 export interface TitleProps extends HTMLStyleProps<'h1', TitleStyles> {
+  /** Heading level from `1` to `6`; defaults to `1`. */
   depth?: TitleDepth
+  /** Text of the heading. When provided, it is also set as `document.title`. */
   title?: string
 }
 
+/**
+ * Heading element from `<h1>` to `<h6>`.
+ * When `title` is set, it also updates `document.title`.
+ */
 export function TitleComponent ({ depth = 1, title, ...props }: TitleProps) {
   const styles = useStyles(titleStyles, props.class)
 

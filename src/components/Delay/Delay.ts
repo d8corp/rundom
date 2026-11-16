@@ -10,17 +10,29 @@ import { append, Content, Context, dissolve, SystemSlot } from '../../utils'
 
 export const delayContext = new Context<undefined | Slot<boolean>>(undefined)
 
+/**
+ * Returns the visibility slot of the nearest `<Delay>` ancestor.
+ * The slot is `true` while the delayed content is hidden.
+ */
 export function useHidden (): undefined | Slot<boolean> {
   return delayContext.get()
 }
 
 export interface DelayProps {
+  /** Delay before the content appears, in milliseconds. */
   show?: number
+  /** Delay before the content disappears, in milliseconds. */
   hide?: number
+  /** Receives the slot that tracks whether the content is currently hidden. */
   ref?: Ref<Slot<boolean>>
+  /** Content rendered with the configured delays. */
   children?: JSX.Element
 }
 
+/**
+ * Defers mounting and unmounting of its children by the given timeouts.
+ * `show` delays the first render, `hide` keeps the content mounted until the timeout expires.
+ */
 export function Delay ({ show = 0, hide = 0, ref, children }: DelayProps) {
   if (show < 1 && hide < 1) {
     rundom(children)

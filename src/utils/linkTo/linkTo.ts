@@ -8,6 +8,10 @@ export interface LinkToParams {
   replace?: boolean
 }
 
+/**
+ * Navigates to an internal URL with the History API and scrolls to the target.
+ * Returns `false` for external URLs that should use the browser navigation.
+ */
 export function linkTo (href: string, { scroll = 'after', scrollTo, replace }: LinkToParams = {}) {
   const page = href?.startsWith('/')
   let url = href

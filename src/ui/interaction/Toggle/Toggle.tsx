@@ -17,12 +17,19 @@ export const toggleStyles = {
 
 export type ToggleStyles = typeof toggleStyles
 
+/** Props for `<Toggle>`: box props plus native switch behavior. */
 export type ToggleProps<T extends FlexElement = 'div', S extends ToggleStyles = ToggleStyles> = Omit<Merge<BoxProps<T, S & BoxStyles>, {
+  /** Checked state of the switch. */
   checked?: ObservableProp<boolean>
+  /** Reference to the underlying native checkbox input. */
   inputRef?: HTMLRef<'input'>
+  /** Native input name used by forms. */
   name?: ObservableProp<string>
+  /** Disables the switch and applies the disabled color. */
   disabled?: ObservableProp<boolean>
+  /** Native input value used by forms. */
   value?: ObservableProp<string>
+  /** Called with the new checked state. */
   onChange?: (checked: boolean) => void
 }>, 'children'>
 

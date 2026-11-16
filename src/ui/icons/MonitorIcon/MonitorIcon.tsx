@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<MonitorIcon>`: all `<BaseIcon>` props. */
 export type MonitorIconProps = BaseIconProps
 
+/** Desktop monitor icon. */
 export function MonitorIcon (props: MonitorIconProps) {
   return (
     <BaseIcon {...props}>

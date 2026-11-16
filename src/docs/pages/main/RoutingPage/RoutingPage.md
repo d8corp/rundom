@@ -23,3 +23,10 @@ const routing = createRouting([
   { component: () => '404' }
 ])
 ```
+
+## What's Next?
+---
+
+- Learn about [\<Router>](/router) to render a routing tree
+- Explore [useParam](/use-param) and [useParams](/use-params) to read dynamic segments
+- Read about [\<Lazy>](/lazy) for code splitting

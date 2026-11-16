@@ -6,12 +6,21 @@ import { Ref, SystemSlot, use } from '../../utils'
 export const documentElementRef = new Ref(document.documentElement)
 
 export interface VirtualListParams<T = any> {
+  /** Height of a single row in pixels. */
   itemHeight: ObservableProp<number>
+  /** Full list of items to virtualize. */
   list: ObservableProp<T[]>
+  /** Gap between rows in pixels. */
   gap?: ObservableProp<number>
+  /** Scrollable element that acts as the viewport; defaults to `document.documentElement`. */
   scrollbar?: Ref<HTMLElement>
 }
 
+/**
+ * Computes a window of list items that fit the scrollbar viewport.
+ * Returns reactive slots for the visible slice and spacer offsets,
+ * plus the `ResizeObserver` used for height measurements.
+ */
 export function useVirtualList<T> ({ scrollbar = documentElementRef, itemHeight, gap = 0, list }: VirtualListParams<T>) {
   const virtualItemSize = () => use(itemHeight) + use(gap)
   const virtualScroll = () => 0

@@ -1,6 +1,7 @@
 import type { JSXSource, JSXType, JSXTypeProps } from '../../types'
 import { JSXNode } from '../../types'
 
+/** JSX runtime factory that creates a `JSXNode` for a tag or component. */
 export function jsx <T extends JSXType> (
   type: T,
   props: JSXTypeProps<T>,

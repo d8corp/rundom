@@ -21,10 +21,16 @@ export const devtoolsStyles = {
 export type DevtoolsStyles = typeof devtoolsStyles
 
 export interface DevtoolsProps extends StyledProps<DevtoolsStyles> {
+  /** Hides the hub and slot names in the panel. */
   anon?: boolean
+  /** Enables system slot details in the panel. */
   system?: boolean
 }
 
+/**
+ * Development panel that inspects the hubs, slots and reactive runes of the page.
+ * Runs its own hub, so it can be mounted next to the application root.
+ */
 export function DevtoolsComponent (props: DevtoolsProps) {
   const hub = new Hub()
   const styles = useStyles(devtoolsStyles, props.class)

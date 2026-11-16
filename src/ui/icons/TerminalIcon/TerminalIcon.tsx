@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<TerminalIcon>`: all `<BaseIcon>` props. */
 export type TerminalIconProps = BaseIconProps
 
+/** Terminal prompt icon. */
 export function TerminalIcon (props: TerminalIconProps) {
   return (
     <BaseIcon {...props}>

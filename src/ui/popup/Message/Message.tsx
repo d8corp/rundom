@@ -21,11 +21,15 @@ export const messageStyles = {
 
 export type MessageStyles = typeof messageStyles
 
+/** Props for `<Message>`: flex props plus message semantics. */
 export type MessageProps<T extends FlexElement = 'div', S extends MessageStyles = MessageStyles> = Merge<FlexProps<T, S>, {
+  /** Semantic type that selects the color scheme; defaults to `'info'`. */
   type?: MessageType
+  /** Timeout in seconds used to render the auto-hide indicator. */
   timeout?: number
 }>
 
+/** Notification surface used by the `message()` helper. */
 export function MessageComponent<T extends keyof HTMLElementTagNameMap = 'div', S extends MessageStyles = MessageStyles> ({
   type = 'info',
   timeout,

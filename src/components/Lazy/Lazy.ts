@@ -6,13 +6,22 @@ import type { LazyResult } from '../../utils'
 import { SystemSlot, use, viewTransition } from '../../utils'
 
 export interface LazyProps<C extends Component = Component> {
+  /** Component or promise of a lazy component to render. */
   component: Reactive<LazyResult<C> | C> | Slot<LazyResult<C> | C>
+  /** Content rendered while the component promise is pending. */
   fallback?: JSX.Element
+  /** When `false`, the component is not rendered. */
   show?: ObservableProp<boolean>
+  /** Creates the element from the resolved component. */
   render?: (Component: C) => JSX.Element
+  /** Cache shared between lazy modules of the same boundary. */
   cache?: Map<LazyResult, Component>
 }
 
+/**
+ * Renders a component from a promise while showing `fallback` during loading.
+ * Works with the `lazy()` utility, plain promises and ordinary components.
+ */
 export function Lazy<C extends Component = Component> ({
   component,
   fallback,

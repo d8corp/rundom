@@ -4,8 +4,8 @@ The `<Markdown>` component parses Markdown text and renders it into reactive DOM
 
 | Prop     | Type                     | Description                                                             |
 |----------|--------------------------|-------------------------------------------------------------------------|
-| **text** | `ObservableProp<string>` | Markdown text to parse and render. Can be a string or observable string |
-| **map**  | `MarkdownMap`            | Custom rendering map for AST nodes                                      |
+| [**text**](#text) | `ObservableProp<string>` | Markdown text to parse and render. Can be a string or observable string |
+| [**map**](#map)   | `MarkdownMap`            | Custom rendering map for AST nodes                                      |
 
 Use the `Markdown` component to render static Markdown strings or dynamic, reactive Markdown sources.
 
@@ -101,7 +101,8 @@ rundom(
 )
 ```
 
-## What's next?
+## What's Next?
+---
 
 - [\<Typography>](/ui/typography) — styles for text content, including rendered Markdown
 - [\<Flex>](/ui/flex) — layout for arranging components

@@ -14,11 +14,16 @@ import {
   Description,
   Divider,
   Eyebrow,
+  Field,
   Flex,
+  Input,
   Markdown,
+  Option,
   Options,
   RadioBox,
   Scrollbar,
+  Spin,
+  TerminalIcon,
   Text,
   Title,
   Toggle,
@@ -98,6 +103,27 @@ export default function ComponentsPage () {
             <Flex vertical gap={2} align='center'>
               <Eyebrow>Eyebrow</Eyebrow>
             </Flex>
+          ),
+        },
+        {
+          title: 'Title',
+          href: '/ui/title',
+          description: 'Renders a heading and keeps the document title in sync.',
+          keywords: 'heading h1 h2 h3 title document page',
+          preview: (
+            <Flex vertical gap={2}>
+              <Title depth={2}>Heading</Title>
+              <Title depth={6}>Subheading</Title>
+            </Flex>
+          ),
+        },
+        {
+          title: 'Description',
+          href: '/ui/description',
+          description: 'Adds secondary text under a field, card or section.',
+          keywords: 'caption hint helper muted text description',
+          preview: (
+            <Description>Supporting text for a field or section.</Description>
           ),
         },
       ],
@@ -227,6 +253,26 @@ export default function ComponentsPage () {
           ),
         },
         {
+          title: 'Field',
+          href: '/ui/field',
+          description: 'Wraps content with an optional label, icon and actions.',
+          keywords: 'field input label form before after icon',
+          preview: (
+            <Field label='Name' size='s' style={{ width: '150px' }}>
+              Jane Doe
+            </Field>
+          ),
+        },
+        {
+          title: 'Input',
+          href: '/ui/input',
+          description: 'Edits a text value with a clear button and debouncing.',
+          keywords: 'input text form value placeholder clear search',
+          preview: (
+            <Input value='Search...' size='s' style={{ width: '150px' }} />
+          ),
+        },
+        {
           title: 'CheckBox',
           href: '/ui/check-box',
           description: 'Selects one or several independent options.',
@@ -275,6 +321,67 @@ export default function ComponentsPage () {
               size='s'
               style={{ height: '86px', width: '140px' }}
             />
+          ),
+        },
+        {
+          title: 'Option',
+          href: '/ui/option',
+          description: 'Renders a single selectable row for a list or menu.',
+          keywords: 'option row select list menu choice',
+          preview: (
+            <Flex vertical gap={3} style={{ width: '150px' }}>
+              <Option value='Apple' selected size='s' />
+              <Option value='Banana' size='s' />
+            </Flex>
+          ),
+        },
+      ],
+    },
+    {
+      title: 'Feedback',
+      items: [
+        {
+          title: 'Message',
+          href: '/ui/message',
+          description: 'Shows a temporary notification with a semantic color.',
+          keywords: 'message notification toast alert success error warning',
+          preview: (
+            <Flex vertical gap={4} align='start'>
+              <Box view='filled' color='success' style={{ padding: '2px 8px', 'border-radius': '999px' }}>
+                <Text size='xs'>Saved</Text>
+              </Box>
+              <Box view='filled' color='danger' style={{ padding: '2px 8px', 'border-radius': '999px' }}>
+                <Text size='xs'>Failed</Text>
+              </Box>
+            </Flex>
+          ),
+        },
+        {
+          title: 'Spin',
+          href: '/ui/spin',
+          description: 'Shows that content is loading.',
+          keywords: 'loading spinner progress wait indicator',
+          preview: (
+            <Flex gap={10} align='center'>
+              <Spin />
+              <Spin size={32} />
+            </Flex>
+          ),
+        },
+      ],
+    },
+    {
+      title: 'Development',
+      items: [
+        {
+          title: 'Devtools',
+          href: '/ui/devtools',
+          description: 'Inspects hubs, slots and their dependencies.',
+          keywords: 'devtools debug inspect hub slot performance',
+          preview: (
+            <Flex align='center' justify='center' style={{ height: '100%' }}>
+              <TerminalIcon size={32} />
+            </Flex>
           ),
         },
       ],

@@ -8,6 +8,9 @@ import description from './CheckBoxPage.md'
 
 export default function CheckBoxPage () {
   const checkedSlot = new Slot<boolean | null>(() => true)
+  const check = () => checkedSlot.set(true)
+  const setIndeterminate = () => checkedSlot.set(null)
+  const uncheck = () => checkedSlot.set(false)
   const volume = () => 50
   const muted = () => get(volume) === 0
 
@@ -90,9 +93,9 @@ export default function CheckBoxPage () {
           </Text>
         </Flex>
         <Flex gap={8}>
-          <Button onclick={() => checkedSlot.set(true)}>True</Button>
-          <Button onclick={() => checkedSlot.set(null)}>Null</Button>
-          <Button onclick={() => checkedSlot.set(false)}>False</Button>
+          <Button onclick={check}>True</Button>
+          <Button onclick={setIndeterminate}>Null</Button>
+          <Button onclick={uncheck}>False</Button>
         </Flex>
         <div>Current state: {() => String(checkedSlot.value)}</div>
       </Flex>

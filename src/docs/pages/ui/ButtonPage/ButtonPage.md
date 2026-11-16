@@ -3,21 +3,21 @@
 The `<Button>` component is an interactive clickable element.
 It offers color themes, sizes, shapes, fine-grained reactivity, and built-in management of asynchronous loading.
 
-**Extends: [\<Block>](/ui/block)**
+**Extends: [\<Box>](/ui/box)**
 
 | Prop         | Type                                                                                                   | Description                                                                                                        |
 |--------------|--------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | **children** | `JSX.Element`                                                                                          | Content to render inside the button                                                                                |
-| **circle**   | `ObservableProp<boolean>`                                                                              | Gives the button fully rounded edges: a circle with `square`, a pill otherwise (default: `false`)                  |
+| [**circle**](#square-and-circle) | `ObservableProp<boolean>`                                                                              | Gives the button fully rounded edges: a circle with `square`, a pill otherwise (default: `false`)                  |
 | **class**    | `ObservableProp<string \| Partial<ButtonStyles>>`                                                      | CSS class name(s) or an object that overrides styles                                                               |
-| **color**    | `'primary'` \| `'secondary'` \| `'accent'` \| `'success'` \| `'warning'` \| `'danger'` \| `'disabled'` | Color theme that reflects the purpose of the action, e.g. `'danger'` for destructive ones (default: `'secondary'`) |
-| **disabled** | `ObservableProp<boolean>`                                                                              | Disables user interactions and applies the disabled style (default: `false`)                                       |
-| **element**  | `keyof HTMLElementTagNameMap`                                                                          | Tag name to render, e.g. `'button'` or `'a'` (default: `'button'`)                                                 |
+| [**color**](#color) | `'primary'` \| `'secondary'` \| `'accent'` \| `'success'` \| `'warning'` \| `'danger'` \| `'disabled'` | Color theme that reflects the purpose of the action, e.g. `'danger'` for destructive ones (default: `'secondary'`) |
+| [**disabled**](#disabled) | `ObservableProp<boolean>`                                                                              | Disables user interactions and applies the disabled style (default: `false`)                                       |
+| [**element**](#element) | `keyof HTMLElementTagNameMap`                                                                          | Tag name to render, e.g. `'button'` or `'a'` (default: `'button'`)                                                 |
 | **href**     | `string`                                                                                               | Link address, used when `element` is `'a'`                                                                         |
-| **loading**  | `ObservableProp<boolean>`                                                                              | Shows the loading spinner (default: `false`)                                                                       |
-| **size**     | `'s'` \| `'m'` \| `'l'`                                                                                | Size of the button (default: `'m'`)                                                                                |
-| **square**   | `ObservableProp<boolean>`                                                                              | Makes the button's width and height equal, ideal for icon-only buttons (default: `false`)                          |
-| **onclick**  | `(e: PointerEvent) => void \| Promise<void>`                                                           | Click handler. May be asynchronous                                                                                 |
+| [**loading**](#loading) | `ObservableProp<boolean>`                                                                              | Shows the loading spinner (default: `false`)                                                                       |
+| [**size**](#size) | `'s'` \| `'m'` \| `'l'`                                                                                | Size of the button (default: `'m'`)                                                                                |
+| [**square**](#square-and-circle) | `ObservableProp<boolean>`                                                                              | Makes the button's width and height equal, ideal for icon-only buttons (default: `false`)                          |
+| [**onclick**](#onclick) | `(e: PointerEvent) => void \| Promise<void>`                                                           | Click handler. May be asynchronous                                                                                 |
 
 ## onclick
 ---

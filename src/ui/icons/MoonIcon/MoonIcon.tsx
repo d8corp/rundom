@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<MoonIcon>`: all `<BaseIcon>` props. */
 export type MoonIconProps = BaseIconProps
 
+/** Crescent moon icon. */
 export function MoonIcon (props: MoonIconProps) {
   return (
     <BaseIcon {...props}>

@@ -8,13 +8,27 @@ It extends [\<Box>](/ui/box), so layout, colors, sizes, views, and interaction p
 
 | Prop         | Type                                              | Description                                                |
 |--------------|---------------------------------------------------|------------------------------------------------------------|
-| **value**    | `V`                                               | Value represented by the row; used as the default content   |
-| **selected** | `ObservableProp<boolean>`                         | Switches the row to the filled view                         |
-| **disabled** | `ObservableProp<boolean>`                         | Blocks clicks and removes the clickable interaction         |
+| [**value**](#value) | `V`                                               | Value represented by the row; used as the default content   |
+| [**selected**](#states) | `ObservableProp<boolean>`                         | Switches the row to the filled view                         |
+| [**disabled**](#states) | `ObservableProp<boolean>`                         | Blocks clicks and removes the clickable interaction         |
 | **children** | `JSXElement`                                      | Custom row content; when omitted, `value` is rendered       |
 | **class**    | `ObservableProp<string \| Partial<OptionStyles>>` | CSS class name(s) or an object that overrides styles        |
 
 In addition to the props listed above, `<Option>` accepts all [\<Box>](/ui/box) props, including `onclick`, `style`, `color`, `size`, and `view`.
+
+## Value
+---
+
+The `value` prop is the data represented by the row. When no children are provided, the value is rendered as the row content. The list passes the raw value to `onSelect` and uses it to compare the current selection.
+
+```tsx
+import { Option } from 'rundom'
+
+<Option value='Apple' />
+<Option value={{ id: 2, name: 'Banana' }}>
+  🍌 Banana
+</Option>
+```
 
 ## States
 ---
@@ -51,19 +65,22 @@ import { Slot } from 'rune-hub'
 
 const selected = new Slot<string | null>(() => null)
 
+const selectApple = () => selected.set('Apple')
+const selectBanana = () => selected.set('Banana')
+
 rundom(
   <Flex vertical gap={4} style={{ width: '220px' }}>
     <Option
       value='Apple'
       selected={() => selected.value === 'Apple'}
-      onclick={() => selected.set('Apple')}
+      onclick={selectApple}
     >
       Apple
     </Option>
     <Option
       value='Banana'
       selected={() => selected.value === 'Banana'}
-      onclick={() => selected.set('Banana')}
+      onclick={selectBanana}
     >
       Banana
     </Option>
@@ -164,5 +181,5 @@ export function Option (props: OptionProps) {
 ---
 
 - Explore [\<Options>](/ui/options) to render a virtualized list of options
-- Explore [\<OptionGroup>](/ui/option-group) to separate rows into groups
+- Explore [\<Options>](/ui/options) to build a selectable list
 - Explore [\<Box>](/ui/box) to understand the inherited layout and colors

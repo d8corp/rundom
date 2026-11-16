@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<SunIcon>`: all `<BaseIcon>` props. */
 export type SunIconProps = BaseIconProps
 
+/** Sun icon. */
 export function SunIcon (props: SunIconProps) {
   return (
     <BaseIcon {...props}>

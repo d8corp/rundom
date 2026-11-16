@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<JsonIcon>`: all `<BaseIcon>` props. */
 export type JsonIconProps = BaseIconProps
 
+/** Document icon with braces. */
 export function JsonIcon (props: JsonIconProps) {
   return (
     <BaseIcon {...props}>

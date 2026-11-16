@@ -14,13 +14,13 @@ The state can be static or reactive, and the component inherits all [\<Box>](/ui
 
 | Prop         | Type                                                | Description                                                                  |
 |--------------|-----------------------------------------------------|------------------------------------------------------------------------------|
-| **checked**  | `ObservableProp<boolean \| null>`                   | Checked state: `true`, `false`, or `null` (indeterminate)                    |
-| **disabled** | `ObservableProp<boolean>`                           | Disables user interactions and applies the disabled style                    |
+| [**checked**](#checked) | `ObservableProp<boolean \| null>`                   | Checked state: `true`, `false`, or `null` (indeterminate)                    |
+| [**disabled**](#disabled) | `ObservableProp<boolean>`                           | Disables user interactions and applies the disabled style                    |
 | **name**     | `ObservableProp<string>`                            | Form field name                                                              |
 | **value**    | `ObservableProp<string>`                            | Value submitted with the form when the checkbox is checked                   |
 | **class**    | `ObservableProp<string \| Partial<CheckBoxStyles>>` | CSS class name(s) or an object that overrides styles                         |
 | **inputRef** | `HTMLRef<'input'>`                                  | Reference to the underlying `<input>` element                                |
-| **onChange** | `(checked: boolean) => void`                        | Callback fired when the checkbox state changes                               |
+| [**onChange**](#onchange) | `(checked: boolean) => void`                        | Callback fired when the checkbox state changes                               |
 
 In addition to the props listed above, `<CheckBox>` accepts all standard element attributes and the layout, color, size, and view props inherited from [\<Box>](/ui/box).
 By default it renders `element='label'`, `view='bordered'`, `size='s'`, and `color='primary'`.
@@ -135,6 +135,10 @@ import { Slot } from 'rune-hub'
 
 const isChecked = new Slot<boolean | null>(() => true)
 
+const check = () => isChecked.set(true)
+const setIndeterminate = () => isChecked.set(null)
+const uncheck = () => isChecked.set(false)
+
 rundom(
   <Flex vertical gap={8}>
     <Flex element='label' gap={8} align='center'>
@@ -144,9 +148,9 @@ rundom(
       </Text>
     </Flex>
     <Flex gap={8}>
-      <Button onclick={() => isChecked.set(true)}>True</Button>
-      <Button onclick={() => isChecked.set(null)}>Null</Button>
-      <Button onclick={() => isChecked.set(false)}>False</Button>
+      <Button onclick={check}>True</Button>
+      <Button onclick={setIndeterminate}>Null</Button>
+      <Button onclick={uncheck}>False</Button>
     </Flex>
     <div>Current state: {() => String(isChecked.value)}</div>
   </Flex>

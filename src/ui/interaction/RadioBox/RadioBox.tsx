@@ -22,15 +22,26 @@ export const radioBoxStyles = {
 
 export type RadioBoxStyles = typeof radioBoxStyles
 
+/** Props for `<RadioBox>`: box props plus native radio behavior. */
 export type RadioBoxProps<T extends FlexElement = 'div', S extends RadioBoxStyles = RadioBoxStyles> = Omit<Merge<BoxProps<T, S & BoxStyles>, {
+  /** Checked state of the radio input. */
   checked?: ObservableProp<boolean>
+  /** Reference to the underlying native radio input. */
   inputRef?: HTMLRef<'input'>
+  /** Native input name that groups radio buttons. */
   name?: ObservableProp<string>
+  /** Disables the radio input and applies the disabled color. */
   disabled?: ObservableProp<boolean>
+  /** Native input value used by forms. */
   value?: ObservableProp<string>
+  /** Called with the new checked state. */
   onChange?: (checked: boolean) => void
 }>, 'children'>
 
+/**
+ * Radio button with a hidden native `<input type="radio">` for forms and accessibility.
+ * Group radios with the same `name`.
+ */
 function RadioBoxComponent<T extends FlexElement = 'div', S extends RadioBoxStyles = RadioBoxStyles> ({
   checked,
   inputRef = new Ref<HTMLInputElement>(),

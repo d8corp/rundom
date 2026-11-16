@@ -1,6 +1,7 @@
 import type { HistoryState } from '../../store/historyState'
 import { updateHistoryState } from '../../store/historyState'
 
+/** Replaces the current history entry, skipping duplicate URLs and storing the scroll position. */
 export function replaceHistory (url: string): void {
   const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`
 

@@ -1,3 +1,7 @@
+/**
+ * Injects a `<style>` element into `document.head`.
+ * The optional `marker` is stored in `data-rd` for later identification.
+ */
 export function addCSS (css: string, marker?: string): HTMLStyleElement | null {
   if (!css || typeof document === 'undefined') return null
 

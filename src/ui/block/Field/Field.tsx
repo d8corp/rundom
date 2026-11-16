@@ -36,13 +36,22 @@ export const fieldSizeMap = {
 
 export type FieldStyles = typeof fieldStyles
 
+/** Props for `<Field>`: box props plus label and side slots. */
 export type FieldProps<T extends FlexElement = 'label', S extends FieldStyles = FieldStyles> = Merge<BoxProps<T, S & BoxStyles>, {
+  /** Field size; mapped to a larger box size internally. */
   size?: ObservableProp<SMLSize>
+  /** Text label rendered inside the field after the content. */
   label?: ObservableProp<string>
+  /** Content rendered before the main content, usually an icon. */
   before?: JSXElement
+  /** Content rendered after the main content, usually an icon or action. */
   after?: JSXElement
 }>
 
+/**
+ * Label-like container for form controls, based on `<Box>`.
+ * Composes optional `before`/`after` slots around the main content and a text label.
+ */
 function FieldComponent<T extends keyof HTMLElementTagNameMap = 'label', S extends FieldStyles = FieldStyles> ({
   size = 'm',
   children,

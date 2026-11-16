@@ -4,6 +4,11 @@ import { type Component } from '../../../../types'
 import { type LazyFn } from '../../../../utils'
 import { type Route, type Routing } from '../../types'
 
+/**
+ * Converts a declarative route list into the normalized routing tree used by `<Router>`.
+ * Path params (`:id`), optional (`?`) and union (`:type[a|b]`) segments, nested routes
+ * and permission lists are flattened into the lookup structure.
+ */
 export function createRouting (
   routes: Route[],
   routing: Routing = {},

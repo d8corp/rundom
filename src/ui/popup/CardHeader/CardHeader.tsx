@@ -13,8 +13,10 @@ export const cardHeaderStyles = {
 
 export type CardHeaderStyles = typeof cardHeaderStyles
 
+/** Props for `<CardHeader>`: flex props plus the component styles. */
 export type CardHeaderProps<T extends FlexElement = 'header', S extends CardHeaderStyles = CardHeaderStyles> = FlexProps<T, S>
 
+/** Header area of a `<Card>`, rendered as a `<header>` by default. */
 export function CardHeaderComponent<T extends FlexElement = 'header', S extends CardHeaderStyles = CardHeaderStyles> (
   props: CardHeaderProps<T, S>,
 ) {

@@ -6,14 +6,16 @@ For external links, it automatically adds `rel="noopener noreferrer nofollow"` a
 
 | Prop         | Type                                                 | Description                                                    |
 |--------------|------------------------------------------------------|----------------------------------------------------------------|
-| **href**     | `string`                                             | URL or path the link navigates to                              |
-| **target**   | `'_blank'` \| `'_parent'` \| `'__self'` \| `'__top'` | The target attribute for the link                              |
-| **scroll**   | `'after'` \| `'before'` \| `'none'`                  | Controls scroll behavior on navigation                         |
-| **scrollTo** | `number` \| `string`                                 | Position or selector to scroll to after navigation             |
-| **replace**  | `boolean`                                            | Replace the current history entry instead of pushing a new one |
-| **exact**    | `boolean`                                            | Match the path exactly instead of by prefix                    |
-| **class**    | `string` \| `{ root: string, active: string }`       | CSS class(es) for the link and its active state                |
-| **children** | `JSX.Element`                                        | Content to render inside the link                              |
+| [**href**](#href) | `string`                                   | URL or path the link navigates to                              |
+| [**target**](#target) | `'_blank'` \| `'_parent'` \| `'_self'` \| `'_top'` | The target attribute for the link                    |
+| [**scroll**](#scroll) | `'after'` \| `'before'` \| `'none'`    | Controls scroll behavior on navigation                         |
+| [**scrollTo**](#scrollto) | `number` \| `string`               | Position or selector to scroll to after navigation             |
+| [**replace**](#replace) | `boolean`                          | Replace the current history entry instead of pushing a new one |
+| [**exact**](#exact) | `boolean`                              | Match the path exactly instead of by prefix                    |
+| [**transition**](#transition) | `boolean`                      | Wraps navigation in a view transition                          |
+| [**disabled**](#disabled) | `ObservableProp<boolean>`          | Prevents navigation and removes `href`                         |
+| [**class**](#class) | `string` \| `{ root: string, active: string }` | CSS class(es) for the link and its active state          |
+| [**children**](#children) | `JSX.Element`                      | Content to render inside the link                              |
 
 ## href
 ---
@@ -153,6 +155,32 @@ export const Content = () => (
 )
 ```
 
+## target
+---
+
+External links open in a new tab by default and receive `rel="noopener noreferrer nofollow"`. Use `target` to choose another browsing context, for example `'_self'` to open in the same tab.
+
+```tsx
+import { Link } from 'rundom'
+
+<Link href='https://github.com/d8corp/rundom' target='_self'>
+  GitHub
+</Link>
+```
+
+## children
+---
+
+`children` is the visible content of the link. It may be text, an icon or any other JSX, as in the examples above.
+
+```tsx
+import { Link, SearchIcon } from 'rundom'
+
+<Link href='/ui/components'>
+  <SearchIcon /> Components
+</Link>
+```
+
 ## scrollTo
 ---
 
@@ -174,3 +202,65 @@ export const Content = () => (
 ```
 
 Use a string to scroll under an element relates to the CSS selector you provide or use `-1` to stop scrolling.
+
+## transition
+---
+
+When set to `true`, internal navigation runs inside a view transition. The global `RD_VIEW_TRANSITION='true'` setting enables the same behavior for every link.
+
+```tsx
+import { Link } from 'rundom'
+
+<Link href='/about' transition>
+  About
+</Link>
+```
+
+## disabled
+---
+
+A reactive `disabled` prop prevents navigation, removes `href` and keeps the click handler from running.
+
+```tsx
+import { Link } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const disabled = new Slot(() => true)
+
+<Link href='/settings' disabled={disabled}>
+  Settings
+</Link>
+```
+
+## Theme
+---
+
+The default styles of `<Link>` come from the theme and are configured with environment variables:
+
+| Variable                | Description                                          |
+|-------------------------|------------------------------------------------------|
+| `RD_THEME_LINK`         | CSS of the component that is added to the page       |
+| `RD_THEME_LINK__ROOT`   | Class name(s) of the link, always applied            |
+| `RD_THEME_LINK__ACTIVE` | Class name(s) applied when the link is active        |
+
+### Replacing the component
+
+Set `RD_UI_LINK` to a module alias, and `<Link>` will be taken from the `Link` export of that module:
+
+```tsx
+//! .env
+RD_UI_LINK='@theme/link'
+//! theme/link.tsx
+import { LinkComponent, LinkProps } from 'rundom'
+
+export function Link (props: LinkProps) {
+  return <LinkComponent {...props} data-testid='link' />
+}
+```
+
+## What's Next?
+---
+
+- Learn about [\<Flex>](/ui/flex) and how `element='a'` renders a link
+- Explore [\<Router>](/router) for path-based navigation
+- Read about [\<Routing>](/routing) to declare routes

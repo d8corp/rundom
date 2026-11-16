@@ -13,8 +13,10 @@ export const cardPreviewStyles = {
 
 export type CardPreviewStyles = typeof cardPreviewStyles
 
+/** Props for `<CardPreview>`: flex props plus the component styles. */
 export type CardPreviewProps<T extends FlexElement = 'div', S extends CardPreviewStyles = CardPreviewStyles> = FlexProps<T, S>
 
+/** Visual preview area of a `<Card>`, usually an image or illustration. */
 export function CardPreviewComponent<T extends FlexElement = 'div', S extends CardPreviewStyles = CardPreviewStyles> (
   props: CardPreviewProps<T, S>,
 ) {

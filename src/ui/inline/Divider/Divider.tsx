@@ -20,18 +20,22 @@ export const dividerStyles = {
 
 export type DividerStyle = typeof dividerStyles
 
-interface DividerPros extends HTMLStyleProps<'hr', DividerStyle> {
+export interface DividerProps extends HTMLStyleProps<'hr', DividerStyle> {
+  /** Spacing size of the divider. */
   size?: ObservableProp<SMLSize>
+  /** Renders a vertical separator instead of a horizontal one. */
   vertical?: ObservableProp<boolean>
+  /** Removes the outer spacing around the divider. */
   flush?: ObservableProp<boolean>
 }
 
+/** Horizontal or vertical separator line. */
 export function DividerComponent ({
   vertical,
   size = 'm',
   flush,
   ...props
-}: DividerPros = {}) {
+}: DividerProps = {}) {
   const styles = useStyles(dividerStyles, props.class)
 
   const root = injectAll([

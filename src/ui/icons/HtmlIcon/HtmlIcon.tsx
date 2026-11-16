@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<HtmlIcon>`: all `<BaseIcon>` props. */
 export type HtmlIconProps = BaseIconProps
 
+/** Document icon with code brackets. */
 export function HtmlIcon (props: HtmlIconProps) {
   return (
     <BaseIcon {...props}>

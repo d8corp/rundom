@@ -8,6 +8,8 @@ import description from './RadioBoxPage.md'
 
 export default function RadioBoxPage () {
   const checkedSlot = new Slot(() => true)
+  const check = () => checkedSlot.set(true)
+  const uncheck = () => checkedSlot.set(false)
   const plan = (): 'basic' | 'pro' => 'basic'
   const isBasic = () => get(plan) === 'basic'
   const isPro = () => get(plan) === 'pro'
@@ -73,8 +75,8 @@ export default function RadioBoxPage () {
           </Text>
         </Flex>
         <Flex gap={8}>
-          <Button onclick={() => checkedSlot.set(true)}>True</Button>
-          <Button onclick={() => checkedSlot.set(false)}>False</Button>
+          <Button onclick={check}>True</Button>
+          <Button onclick={uncheck}>False</Button>
         </Flex>
         <div>Current state: {() => String(checkedSlot.value)}</div>
       </Flex>

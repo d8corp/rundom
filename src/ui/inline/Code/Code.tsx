@@ -15,9 +15,11 @@ export const codeStyles = {
 export type CodeStyles = typeof codeStyles
 
 export interface CodeProps<S extends CodeStyles = CodeStyles> extends BoxProps<'code', S & BoxStyles> {
+  /** Inline code text. */
   children?: ObservableProp<string | undefined>
 }
 
+/** Inline code element rendered as a bordered `<Box element="code">`. */
 export function CodeComponent<S extends CodeStyles> (props: CodeProps<S>) {
   const styles = useStyles(codeStyles, props.class)
 

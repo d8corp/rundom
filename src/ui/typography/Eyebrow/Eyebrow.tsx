@@ -16,8 +16,10 @@ export const eyebrowStyles = {
 
 export type EyebrowStyles = typeof eyebrowStyles
 
+/** Props for `<Eyebrow>`: all `<Text>` props. */
 export interface EyebrowProps extends TextProps {}
 
+/** Small primary-colored label placed above a heading. */
 export function EyebrowComponent (props: EyebrowProps) {
   const styles = useStyles(eyebrowStyles, props.class)
 

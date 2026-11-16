@@ -8,11 +8,16 @@ export type ObservableStyles<S extends Styles> = { [K in keyof S]: string | Reac
 export type HTMLClassProp<S extends Styles = any> = ClassesArgument<keyof S> | Record<keyof S, ClassesArgument<keyof S>>
 
 export interface StyledProps<S extends Styles = Styles> {
+  /** Additional CSS class or an object mapping style keys to classes. */
   class?: HTMLClassProp<S>
 }
 
 export type HTMLStyleProps<T extends ElementTagName = ElementTagName, S extends Styles = Styles> = Merge<HTMLProps<T>, StyledProps<S>>
 
+/**
+ * Merges a style map with user-provided `class` values, preserving reactive classes.
+ * `className` may be a single class or an object keyed by style names.
+ */
 export function useStyles<S extends Styles, SS extends S> (
   styles: S,
   className?: HTMLClassProp<SS>,

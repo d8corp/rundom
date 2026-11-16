@@ -7,6 +7,8 @@ import description from './TogglePage.md'
 
 export default function TogglePage () {
   const checkedSlot = new Slot(() => true)
+  const turnOn = () => checkedSlot.set(true)
+  const turnOff = () => checkedSlot.set(false)
   const volume = () => 50
   const muted = () => get(volume) === 0
 
@@ -38,8 +40,8 @@ export default function TogglePage () {
           <Text cursor='pointer'>Dynamic switch</Text>
         </Flex>
         <Flex gap={8}>
-          <Button onclick={() => checkedSlot.set(true)}>On</Button>
-          <Button onclick={() => checkedSlot.set(false)}>Off</Button>
+          <Button onclick={turnOn}>On</Button>
+          <Button onclick={turnOff}>Off</Button>
         </Flex>
         <div>Current state: {() => String(checkedSlot.value)}</div>
       </Flex>

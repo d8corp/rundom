@@ -5,18 +5,20 @@ It supports font size, weight, color, decoration, alignment, wrapping, word brea
 
 | Prop           | Type                                | Description                                                                                                                       |
 |----------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| **align**      | `ObservableProp<TextAlign>`         | Sets the [text alignment](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align#values)                                     |
-| **box**        | `ObservableProp<TextBox>`           | Controls text box trimming and edge using [text-box](https://developer.mozilla.org/en-US/docs/Web/CSS/text-box)                   |
-| **break**      | `ObservableProp<TextBreak>`         | Controls how long words break across lines using [word-break](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break#values) |
+| [**align**](#align) | `ObservableProp<TextAlign>`         | Sets the [text alignment](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align#values)                                     |
+| [**box**](#box) | `ObservableProp<TextBox>`           | Controls text box trimming and edge using [text-box](https://developer.mozilla.org/en-US/docs/Web/CSS/text-box)                   |
+| [**break**](#break) | `ObservableProp<TextBreak>`         | Controls how long words break across lines using [word-break](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break#values) |
 | **children**   | `JSX.Element`                       | Text content to render                                                                                                            |
-| **color**      | `ObservableProp<TextColor>`         | Sets the text color. Available values: `primary`, `accent`, `secondary`, `success`, `warning`, `danger`, `disabled`, `text`, `muted`, `dim` |
-| **cursor**     | `ObservableProp<string>`            | Sets the CSS cursor style for the text                                                                                            |
-| **decoration** | `ObservableProp<TextDecoration>`    | Sets the [text decoration](https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line#values) style                    |
-| **italic**     | `ObservableProp<boolean>`           | Applies `font-style: italic` when `true`                                                                                          |
-| **nowrap**     | `ObservableProp<boolean \| number>` | Clamps the text to a single line (`true`) or to a specified number of lines                                                       |
-| **size**       | `ObservableProp<TextSize>`          | Sets the font size. Available values: `xxs`, `xs`, `s`, `m`, `l`, `xl`, `xxl`. Exact sizes depend on the theme |
-| **weight**     | `ObservableProp<TextWeight>`        | Sets the [font weight](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#common_weight_name_keywords)                  |
-| **wrap**       | `ObservableProp<TextWrap>`          | Controls the [text wrapping](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap#values) behavior                          |
+| [**color**](#color) | `ObservableProp<TextColor>`         | Sets the text color. Available values: `primary`, `accent`, `secondary`, `success`, `warning`, `danger`, `disabled`, `text`, `muted`, `dim` |
+| [**cursor**](#cursor) | `ObservableProp<string>`            | Sets the CSS cursor style for the text                                                                                            |
+| [**decoration**](#decoration) | `ObservableProp<TextDecoration>`    | Sets the [text decoration](https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line#values) style                    |
+| [**italic**](#italic) | `ObservableProp<boolean>`           | Applies `font-style: italic` when `true`                                                                                          |
+| [**lineHeight**](#lineheight) | `ObservableProp<number \| string>` | Sets the line height; numbers are treated as pixels                                                                   |
+| [**nowrap**](#nowrap) | `ObservableProp<boolean \| number>` | Clamps the text to a single line (`true`) or to a specified number of lines                                                       |
+| [**size**](#size) | `ObservableProp<TextSize>`          | Sets the font size. Available values: `xxs`, `xs`, `s`, `m`, `l`, `xl`, `xxl`. Exact sizes depend on the theme |
+| [**transform**](#transform) | `ObservableProp<TextTransform>`     | Sets the [text transform](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform) casing                    |
+| [**weight**](#weight) | `ObservableProp<TextWeight>`        | Sets the [font weight](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#common_weight_name_keywords)                  |
+| [**wrap**](#wrap) | `ObservableProp<TextWrap>`          | Controls the [text wrapping](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap#values) behavior                          |
 
 In addition to the props listed above, `<Text>` accepts all standard `<span>` element attributes such as `class`, `style`, `id`, `title`, and event handlers.
 
@@ -338,6 +340,35 @@ rundom(
     </Text>
   </Flex>
 )
+```
+
+## lineHeight
+---
+
+The `lineHeight` prop sets the distance between lines of text. A number is treated as pixels, while a string is passed to CSS as is, for example `'1.5'` or `'150%'`.
+
+```tsx
+import { Text } from 'rundom'
+
+<Text lineHeight={32}>
+  A fixed 32px line height.
+</Text>
+<Text lineHeight='1.5'>
+  A relative line height of 1.5.
+</Text>
+```
+
+## transform
+---
+
+The `transform` prop changes the casing of the rendered text. Use `'uppercase'`, `'lowercase'` or `'capitalize'` without changing the underlying content.
+
+```tsx
+import { Text } from 'rundom'
+
+<Text transform='uppercase'>Rundom UI</Text>
+<Text transform='lowercase'>Rundom UI</Text>
+<Text transform='capitalize'>rundom ui</Text>
 ```
 
 ## Theme

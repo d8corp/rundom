@@ -59,15 +59,26 @@ export interface OptionsProps<
   M extends boolean = false,
   K extends ForKey<T[]> | undefined = undefined,
 > extends Omit<ScrollbarProps, 'children'> {
+  /** Values rendered as selectable rows. */
   values: ObservableProp<T[]>
+  /** Field name or function that identifies each row. */
   key?: K
+  /** Selected value, or an array of values when `multiple` is set. */
   selected?: ObservableProp<GetOptionValue<T, M, K>>
+  /** Row size. */
   size?: ObservableProp<SMLSize>
+  /** Allows selecting several rows at once. */
   multiple?: ObservableProp<M>
+  /** Called after the selection changes. */
   onSelect?: SelectOnSelect<T, M, K>
+  /** Replaces the default row renderer. */
   children?: RenderOption<T>
 }
 
+/**
+ * Virtualized list of `<Option>` rows inside a `<Scrollbar>`.
+ * Supports single and multiple selection and a custom row renderer.
+ */
 export function OptionsComponent<T = unknown, M extends boolean = false, K extends ForKey<T[]> | undefined = undefined> ({
   values,
   ref = new Ref<HTMLDivElement>(),

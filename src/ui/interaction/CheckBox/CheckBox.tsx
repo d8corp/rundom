@@ -27,15 +27,26 @@ export const checkBoxStyles = {
 
 export type CheckBoxStyles = typeof checkBoxStyles
 
+/** Props for `<CheckBox>`: box props plus native checkbox behavior. */
 export type CheckBoxProps<T extends FlexElement = 'div', S extends CheckBoxStyles = CheckBoxStyles> = Omit<Merge<BoxProps<T, S & BoxStyles>, {
+  /** Checked state; `null` renders the indeterminate state. */
   checked?: ObservableProp<CheckBoxChecked>
+  /** Reference to the underlying native checkbox input. */
   inputRef?: HTMLRef<'input'>
+  /** Native input name used by forms. */
   name?: ObservableProp<string>
+  /** Disables the checkbox and applies the disabled color. */
   disabled?: ObservableProp<boolean>
+  /** Native input value used by forms. */
   value?: ObservableProp<string>
+  /** Called with the new checked state. */
   onChange?: (checked: boolean) => void
 }>, 'children'>
 
+/**
+ * Checkbox with a hidden native `<input type="checkbox">` for forms and accessibility.
+ * Supports normal, checked and indeterminate states.
+ */
 function CheckBoxComponent<T extends FlexElement = 'div', S extends CheckBoxStyles = CheckBoxStyles> ({
   checked,
   inputRef = new Ref<HTMLInputElement>(),

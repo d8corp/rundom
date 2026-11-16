@@ -1,3 +1,7 @@
+/**
+ * Returns the longest common subsequence of two lists.
+ * `<For>` uses it to keep the DOM of unchanged items in place.
+ */
 export function lcs <T> (before: T[], after: T[]): T[] {
   if (before.length === 0 || after.length === 0) return []
 

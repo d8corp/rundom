@@ -8,6 +8,11 @@ function setParams (rootPath: string[], pathParams: string[], result: Record<str
   }
 }
 
+/**
+ * Matches a normalized routing tree against the current path segments.
+ * Writes the matched params into `params` and returns the first route
+ * whose permissions are satisfied by `permissions`.
+ */
 export function findRoute (
   routing: Routing,
   path: string[],

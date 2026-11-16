@@ -8,12 +8,19 @@ import { type Component, JSXNode, type ObservableProp } from '../../types'
 import { Context, isLazy, type LazyResult, locationPath, SystemSlot, use } from '../../utils'
 
 export interface RouterProps {
+  /** Routing tree created by `createRouting`. */
   routing: ObservableProp<Routing>
+  /** Permissions used to match routes that declare their own `permissions`. */
   permissions?: ObservableProp<Set<string>>
 }
 
 const EMPTY_SET = new Set<string>()
 
+/**
+ * Renders the component chain that matches the current location.
+ * Nested routes become `children` of their parent route component, and lazy
+ * components are loaded through `<Lazy>` with the route fallback.
+ */
 export function Router ({ routing, permissions = EMPTY_SET }: RouterProps) {
   const params = paramsContext.get() || new SystemSlot<Record<string, string>>(function routerParams () { return {} })
 

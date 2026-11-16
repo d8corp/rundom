@@ -1,8 +1,10 @@
 import type { BaseIconProps } from '../BaseIcon'
 import { BaseIcon } from '../BaseIcon'
 
+/** Props for `<LinkIcon>`: all `<BaseIcon>` props. */
 export type LinkIconProps = BaseIconProps
 
+/** Chain link icon. */
 export function LinkIcon (props: LinkIconProps) {
   return (
     <BaseIcon {...props}>

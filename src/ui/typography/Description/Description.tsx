@@ -14,8 +14,10 @@ export const descriptionStyles = {
 
 export type DescriptionStyles = typeof descriptionStyles
 
+/** Props for `<Description>`: all `<Text>` props. */
 export interface DescriptionProps extends TextProps {}
 
+/** Muted small text for secondary explanations and captions. */
 export function DescriptionComponent (props: DescriptionProps) {
   const styles = useStyles(descriptionStyles, props.class)
 

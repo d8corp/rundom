@@ -203,5 +203,5 @@ const removeItem = (index: number) => {
 ## What's Next?
 ---
 
-- **[Styling](/styling)** — CSS Modules, dynamic styles, and theming patterns.
+- **[useStyles](/use-styles)** — CSS Modules, dynamic styles, and theming patterns.
 - **[Context](/context)** — Share state across components without prop drilling.

@@ -19,6 +19,7 @@ function getSourceUrl (source?: JSXSource): string {
 export const promiseCounterContext = new Context<Slot<number> | undefined>(undefined)
 export const svgNamespaceContext = new Context<string>('')
 
+/** Mounts a reactive target and re-renders its content when the value changes. */
 export function runReactive (target: ReactiveProp<JSXElement>) {
   const content = new Content()
   const context = Context.nest()
@@ -34,15 +35,21 @@ export function runReactive (target: ReactiveProp<JSXElement>) {
   new SystemSlot(reactiveContent).on()
 }
 
+/** Appends a DOM node to the current parent and registers its removal on cleanup. */
 export function runElement (target: HTMLElement | SVGElement | Text | Content) {
   append(parentContext.get(), target)
   useClear(() => remove(target))
 }
 
+/** Mounts every element of an array in order. */
 export function runArray (target: JSXElement[]) {
   target.forEach(rundom)
 }
 
+/**
+ * Mounts a `JSXNode`: renders DOM elements, invokes components and applies
+ * reactive attributes, styles and children.
+ */
 export function runNode (target: JSXNode) {
   if (typeof target.type === 'function') {
     const catchFn = catchContext.get()
@@ -171,6 +178,7 @@ export function runNode (target: JSXNode) {
   }
 }
 
+/** Mounts a promise and replaces the placeholder with the resolved content. */
 export function runPromise (target: Promise<JSXElement>) {
   const content = new Content()
   const context = Context.nest()
@@ -217,6 +225,10 @@ export function runPromise (target: Promise<JSXElement>) {
   })
 }
 
+/**
+ * Mounts a JSX element into the current parent context.
+ * Supports DOM nodes, `JSXNode`s, strings, numbers, arrays, promises and reactive values.
+ */
 export function rundom (target: JSXElement) {
   if (target === undefined) return
 

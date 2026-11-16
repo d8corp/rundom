@@ -13,8 +13,10 @@ export const cardContentStyles = {
 
 export type CardContentStyles = typeof cardContentStyles
 
+/** Props for `<CardContent>`: flex props plus the component styles. */
 export type CardContentProps<T extends FlexElement = 'div', S extends CardContentStyles = CardContentStyles> = FlexProps<T, S>
 
+/** Padded content area of a `<Card>`. */
 export function CardContentComponent<T extends FlexElement = 'div', S extends CardContentStyles = CardContentStyles> (
   props: CardContentProps<T, S>,
 ) {

@@ -23,15 +23,25 @@ function clearHref (url: string) {
 }
 
 export interface BaseLinkProps {
+  /** Native `target` attribute for external links. */
   target?: '_blank' | '_parent' | '_self' | '_top'
+  /** Matches the active link path exactly instead of by prefix. */
   exact?: boolean
+  /** Wraps internal navigation in a view transition. */
   transition?: boolean
+  /** Prevents navigation and removes `href`. */
   disabled?: ObservableProp<boolean>
+  /** Content of the link. */
   children?: JSX.Element
 }
 
+/** Props for `<Link>`: native anchor props plus navigation props. */
 export type LinkProps<S extends LinkStyles = LinkStyles> = Merge<HTMLStyleProps<'a', S>, LinkToParams & BaseLinkProps>
 
+/**
+ * Anchor that navigates internal paths with the History API and marks the active link.
+ * External links open in a new tab and receive safe `rel` attributes.
+ */
 export function LinkComponent (props: LinkProps) {
   const styles = useStyles(linkStyles, props.class)
   const { onclick, href, scroll = 'after', scrollTo, replace, exact, transition, ...rest } = props

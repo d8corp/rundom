@@ -241,6 +241,6 @@ export function App () {
 
 - **[State Management](/state-management)** — Deep dive into reactive state with `rune-hub`.
 - **[\<Suspense>](/suspense)** — Display fallback content while asynchronous components are loading.
-- **[Styling](/styling)** — CSS Modules, dynamic styles, and theming patterns.
+- **[useStyles](/use-styles)** — CSS Modules, dynamic styles, and theming patterns.
 - **[Context](/context)** — Share state across components without prop drilling.
 - **[Ref](/ref)** — Access DOM elements directly.
