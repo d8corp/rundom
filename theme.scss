@@ -1031,6 +1031,10 @@ h3.title {
     opacity: 0;
     cursor: inherit;
   }
+
+  label:has(&:not(&_disabled)) {
+    cursor: pointer;
+  }
 }
 
 .toggle {

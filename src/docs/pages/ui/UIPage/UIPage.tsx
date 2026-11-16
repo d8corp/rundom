@@ -117,7 +117,7 @@ export default function UIPage () {
               <CardContent vertical gap={14}>
                 <Flex justify='space-between' align='center' gap={12}>
                   <div>
-                    <Eyebrow size='s' color='dim'>Playground</Eyebrow>
+                    <Eyebrow size='xxs' color='dim'>Playground</Eyebrow>
                     <div class={styles.windowTitle}>New project</div>
                   </div>
                   <Button size='s' view='filled' color='accent'>
@@ -126,17 +126,21 @@ export default function UIPage () {
                 </Flex>
                 <Input size='s' placeholder='Project name' before={<SearchIcon />} />
                 <Flex gap={16} wrap>
-                  <Flex align='center' gap={6}>
-                    <CheckBox checked />
-                    <Text size='xs'>Reactive</Text>
+                  <Flex element='label' align='center' gap={6}>
+                    <CheckBox />
+                    <Text size='xs'>Private</Text>
                   </Flex>
-                  <Flex align='center' gap={6}>
-                    <RadioBox checked />
-                    <Text size='xs'>Themed</Text>
+                  <Flex element='label' align='center' gap={6}>
+                    <RadioBox name='visibility' value='workspace' />
+                    <Text size='xs'>Workspace</Text>
                   </Flex>
-                  <Flex align='center' gap={6}>
-                    <CheckBox checked={null} />
-                    <Text size='xs'>Async</Text>
+                  <Flex element='label' align='center' gap={6}>
+                    <RadioBox name='visibility' value='members' />
+                    <Text size='xs'>Members only</Text>
+                  </Flex>
+                  <Flex element='label' align='center' gap={6}>
+                    <RadioBox name='visibility' value='link' />
+                    <Text size='xs'>By link</Text>
                   </Flex>
                 </Flex>
                 <Divider />
