@@ -56,10 +56,10 @@ const toggleScrollbar = () => scrollbar.set(!scrollbar.raw)
 rundom(
   <Flex gap={8} vertical>
     <Flex gap={8} wrap>
-      <Button onclick={toggleStable} color={() => stable.value ? 'primary' : 'secondary'}>
+      <Button onclick={toggleStable} color={() => stable.value ? 'primary' : 'neutral'}>
         Stable
       </Button>
-      <Button onclick={toggleScrollbar} color={() => scrollbar.value ? 'primary' : 'secondary'}>
+      <Button onclick={toggleScrollbar} color={() => scrollbar.value ? 'primary' : 'neutral'}>
         Scrollbar
       </Button>
     </Flex>

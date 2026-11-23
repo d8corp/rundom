@@ -1,12 +1,12 @@
 import { historyState } from '../historyState'
 
-import { SystemSlot } from '../../../SystemSlot'
+import { RDSlot } from '../../../RDSlot'
 
 let _lastLength = 0
 
 export type HistoryMovement = 'back' | 'forward' | 'same'
 
-export const historyMovement = new SystemSlot<HistoryMovement>(function historyMovement () {
+export const historyMovement = new RDSlot<HistoryMovement>(function historyMovement () {
   const currentLength = historyState.value.steps.length
   const lastLength = _lastLength
   _lastLength = currentLength

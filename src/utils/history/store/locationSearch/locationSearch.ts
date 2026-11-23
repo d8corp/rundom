@@ -1,7 +1,7 @@
 import { historyState } from '../historyState'
 
-import { SystemSlot } from '../../../SystemSlot'
+import { RDSlot } from '../../../RDSlot'
 
-export const locationSearch = new SystemSlot(function locationSearch () {
+export const locationSearch = new RDSlot(function locationSearch () {
   return historyState.value && window.location.search
 })

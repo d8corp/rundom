@@ -13,7 +13,7 @@ export default function UIIntroductionPage () {
           <Button view='filled' color='accent'>
             Create
           </Button>
-          <Button view='bordered'>
+          <Button view='soft'>
             Cancel
           </Button>
         </Flex>

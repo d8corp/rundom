@@ -78,6 +78,26 @@ body {
 // components
 .flex {
   display: flex;
+
+  &_inline {
+    display: inline-flex;
+  }
+
+  &_reverse {
+    flex-direction: row-reverse;
+  }
+
+  &_vertical {
+    flex-direction: column;
+
+    &.flex_reverse {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &_wrap {
+    flex-wrap: wrap;
+  }
 }
 
 .link {
@@ -118,11 +138,15 @@ body {
 
 .box {
   --box-second-color: #fff;
+  --box-surface-color: light-dark(#fff, #{$color-neutral-20});
+  --box-surface-border-color: #{$color-border};
+
   align-items: center;
   justify-content: center;
   min-height: var(--box-size);
   min-width: var(--box-size);
   font-size: var(--box-font-size);
+  border-radius: var(--box-border-radius);
   background: transparent;
 
   @include transition;
@@ -137,10 +161,22 @@ body {
     color: var(--box-second-color);
   }
 
-  &_bordered {
+  &_soft {
     border: 1px solid var(--box-border-color, var(--box-main-color));
     background-color: var(--box-light-color);
     color: var(--box-main-color);
+  }
+
+  &_surface {
+    border: 1px solid var(--box-surface-border-color);
+    background-color: var(--box-surface-color);
+    color: var(--box-main-color);
+
+    &:is(.box_hoverable, .box_clickable):hover {
+      @media (hover: hover) and (pointer: fine) {
+        border-color: var(--box-border-color);
+      }
+    }
   }
 
   &_dashed {
@@ -166,57 +202,61 @@ body {
     }
   }
 
-  &_primary {
-    --box-main-color: light-dark(#{$color-primary-60}, #{$color-primary-60});
-    --box-light-color: #{$color-primary-a5};
-    --box-border-color: light-dark(#{$color-primary-80}, #{$color-primary-40});
+  &_info {
+    --box-main-color: #{$color-info};
+    --box-light-color: #{$color-info-a5};
+    --box-border-color: light-dark(#{$color-info-80}, #{$color-info-40});
+    --box-surface-border-color: #{$color-border-info};
 
     @media (hover: hover) and (pointer: fine) {
       label:hover &:is(.box_hoverable, .box_clickable),
       &:is(.box_hoverable, .box_clickable):hover {
-        --box-main-color: light-dark(#{$color-primary-50}, #{$color-primary-65});
-        --box-light-color: light-dark(#{$color-primary-90}, #{$color-primary-25});
-        --box-border-color: light-dark(#{$color-primary-70}, #{$color-primary-45});
+        --box-main-color: light-dark(#{$color-info-45}, #{$color-info-55});
+        --box-light-color: light-dark(#{$color-info-90}, #{$color-info-30});
+        --box-border-color: light-dark(#{$color-info-70}, #{$color-info-45});
+        --box-surface-border-color: #{$color-border-info-hover};
 
-        &.box_bordered {
+        &.box_soft {
           color: light-dark(var(--box-main-color), white);
         }
       }
     }
 
     &.box_clickable:active {
-      --box-main-color: light-dark(#{$color-primary-40}, #{$color-primary-70});
-      --box-light-color: light-dark(#{$color-primary-85}, #{$color-primary-30});
+      --box-main-color: light-dark(#{$color-info-40}, #{$color-info-45});
+      --box-light-color: light-dark(#{$color-info-85}, #{$color-info-40});
 
-      &.box_bordered {
+      &.box_soft {
         color: light-dark(var(--box-main-color), white);
       }
     }
   }
 
-  &_secondary {
-    --box-main-color: light-dark(#{$color-secondary-60}, #{$color-secondary-60});
-    --box-light-color: #{$color-secondary-a5};
-    --box-border-color: light-dark(#{$color-secondary-80}, #{$color-secondary-40});
+  &_neutral {
+    --box-main-color: light-dark(#{$color-neutral-60}, #{$color-neutral-60});
+    --box-light-color: #{$color-neutral-a5};
+    --box-border-color: light-dark(#{$color-neutral-80}, #{$color-neutral-40});
+    --box-surface-border-color: light-dark(#{$color-border-neutral}, #{$color-neutral-25});
 
     @media (hover: hover) and (pointer: fine) {
       label:hover &:is(.box_hoverable, .box_clickable),
       &:is(.box_hoverable, .box_clickable):hover {
-        --box-main-color: light-dark(#{$color-secondary-50}, #{$color-secondary-65});
-        --box-light-color: light-dark(#{$color-secondary-90}, #{$color-secondary-30});
-        --box-border-color: light-dark(#{$color-secondary-70}, #{$color-secondary-45});
+        --box-main-color: light-dark(#{$color-neutral-50}, #{$color-neutral-65});
+        --box-light-color: light-dark(#{$color-neutral-90}, #{$color-neutral-30});
+        --box-border-color: light-dark(#{$color-neutral-70}, #{$color-neutral-45});
+        --box-surface-border-color: #{$color-border-neutral-hover};
 
-        &.box_bordered {
+        &.box_soft {
           color: light-dark(var(--box-main-color), white);
         }
       }
     }
 
     &.box_clickable:active {
-      --box-main-color: light-dark(#{$color-secondary-40}, #{$color-secondary-50});
-      --box-light-color: light-dark(#{$color-secondary-85}, #{$color-secondary-40});
+      --box-main-color: light-dark(#{$color-neutral-40}, #{$color-neutral-50});
+      --box-light-color: light-dark(#{$color-neutral-85}, #{$color-neutral-40});
 
-      &.box_bordered {
+      &.box_soft {
         color: light-dark(var(--box-main-color), white);
       }
     }
@@ -226,6 +266,7 @@ body {
     --box-main-color: #{$color-accent};
     --box-light-color: #{$color-accent-a5};
     --box-border-color: light-dark(#{$color-accent-80}, #{$color-accent-40});
+    --box-surface-border-color: #{$color-border-accent};
 
     @media (hover: hover) and (pointer: fine) {
       label:hover &:is(.box_hoverable, .box_clickable),
@@ -233,8 +274,9 @@ body {
         --box-main-color: light-dark(#{$color-accent-45}, #{$color-accent-65});
         --box-light-color: light-dark(#{$color-accent-90}, #{$color-accent-30});
         --box-border-color: light-dark(#{$color-accent-70}, #{$color-accent-45});
+        --box-surface-border-color: #{$color-border-accent-hover};
 
-        &.box_bordered {
+        &.box_soft {
           color: light-dark(var(--box-main-color), white);
         }
       }
@@ -244,7 +286,7 @@ body {
       --box-main-color: light-dark(#{$color-accent-40}, #{$color-accent-50});
       --box-light-color: light-dark(#{$color-accent-85}, #{$color-accent-40});
 
-      &.box_bordered {
+      &.box_soft {
         color: light-dark(var(--box-main-color), white);
       }
     }
@@ -254,6 +296,7 @@ body {
     --box-main-color: #{$color-success};
     --box-light-color: #{$color-success-a5};
     --box-border-color: light-dark(#{$color-success-80}, #{$color-success-40});
+    --box-surface-border-color: #{$color-border-success};
 
     @media (hover: hover) and (pointer: fine) {
       label:hover &:is(.box_hoverable, .box_clickable),
@@ -261,8 +304,9 @@ body {
         --box-main-color: light-dark(#{$color-success-45}, #{$color-success-55});
         --box-light-color: light-dark(#{$color-success-90}, #{$color-success-30});
         --box-border-color: light-dark(#{$color-success-70}, #{$color-success-45});
+        --box-surface-border-color: #{$color-border-success-hover};
 
-        &.box_bordered {
+        &.box_soft {
           color: light-dark(var(--box-main-color), white);
         }
       }
@@ -272,7 +316,7 @@ body {
       --box-main-color: light-dark(#{$color-success-40}, #{$color-success-45});
       --box-light-color: light-dark(#{$color-success-85}, #{$color-success-40});
 
-      &.box_bordered {
+      &.box_soft {
         color: light-dark(var(--box-main-color), white);
       }
     }
@@ -282,6 +326,7 @@ body {
     --box-main-color: #{$color-danger};
     --box-light-color: #{$color-danger-a5};
     --box-border-color: light-dark(#{$color-danger-80}, #{$color-danger-40});
+    --box-surface-border-color: #{$color-border-danger};
 
     @media (hover: hover) and (pointer: fine) {
       label:hover &:is(.box_hoverable, .box_clickable),
@@ -289,8 +334,9 @@ body {
         --box-main-color: light-dark(#{$color-danger-45}, #{$color-danger-55});
         --box-light-color: light-dark(#{$color-danger-90}, #{$color-danger-30});
         --box-border-color: light-dark(#{$color-danger-70}, #{$color-danger-45});
+        --box-surface-border-color: #{$color-border-danger-hover};
 
-        &.box_bordered {
+        &.box_soft {
           color: light-dark(var(--box-main-color), white);
         }
       }
@@ -300,7 +346,7 @@ body {
       --box-main-color: light-dark(#{$color-danger-40}, #{$color-danger-45});
       --box-light-color: light-dark(#{$color-danger-85}, #{$color-danger-40});
 
-      &.box_bordered {
+      &.box_soft {
         color: light-dark(var(--box-main-color), white);
       }
     }
@@ -310,6 +356,7 @@ body {
     --box-main-color: #{$color-warning};
     --box-light-color: #{$color-warning-a5};
     --box-border-color: light-dark(#{$color-warning-80}, #{$color-warning-40});
+    --box-surface-border-color: #{$color-border-warning};
 
     @media (hover: hover) and (pointer: fine) {
       label:hover &:is(.box_hoverable, .box_clickable),
@@ -317,8 +364,9 @@ body {
         --box-main-color: light-dark(#{$color-warning-45}, #{$color-warning-55});
         --box-light-color: light-dark(#{$color-warning-90}, #{$color-warning-30});
         --box-border-color: light-dark(#{$color-warning-70}, #{$color-warning-45});
+        --box-surface-border-color: #{$color-border-warning-hover};
 
-        &.box_bordered {
+        &.box_soft {
           color: light-dark(var(--box-main-color), white);
         }
       }
@@ -328,44 +376,22 @@ body {
       --box-main-color: light-dark(#{$color-warning-40}, #{$color-warning-45});
       --box-light-color: light-dark(#{$color-warning-85}, #{$color-warning-40});
 
-      &.box_bordered {
+      &.box_soft {
         color: light-dark(var(--box-main-color), white);
       }
     }
   }
 
   &_disabled {
-    --box-main-color: #{$color-disabled};
-    --box-light-color: #{$color-disabled-a5};
-    --box-border-color: light-dark(#{$color-disabled-80}, #{$color-disabled-40});
-
-    @media (hover: hover) and (pointer: fine) {
-      label:hover &:is(.box_hoverable, .box_clickable),
-      &:is(.box_hoverable, .box_clickable):hover {
-        --box-main-color: light-dark(#{$color-disabled-55}, #{$color-disabled-55});
-        --box-light-color: light-dark(#{$color-disabled-90}, #{$color-disabled-30});
-        --box-border-color: light-dark(#{$color-disabled-70}, #{$color-disabled-45});
-
-        &.box_bordered {
-          color: light-dark(var(--box-main-color), white);
-        }
-      }
-    }
-
-    &.box_clickable:active {
-      --box-main-color: light-dark(#{$color-disabled-50}, #{$color-disabled-45});
-      --box-light-color: light-dark(#{$color-disabled-85}, #{$color-disabled-40});
-
-      &.box_bordered {
-        color: light-dark(var(--box-main-color), white);
-      }
-    }
+    cursor: not-allowed;
+    opacity: .5;
+    pointer-events: none;
   }
 
   &_xxs {
     --box-size: 8px;
     --box-font-size: 4px;
-    border-radius: 2px;
+    --box-border-radius: 2px;
 
     &[data-live] {
       --box-size: 6px;
@@ -375,21 +401,22 @@ body {
   &_xs {
     --box-size: 12px;
     --box-font-size: 6px;
-    border-radius: 4px;
+    --box-border-radius: 4px;
   }
 
   &_s {
     --box-size: 16px;
     --box-font-size: 7px;
+    --box-border-radius: 6px;
     padding: 0 1px;
-    border-radius: 5px;
+    border-radius: 6px;
   }
 
   &_m {
     --box-size: 22px;
     --box-font-size: 10px;
+    --box-border-radius: 8px;
     padding: 0 6px;
-    border-radius: 6px;
 
     &.box_square {
       padding: 0 4px;
@@ -407,8 +434,8 @@ body {
   &_l {
     --box-size: 36px;
     --box-font-size: 14px;
+    --box-border-radius: 12px;
     padding: 0 16px;
-    border-radius: 8px;
 
     &.box_square {
       padding: 0 8px;
@@ -426,8 +453,8 @@ body {
   &_xl {
     --box-size: 56px;
     --box-font-size: 16px;
+    --box-border-radius: 14px;
     padding: 0 28px;
-    border-radius: 12px;
 
     &.box_square {
       padding: 0 14px;
@@ -445,8 +472,8 @@ body {
   &_xxl {
     --box-size: 64px;
     --box-font-size: 18px;
+    --box-border-radius: 16px;
     padding: 0 28px;
-    border-radius: 12px;
 
     &.box_square {
       padding: 0 14px;
@@ -467,6 +494,38 @@ body {
 
   &[data-live] {
     outline: 3px solid var(--box-light-color);
+  }
+}
+
+.control-box:has(.control-box_input:checked).box_neutral,
+.box.check-box_indeterminate,
+.box_primary {
+  --box-main-color: light-dark(#{$color-primary-60}, #{$color-primary-60});
+  --box-light-color: #{$color-primary-a5};
+  --box-border-color: light-dark(#{$color-primary-80}, #{$color-primary-40});
+  --box-surface-border-color: #{$color-border};
+
+  @media (hover: hover) and (pointer: fine) {
+    label:hover &:is(.box_hoverable, .box_clickable),
+    &:is(.box_hoverable, .box_clickable):hover {
+      --box-main-color: light-dark(#{$color-primary-50}, #{$color-primary-65});
+      --box-light-color: light-dark(#{$color-primary-90}, #{$color-primary-25});
+      --box-border-color: light-dark(#{$color-primary-70}, #{$color-primary-45});
+      --box-surface-border-color: #{$color-border-hover};
+
+      &.box_soft {
+        color: light-dark(var(--box-main-color), white);
+      }
+    }
+  }
+
+  &.box_clickable:active {
+    --box-main-color: light-dark(#{$color-primary-40}, #{$color-primary-70});
+    --box-light-color: light-dark(#{$color-primary-85}, #{$color-primary-30});
+
+    &.box_soft {
+      color: light-dark(var(--box-main-color), white);
+    }
   }
 }
 
@@ -517,17 +576,17 @@ body {
     }
   }
 
-  &_accent:is(&_filled, &_bordered) &_spin {
+  &_accent:is(&_filled, &_soft) &_spin {
     color: var(--box-second-color);
   }
 
-  &_accent:is(&_filled, &_bordered):not(&_disabled) {
+  &_accent:is(&_filled, &_soft):not(&_disabled) {
     &:hover, &:active {
       color: white;
     }
   }
 
-  &_accent.button_bordered {
+  &_accent.button_soft {
     --box-light-color: light-dark(#{$color-accent-95}, #{$color-accent-10});
 
     border: 1px solid transparent;
@@ -542,7 +601,7 @@ body {
     }
   }
 
-  &_accent.button_bordered:not(&_disabled) {
+  &_accent.button_soft:not(&_disabled) {
     &:hover {
       --box-light-color: light-dark(#{$color-accent-90}, #{$color-accent-15});
       color: light-dark(var(--box-main-color), white);
@@ -553,7 +612,7 @@ body {
     }
   }
 
-  &_bordered {
+  &_soft {
     &.button_hoverable {
       &:after {
         content: '';
@@ -576,7 +635,7 @@ body {
     background: transparent;
   }
 
-  &_loading:is(&_filled, &_bordered):not(&_disabled) {
+  &_loading:is(&_filled, &_soft):not(&_disabled) {
     &, &:hover, &:active {
       color: transparent;
     }
@@ -598,43 +657,48 @@ body {
 }
 
 .card {
-  overflow: hidden;
-  background: light-dark(#FFF, $color-primary-10);
-  border: 1px solid $color-border;
   padding: 0;
+  align-items: stretch;
 
   &_s {
-    border-radius: 14px;
-
-    .card-content {
+    & > .header {
+      padding: 0 10px;
+      min-height: 28px;
+    }
+    & > .body {
       gap: 6px;
       padding: 10px;
     }
   }
 
   &_m {
-    border-radius: 16px;
-
-    .card-content {
+    & > .header {
+      padding: 0 12px;
+      min-height: 32px;
+    }
+    & > .body {
       gap: 8px;
       padding: 12px;
     }
   }
 
   &_l {
-    border-radius: 20px;
-
-    .card-content {
+    & > .header {
+      padding: 0 14px;
+      min-height: 38px;
+    }
+    & > .body {
       gap: 12px;
-      padding: 16px;
+      padding: 14px;
     }
   }
 
-  &_clickable {
+  &.box_clickable {
     cursor: pointer;
   }
 
-  &_hoverable {
+  &.box_clickable,
+  &.box_hoverable {
     @include transition;
 
     &:hover {
@@ -652,48 +716,185 @@ body {
     }
   }
 
-  &-header {
-    color: $color-text-dim;
-    font-weight: 600;
-    font-size: 12px;
-    gap: 12px;
-    align-items: center;
-    background: light-dark($color-secondary-100, $color-secondary-a0);
-    padding: 0 10px;
-    border-bottom: $border;
-    min-height: 32px;
-  }
-
-  &-content {
-    flex: 1;
-    min-height: 0;
-  }
-
   &-title {
     color: $color-text;
     font-size: 15px;
     font-weight: 600;
     line-height: 1.3;
   }
+
+  & > .header {
+    color: $color-text-dim;
+    font-weight: 600;
+    font-size: 12px;
+    gap: 12px;
+    align-items: center;
+    background: light-dark($color-neutral-100, $color-neutral-a10);
+    border-bottom: $border;
+  }
+
+  &.flex_reverse > :is(.preview, .header):not(:first-child),
+  & > :is(.preview, .header):not(:last-child) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
+
+  & > :is(.preview, .header):not(:first-child),
+  &.flex_reverse > :is(.preview, .header):not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+
+  &.flex_vertical.flex_reverse > :is(.preview, .header):not(:first-child),
+  &.flex_vertical > :is(.preview, .header):not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+  }
+
+  &.flex_vertical.flex_reverse > :is(.preview, .header):not(:last-child),
+  &.flex_vertical > :is(.preview, .header):not(:first-child) {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  & > .body {
+    flex: 1;
+    min-height: 0;
+  }
 }
 
-.card-preview {
-  display: flex;
+.popover {
+  --popover-offset: 4px;
+  --popover-offset-size: 5px;
+
+  z-index: 100;
+  position: fixed;
+  margin: 0;
+  transition: opacity .2s, margin .2s;
+  pointer-events: all;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+  }
+
+  @starting-style {
+    opacity: 0;
+    margin: 4px;
+  }
+
+  &_hidden {
+    opacity: 0;
+    margin: 4px;
+    pointer-events: none;
+  }
+
+  &_prevent-hover {
+    pointer-events: none;
+  }
+
+  &_top {
+    bottom: calc(100vh - var(--rd-popover-top) + var(--popover-offset));
+
+    &:before {
+      top: 100%;
+      right: 0;
+      left: 0;
+      height: var(--popover-offset-size);
+    }
+  }
+
+  &_bottom {
+    top: calc(var(--rd-popover-top) + var(--rd-popover-height) + var(--popover-offset));
+
+    &:before {
+      right: 0;
+      bottom: 100%;
+      left: 0;
+      height: var(--popover-offset-size);
+    }
+  }
+
+  &_left {
+    right: calc(100vw - var(--rd-popover-left) + var(--popover-offset));
+
+    &:before {
+      top: 0;
+      right: calc(var(--popover-offset-size) * -1);
+      bottom: 0;
+      left: 100%;
+      width: var(--popover-offset-size);
+    }
+  }
+
+  &_right {
+    left: calc(var(--rd-popover-left) + var(--rd-popover-width) + var(--popover-offset));
+
+    &:before {
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      left: calc(var(--popover-offset-size) * -1);
+      width: var(--popover-offset-size);
+    }
+  }
+
+  &_top,
+  &_bottom {
+    &.popover_start {
+      left: var(--rd-popover-left);
+    }
+
+    &.popover_center {
+      left: calc(var(--rd-popover-left) + (var(--rd-popover-width) / 2));
+      transform: translateX(-50%);
+    }
+
+    &.popover_end {
+      right: calc(100vw - var(--rd-popover-left) - var(--rd-popover-width));
+    }
+  }
+
+  &_left,
+  &_right {
+    &.popover_start {
+      top: var(--rd-popover-top);
+    }
+
+    &.popover_center {
+      top: calc(var(--rd-popover-top) + (var(--rd-popover-height) / 2));
+      transform: translateY(-50%);
+    }
+
+    &.popover_end {
+      bottom: calc(100vh - var(--rd-popover-top) - var(--rd-popover-height));
+    }
+  }
+}
+
+.preview {
   align-items: center;
   justify-content: center;
-  min-height: 116px;
   padding: 16px;
-  overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(circle, light-dark(#7C3AED14, #FFFFFF0A) 1px, transparent 1px),
-    var(--rd-color-bg-contrast, #{$color-bg-elevated});
+    radial-gradient(circle, light-dark($color-primary-a5, #FFFFFF0A) 1px, transparent 1px),
+    light-dark($color-primary-a0, $color-primary-a0);
   background-size: 12px 12px;
 
   @include transition;
 }
 
-.card_interactive:hover .card-preview {
+.card_interactive:hover .preview {
   color: $color-primary;
 }
 
@@ -774,7 +975,7 @@ body {
   }
 
   &_secondary {
-    color: $color-secondary-60;
+    color: $color-neutral-60;
   }
 
   &_success {
@@ -922,7 +1123,7 @@ h3.title {
     cursor: pointer;
   }
 
-  &_secondary:has(.input_input:focus) {
+  &_neutral:has(.input_input:focus) {
     background: $color-secondary-hover;
     border-color: $color-secondary-hover;
   }
@@ -941,6 +1142,28 @@ h3.title {
     &:focus {
       outline: none;
     }
+  }
+}
+
+.control-box {
+  display: inline-flex;
+  position: relative;
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+
+  &_input {
+    position: absolute;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  label:has(&:not(.box_disabled)) {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &:has(&_input:focus-visible) {
+    outline-color: var(--box-main-color);
   }
 }
 
@@ -974,26 +1197,12 @@ h3.title {
     opacity: 1;
   }
 
-  &:has(.check-box_input:checked):before {
+  &:has(.control-box_input:checked):before {
     width: var(--box-size);
     height: var(--box-size);
     border-radius: inherit;
     font-size: var(--box-font-size);
     opacity: 1;
-  }
-
-  &:has(.check-box_input:focus-visible) {
-    outline-color: var(--box-main-color);
-  }
-
-  &_input {
-    position: absolute;
-    opacity: 0;
-    cursor: inherit;
-  }
-
-  label:has(&:not(&_disabled)) {
-    cursor: pointer;
   }
 }
 
@@ -1016,38 +1225,19 @@ h3.title {
     opacity: 0;
   }
 
-  &:has(.radio-box_input:checked):before {
+  &:has(.control-box_input:checked):before {
     width: calc(var(--box-size) / 2);
     height: calc(var(--box-size) / 2);
     opacity: 1;
   }
-
-  &:has(.radio-box_input:focus-visible) {
-    outline-color: var(--box-main-color);
-  }
-
-  &_input {
-    position: absolute;
-    opacity: 0;
-    cursor: inherit;
-  }
-
-  label:has(&:not(&_disabled)) {
-    cursor: pointer;
-  }
 }
 
 .toggle {
-  display: inline-flex;
-  position: relative;
   width: calc(var(--box-size) * 1.75);
   height: var(--box-size);
   min-height: var(--box-size);
   padding: 0;
   border-radius: $size-infinite;
-  background: var(--box-light-color);
-  outline: 1px solid transparent;
-  outline-offset: 2px;
 
   &:before {
     content: '';
@@ -1062,7 +1252,7 @@ h3.title {
     transition: $transition;
   }
 
-  &:has(.toggle_input:checked) {
+  &:has(.control-box_input:checked) {
     border-color: var(--box-main-color);
     background: var(--box-main-color);
 
@@ -1070,16 +1260,6 @@ h3.title {
       left: calc(100% - var(--box-size) + 4px);
       background: var(--box-second-color);
     }
-  }
-
-  &:has(.toggle_input:focus-visible) {
-    outline-color: var(--box-main-color);
-  }
-
-  &_input {
-    position: absolute;
-    opacity: 0;
-    cursor: inherit;
   }
 }
 

@@ -12,7 +12,7 @@ export default function ButtonPage () {
   const toggle = () => isLoading.set(!isLoading.raw)
   const toggleDisabled = () => isDisabled.set(!isDisabled.raw)
 
-  const colors = ['primary', 'secondary', 'accent', 'success', 'warning', 'danger', 'disabled'] as const
+  const colors = ['primary', 'accent', 'neutral', 'info', 'success', 'warning', 'danger'] as const
 
   const handleSave = async () => {
     await new Promise(resolve => setTimeout(resolve, 5000))
@@ -62,9 +62,9 @@ export default function ButtonPage () {
         </Flex>
         <Flex gap={8} wrap>
           {colors.map(color => (
-            <Button view='bordered' color={color}>{color}</Button>
+            <Button view='soft' color={color}>{color}</Button>
           ))}
-          <Button view='bordered' disabled>Disabled</Button>
+          <Button view='soft' disabled>Disabled</Button>
         </Flex>
         <Flex gap={8} wrap>
           {colors.map(color => (

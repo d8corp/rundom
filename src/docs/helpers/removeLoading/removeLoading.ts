@@ -1,13 +1,11 @@
-import Timer from 'sync-timer'
+import { startViewTransition } from '../../../utils'
 
 export function removeLoading () {
   const loading = document.getElementById('main-loader')
 
   if (loading) {
-    loading.style.opacity = '0'
-
-    new Timer(() => {
+    startViewTransition(() => {
       loading.remove()
-    }, 300)
+    })
   }
 }

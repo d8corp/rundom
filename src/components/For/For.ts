@@ -16,7 +16,7 @@ import {
   lcs,
   observablePropToStaticOrReactive,
   prepend,
-  SystemSlot,
+  RDSlot,
 } from '../../utils'
 
 /**
@@ -115,8 +115,8 @@ export function For<O extends ObservableProp<Iterable<any>>> ({
         const currentIndex = index++
         const forIndex = () => currentIndex
         const forValue = () => value
-        const indexState = new SystemSlot(forIndex)
-        const valueState = new SystemSlot(forValue)
+        const indexState = new RDSlot(forIndex)
+        const valueState = new RDSlot(forValue)
 
         forValueContext.set(valueState, deepHandler)
         forIndexContext.set(indexState, deepHandler)
@@ -129,7 +129,7 @@ export function For<O extends ObservableProp<Iterable<any>>> ({
             deepRender(children(valueState as any, indexState as any))
           }
 
-          const result = new SystemSlot(deepForRender)
+          const result = new RDSlot(deepForRender)
 
           result.on()
 
@@ -182,8 +182,8 @@ export function For<O extends ObservableProp<Iterable<any>>> ({
         parentContext.set(content, deepHandler)
         const forIndex = () => index
         const forValue = () => value
-        const valueState = new SystemSlot(forValue)
-        const indexState = new SystemSlot(forIndex)
+        const valueState = new RDSlot(forValue)
+        const indexState = new RDSlot(forIndex)
 
         forValueContext.set(valueState, deepHandler)
         forIndexContext.set(indexState, deepHandler)
@@ -204,7 +204,7 @@ export function For<O extends ObservableProp<Iterable<any>>> ({
             deepRender(children(valueState as any, indexState as any))
           }
 
-          const result = new SystemSlot(deepForRender)
+          const result = new RDSlot(deepForRender)
 
           result.on()
 

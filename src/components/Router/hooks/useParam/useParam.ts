@@ -2,7 +2,7 @@ import type { Slot } from 'rune-hub'
 
 import { useParams } from '../useParams'
 
-import { SystemSlot } from '../../../../utils'
+import { RDSlot } from '../../../../utils'
 
 /**
  * Returns a reactive slot with the value of a single route parameter.
@@ -12,5 +12,5 @@ export function useParam<T extends string | undefined> (name: string): Slot<T> {
   const params = useParams()
   const routeParameter = () => params.value[name] as T
 
-  return new SystemSlot<T>(routeParameter)
+  return new RDSlot<T>(routeParameter)
 }

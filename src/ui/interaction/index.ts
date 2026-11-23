@@ -1,4 +1,5 @@
 export * from './CheckBox'
+export * from './ControlBox'
 export * from './Input'
 export * from './Option'
 export * from './Options'

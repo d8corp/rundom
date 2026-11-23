@@ -5,7 +5,7 @@ import { paramsContext } from './hooks'
 import { type Routing } from './types'
 
 import { type Component, JSXNode, type ObservableProp } from '../../types'
-import { Context, isLazy, type LazyResult, locationPath, SystemSlot, use } from '../../utils'
+import { Context, isLazy, type LazyResult, locationPath, RDSlot, use } from '../../utils'
 
 export interface RouterProps {
   /** Routing tree created by `createRouting`. */
@@ -22,7 +22,7 @@ const EMPTY_SET = new Set<string>()
  * components are loaded through `<Lazy>` with the route fallback.
  */
 export function Router ({ routing, permissions = EMPTY_SET }: RouterProps) {
-  const params = paramsContext.get() || new SystemSlot<Record<string, string>>(function routerParams () { return {} })
+  const params = paramsContext.get() || new RDSlot<Record<string, string>>(function routerParams () { return {} })
 
   const currentRoute = () => {
     const newParams: Record<string, string> = {}
@@ -40,7 +40,7 @@ export function Router ({ routing, permissions = EMPTY_SET }: RouterProps) {
     return route
   }
 
-  const route = new SystemSlot(currentRoute)
+  const route = new RDSlot(currentRoute)
 
   const routeComponents = () => {
     const routeValue = route.value
@@ -56,7 +56,7 @@ export function Router ({ routing, permissions = EMPTY_SET }: RouterProps) {
     return result
   }
 
-  const components = new SystemSlot(routeComponents)
+  const components = new RDSlot(routeComponents)
 
   const cache = new Map()
 
@@ -65,9 +65,9 @@ export function Router ({ routing, permissions = EMPTY_SET }: RouterProps) {
     set: params,
     children: new JSXNode(Pipe, {
       children: (children, index) => new JSXNode(Lazy, {
-        component: new SystemSlot(function routeComponent () { return components.value[index] }),
-        fallback: new SystemSlot(function routeFallback () { return route.value?.fallback?.[index] }),
-        show: new SystemSlot(function routeShow () { return components.value.length > index }),
+        component: new RDSlot(function routeComponent () { return components.value[index] }),
+        fallback: new RDSlot(function routeFallback () { return route.value?.fallback?.[index] }),
+        show: new RDSlot(function routeShow () { return components.value.length > index }),
         render: (Component) => new JSXNode(Component, { children }),
         cache,
       }),

@@ -3,7 +3,7 @@ import { classes } from 'html-classes'
 import { useStyles } from '../../../hooks'
 import type { GlobalCSSValue, HTMLStyleProp, Merge, ObservableProp } from '../../../types'
 import { addUiCSS, inject, injectAll } from '../../../utils'
-import type { FlexElement, FlexProps } from '../../primitive'
+import type { FlexElement, FlexProps, FlexStyles } from '../../primitive'
 import { Flex } from '../../primitive'
 
 if (import.meta.env?.RD_THEME_SCROLLBAR) {
@@ -15,7 +15,7 @@ export const scrollbarStyles = {
   stable: import.meta.env?.RD_THEME_SCROLLBAR__STABLE,
 }
 
-export type ScrollbarStyles = typeof scrollbarStyles
+export type ScrollbarStyles = typeof scrollbarStyles & FlexStyles
 
 export type ScrollbarOverflowBase = 'auto' | 'hidden' | 'scroll' | 'visible' | 'clip' | GlobalCSSValue
 export type ScrollbarOverflow = ScrollbarOverflowBase | `${ScrollbarOverflowBase} ${ScrollbarOverflowBase}`

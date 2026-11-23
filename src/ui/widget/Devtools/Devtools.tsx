@@ -1,3 +1,4 @@
+import type { Slot } from 'rune-hub'
 import { Hub } from 'rune-hub'
 
 import { DevtoolsWindow } from './components/DevtoolsWindow'
@@ -23,8 +24,7 @@ export type DevtoolsStyles = typeof devtoolsStyles
 export interface DevtoolsProps extends StyledProps<DevtoolsStyles> {
   /** Hides the hub and slot names in the panel. */
   anon?: boolean
-  /** Enables system slot details in the panel. */
-  system?: boolean
+  filter?: Record<string, new (...a: any[]) => Slot>
 }
 
 /**

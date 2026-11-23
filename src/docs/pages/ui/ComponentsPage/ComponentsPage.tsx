@@ -3,11 +3,10 @@ import { Slot } from 'rune-hub'
 import { For, Show } from '../../../../components'
 import type { JSXElement } from '../../../../types'
 import {
+  Body,
   Box,
   Button,
   Card,
-  CardContent,
-  CardPreview,
   CardTitle,
   CheckBox,
   Code,
@@ -20,6 +19,7 @@ import {
   Markdown,
   Option,
   Options,
+  Preview,
   RadioBox,
   Scrollbar,
   Spin,
@@ -47,12 +47,6 @@ interface ComponentGroup {
 
 export default function ComponentsPage () {
   const search = new Slot(() => '')
-
-  const optionsPreview = [
-    'Apple',
-    'Banana',
-    'Cherry',
-  ]
 
   const groups: ComponentGroup[] = [
     {
@@ -158,7 +152,7 @@ export default function ComponentsPage () {
           preview: (
             <Flex gap={6} align='center'>
               <Box view='filled' />
-              <Box view='bordered' />
+              <Box view='soft' />
               <Box view='dashed' />
             </Flex>
           ),
@@ -200,10 +194,10 @@ export default function ComponentsPage () {
           keywords: 'card surface preview title description container',
           preview: (
             <Card size='s' width={130}>
-              <CardContent vertical>
+              <Body vertical>
                 <CardTitle>Card</CardTitle>
                 <Description>Preview and body</Description>
-              </CardContent>
+              </Body>
             </Card>
           ),
         },
@@ -248,7 +242,7 @@ export default function ComponentsPage () {
           preview: (
             <Flex gap={6} align='center' wrap>
               <Button size='s' view='filled' color='accent'>Save</Button>
-              <Button size='s' view='bordered'>Cancel</Button>
+              <Button size='s' view='soft'>Cancel</Button>
             </Flex>
           ),
         },
@@ -316,7 +310,7 @@ export default function ComponentsPage () {
           keywords: 'select list option group menu multiple single dropdown',
           preview: (
             <Options
-              values={optionsPreview}
+              values={['Apple', 'Banana', 'Cherry']}
               selected='Apple'
               size='s'
               style={{ height: '86px', width: '140px' }}
@@ -338,8 +332,25 @@ export default function ComponentsPage () {
       ],
     },
     {
-      title: 'Feedback',
+      title: 'Popups',
       items: [
+        {
+          title: 'Popover',
+          href: '/ui/popover',
+          description: 'Shows a card with extra content next to a target.',
+          keywords: 'popover tooltip hint card overlay floating',
+          preview: (
+            <Flex vertical gap={4} align='center'>
+              <Box view='soft' size='s'>
+                <Text size='xs'>Popover</Text>
+              </Box>
+              <Box view='filled' color='primary' style={{ width: '28px', height: '4px' }} />
+              <Box view='dashed' size='s'>
+                <Text size='xs'>Target</Text>
+              </Box>
+            </Flex>
+          ),
+        },
         {
           title: 'Message',
           href: '/ui/message',
@@ -356,6 +367,11 @@ export default function ComponentsPage () {
             </Flex>
           ),
         },
+      ],
+    },
+    {
+      title: 'Feedback',
+      items: [
         {
           title: 'Spin',
           href: '/ui/spin',
@@ -429,15 +445,14 @@ export default function ComponentsPage () {
                     {item => (
                       <Card
                         element='a'
+                        vertical
                         href={() => item.value.href}
-                        size='m'
-                        clickable
                       >
-                        <CardPreview>{() => item.value.preview}</CardPreview>
-                        <CardContent vertical>
+                        <Preview height={140}>{() => item.value.preview}</Preview>
+                        <Body vertical>
                           <CardTitle>{() => item.value.title}</CardTitle>
                           <Description>{() => item.value.description}</Description>
-                        </CardContent>
+                        </Body>
                       </Card>
                     )}
                   </For>

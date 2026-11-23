@@ -1,6 +1,6 @@
 ---
 description: built-in components, UI layers, hooks, utils, docs and theme. Read when adding files or locating code.
-updated: 2026-11-13
+updated: 2026-11-17
 ---
 
 # Repository Structure
@@ -22,10 +22,10 @@ updated: 2026-11-13
   - `inline/` (`Code`, `Divider`)
   - `interaction/` (`Input`, `CheckBox`, `RadioBox`, `Toggle`, `Option`, `Options`)
   - `typography/` (`Description`, `Eyebrow`, `Text`, `Typography`, `Markdown`)
-  - `popup/` (`Window`, `Message`, ...)
+  - `popup/` (`CardHeader`, `Message`, `Popover`)
   - `widget/` (`Devtools`, ...)
   - `icons/`
 - `src/hooks/`: lifecycle and style hooks (`useStyles`, `useEffect`, `useOnce`, `useClear`, `useCtx`, `useUIProps`).
 - `src/utils/`: utilities for context (`Context`), reactivity (`inject`, `injectAll`, `use`), DOM, and styles (`addCSS`).
 - `src/docs/`: documentation site and interactive component playground. Pages are built from pairs of `<Name>Page.tsx` + `<Name>Page.md`.
-- `theme.scss` + `buildEnv.ts`: the unified theme design system. `npm run build:theme` compiles it into `.env.theme`.
+- `theme.scss` + `buildEnv.ts`: the unified theme design system. `npm run build:theme` compiles it into `.env.theme`. Semantic palettes live in `src/docs/styles/colors.scss` as `$color-<semantic>-<shade>` plus `-a<opacity>` variants; `neutral` is the gray scale (formerly `secondary`), `info` is blue.

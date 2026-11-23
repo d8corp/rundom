@@ -1,6 +1,6 @@
 import { useStyles } from '../../../hooks'
 import { addUiCSS } from '../../../utils'
-import type { FlexElement, FlexProps } from '../../primitive'
+import type { FlexElement, FlexProps, FlexStyles } from '../../primitive'
 import { Flex } from '../../primitive'
 
 if (import.meta.env?.RD_THEME_CARD_TITLE) {
@@ -11,7 +11,7 @@ export const cardTitleStyles = {
   root: import.meta.env?.RD_THEME_CARD_TITLE__ROOT,
 }
 
-export type CardTitleStyles = typeof cardTitleStyles
+export type CardTitleStyles = typeof cardTitleStyles & FlexStyles
 
 /** Props for `<CardTitle>`: flex props plus the component styles. */
 export type CardTitleProps<T extends FlexElement = 'div', S extends CardTitleStyles = CardTitleStyles> = FlexProps<T, S>

@@ -3,15 +3,15 @@
 The `<Card>` component is a bordered surface with rounded corners.
 It is only the surface, so its content is assembled from separate parts and a card can contain only the parts it needs:
 
-- `<CardHeader>` renders an optional header above the body.
-- `<CardPreview>` renders the dotted preview area.
-- `<CardContent>` wraps the card body.
+- `<Header>` renders an optional header above the body.
+- `<Preview>` renders the dotted preview area.
+- `<Body>` wraps the card body.
 - `<CardTitle>` and `<Description>` set the body typography.
 
 | Prop            | Type                               | Description                                                                                            |
 |-----------------|------------------------------------|--------------------------------------------------------------------------------------------------------|
 | [**children**](#children) | `JSX.Element`           | Content to render inside the card                                                                      |
-| [**size**](#size) | `ObservableProp<SMLSize>`       | Sets the corner radius and the spacing inside `<CardContent>`. Available: `'s'`, `'m'` (default), `'l'` |
+| [**size**](#size) | `ObservableProp<SMLSize>`       | Sets the corner radius and the spacing inside `<Body>`. Available: `'s'`, `'m'` (default), `'l'` |
 | [**clickable**](#clickable) | `ObservableProp<boolean>` | Shows a pointer cursor. Defaults to `true` when `onclick` is provided                                   |
 | [**hoverable**](#hoverable) | `ObservableProp<boolean>` | Adds hover feedback with a subtle lift. Defaults to the value of `clickable`                           |
 | [**width**](#width-and-height) | `ObservableProp<string \| number>` | Width of the card. Numbers are converted to pixels                                             |
@@ -21,13 +21,13 @@ It is only the surface, so its content is assembled from separate parts and a ca
 
 In addition to the props listed above, `<Card>` accepts all props inherited from `<Flex>`, including `element`, `href`, `gap`, `padding`, and event handlers. When `element` is set to `'a'`, the card also accepts `<Link>` props such as `exact`.
 
-`<CardHeader>`, `<CardPreview>`, `<CardContent>`, and `<CardTitle>` accept all `<Flex>` props. `<Description>` accepts all `<Text>` props.
+`<Header>`, `<Preview>`, `<Body>`, and `<CardTitle>` accept all `<Flex>` props. `<Description>` accepts all `<Text>` props.
 
 ## Children
 ---
 
 `<Card>` renders its children directly.
-Use it for simple content, or compose the card from `<CardPreview>` and `<CardContent>` when you need the preview area and a padded body:
+Use it for simple content, or compose the card from `<Preview>` and `<Body>` when you need the preview area and a padded body:
 
 ```tsx
 //! View
@@ -45,20 +45,20 @@ rundom(
 ## Content
 ---
 
-`<CardContent>` wraps the card body and applies the themed padding and gap.
+`<Body>` wraps the card body and applies the themed padding and gap.
 It inherits from `<Flex>`, so its layout can be adjusted with Flex props:
 
 ```tsx
 //! View
 //> content
 //! Code
-import { rundom, Card, CardContent } from 'rundom'
+import { rundom, Card, Content } from 'rundom'
 
 rundom(
   <Card>
-    <CardContent>
+    <Body>
       Card content goes here.
-    </CardContent>
+    </Body>
   </Card>
 )
 ```
@@ -66,7 +66,7 @@ rundom(
 ## Preview
 ---
 
-Add `<CardPreview>` above the body to render the dotted preview area.
+Add `<Preview>` above the body to render the dotted preview area.
 It accepts any content and all `<Flex>` props:
 
 ```tsx
@@ -76,8 +76,8 @@ It accepts any content and all `<Flex>` props:
 import { 
   rundom,
   Card,
-  CardContent,
-  CardPreview,
+  Content,
+  Preview,
   CardTitle,
   Description,
   SearchIcon
@@ -85,13 +85,13 @@ import {
 
 rundom(
   <Card width={220}>
-    <CardPreview>
+    <Preview>
       <SearchIcon size={24} />
-    </CardPreview>
-    <CardContent vertical>
+    </Preview>
+    <Content vertical>
       <CardTitle>Search</CardTitle>
       <Description>Find anything in the documentation.</Description>
-    </CardContent>
+    </Body>
   </Card>
 )
 ```
@@ -99,23 +99,23 @@ rundom(
 ## Header
 ---
 
-Add `<CardHeader>` above the body to render a semantic `<header>` with the themed header styles.
+Add `<Header>` above the body to render a semantic `<header>` with the themed header styles.
 It accepts all `<Flex>` props:
 
 ```tsx
 //! View
 //> header
 //! Code
-import { rundom, Card, CardContent, CardHeader, Description } from 'rundom'
+import { rundom, Card, Content, Header, Description } from 'rundom'
 
 rundom(
   <Card width={260}>
-    <CardHeader>
+    <Header>
       Card header
-    </CardHeader>
-    <CardContent vertical>
+    </Header>
+    <Content vertical>
       <Description>Card content goes here.</Description>
-    </CardContent>
+    </Body>
   </Card>
 )
 ```
@@ -123,39 +123,39 @@ rundom(
 ## Size
 ---
 
-The `size` prop changes the corner radius and the spacing inside `<CardContent>`:
+The `size` prop changes the corner radius and the spacing inside `<Body>`:
 
 ```tsx
 //! View
 //> size
 //! Code
-import { rundom, Card, CardContent, CardPreview, CardTitle, CopyIcon, Flex, SearchIcon, SunIcon } from 'rundom'
+import { rundom, Card, Content, Preview, CardTitle, CopyIcon, Flex, SearchIcon, SunIcon } from 'rundom'
 
 rundom(
   <Flex gap={16} align='center' wrap>
     <Card size='s' width={180}>
-      <CardPreview>
+      <Preview>
         <SunIcon size={20} />
-      </CardPreview>
-      <CardContent>
+      </Preview>
+      <Body>
         <CardTitle>Small</CardTitle>
-      </CardContent>
+      </Body>
     </Card>
     <Card size='m' width={220}>
-      <CardPreview>
+      <Preview>
         <CopyIcon size={24} />
-      </CardPreview>
-      <CardContent>
+      </Preview>
+      <Body>
         <CardTitle>Medium</CardTitle>
-      </CardContent>
+      </Body>
     </Card>
     <Card size='l' width={260}>
-      <CardPreview>
+      <Preview>
         <SearchIcon size={28} />
-      </CardPreview>
-      <CardContent>
+      </Preview>
+      <Body>
         <CardTitle>Large</CardTitle>
-      </CardContent>
+      </Body>
     </Card>
   </Flex>
 )
@@ -172,16 +172,16 @@ The example sets `clickable` explicitly for clarity:
 //! View
 //> clickable
 //! Code
-import { rundom, Card, CardContent, CardTitle, Description } from 'rundom'
+import { rundom, Card, Content, CardTitle, Description } from 'rundom'
 
 const handleOpen = () => alert('Card clicked')
 
 rundom(
   <Card width={220} onclick={handleOpen}>
-    <CardContent vertical>
+    <Content vertical>
       <CardTitle>Open</CardTitle>
       <Description>Click the card to trigger the handler.</Description>
-    </CardContent>
+    </Body>
   </Card>
 )
 ```
@@ -197,17 +197,17 @@ Set it on a card without a click handler to keep the hover effect only:
 //! View
 //> hoverable
 //! Code
-import { rundom, Card, CardContent, CardPreview, CardTitle, Description, SunIcon } from 'rundom'
+import { rundom, Card, Content, Preview, CardTitle, Description, SunIcon } from 'rundom'
 
 rundom(
   <Card hoverable width={220}>
-    <CardPreview>
+    <Preview>
       <SunIcon size={24} />
-    </CardPreview>
-    <CardContent vertical>
+    </Preview>
+    <Content vertical>
       <CardTitle>Hoverable</CardTitle>
       <Description>Hover the card to see the lift.</Description>
-    </CardContent>
+    </Body>
   </Card>
 )
 ```
@@ -222,13 +222,13 @@ Numbers are converted to pixels, while strings are used as-is:
 //! View
 //> width
 //! Code
-import { rundom, Card, CardContent } from 'rundom'
+import { rundom, Card, Content } from 'rundom'
 
 rundom(
   <Card width={120} height={120}>
-    <CardContent>
+    <Body>
       Card content goes here.
-    </CardContent>
+    </Body>
   </Card>
 )
 ```
@@ -243,17 +243,17 @@ The card then accepts `<Link>` props such as `exact`, and internal links use cli
 //! View
 //> link
 //! Code
-import { rundom, Card, CardContent, CardPreview, CardTitle, Description, SearchIcon } from 'rundom'
+import { rundom, Card, Content, Preview, CardTitle, Description, SearchIcon } from 'rundom'
 
 rundom(
   <Card element='a' href='/ui/components' hoverable width={220}>
-    <CardPreview>
+    <Preview>
       <SearchIcon size={24} />
-    </CardPreview>
-    <CardContent vertical>
+    </Preview>
+    <Content vertical>
       <CardTitle>Components</CardTitle>
       <Description>Browse all components from a single page.</Description>
-    </CardContent>
+    </Body>
   </Card>
 )
 ```

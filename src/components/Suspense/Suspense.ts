@@ -2,7 +2,7 @@ import { parentContext } from '../../constants'
 import { useClear } from '../../hooks'
 import { promiseCounterContext, rundom } from '../../rundom'
 import type { ChildrenProps, JSXElement } from '../../types'
-import { append, Content, Context, extract, remove, SystemSlot } from '../../utils'
+import { append, Content, Context, extract, RDSlot, remove } from '../../utils'
 
 export interface SuspenseProps extends ChildrenProps {
   /** Content rendered while any promise inside `children` is pending. */
@@ -19,8 +19,8 @@ export function Suspense ({ fallback, children }: SuspenseProps) {
   const parent = parentContext.get()
   const suspensePromiseCount = () => 0
   const suspenseWaiting = () => Boolean(suspense.value)
-  const suspense = new SystemSlot(suspensePromiseCount)
-  const waiting = new SystemSlot(suspenseWaiting)
+  const suspense = new RDSlot(suspensePromiseCount)
+  const waiting = new RDSlot(suspenseWaiting)
   let destroy = false
 
   useClear(() => {

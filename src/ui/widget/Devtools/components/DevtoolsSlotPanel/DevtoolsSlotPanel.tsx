@@ -3,7 +3,7 @@ import { SlotStatus } from '../SlotStatus'
 import { Show } from '../../../../../components'
 import type { HTMLStyleProps } from '../../../../../hooks'
 import { useStyles } from '../../../../../hooks'
-import { addUiCSS, stringify, SystemSlot } from '../../../../../utils'
+import { addUiCSS, RDSlot, stringify } from '../../../../../utils'
 import { Button } from '../../../../block'
 import { CloseIcon } from '../../../../icons'
 import { Code } from '../../../../inline'
@@ -60,7 +60,7 @@ export function DevtoolsSlotPanelComponent (props: DevtoolsSlotPanelProps) {
             sets: <Code>{() => String(selected.value?.sets)}</Code>
           </div>
           <div>
-            system: <Code>{() => selected.value ? String(selected.value instanceof SystemSlot) : undefined}</Code>
+            system: <Code>{() => selected.value ? String(selected.value instanceof RDSlot) : undefined}</Code>
           </div>
           <div>
             error: <Code>{() => selected.value && stringify(errors.value.get(selected.value))}</Code>

@@ -14,8 +14,8 @@ export function SlotStatus ({ slot, ...props }: SlotStatusProps) {
   const color = () => {
     if (!slot.value) return 'warning'
 
-    return errors.value.get(slot.value) ? 'danger' : ups.value.get(slot.value) ? 'success' : 'disabled'
+    return errors.value.get(slot.value) ? 'danger' : ups.value.get(slot.value) ? 'success' : 'neutral'
   }
 
-  return <Box size='xxs' {...props} color={color} circle />
+  return <Box size='xxs' view='filled' {...props} color={color} circle />
 }

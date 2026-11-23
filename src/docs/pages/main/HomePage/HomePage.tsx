@@ -21,6 +21,7 @@ export default function HomePage () {
           <div class={styles.version}>
             <Box
               circle
+              view='filled'
               size='xxs'
               data-live
               color={version.includes('alpha') ? 'danger' : version.includes('beta') ? 'warning' : 'success'}
@@ -41,7 +42,7 @@ export default function HomePage () {
             <Button color='accent' view='filled' style={{ width: '150px' }} element='a' size='l' href='/quick-start'>
               Get Started
             </Button>
-            <Button view='bordered' size='l' element='a' style={{ width: '150px' }} href='/ui'>
+            <Button view='soft' size='l' element='a' style={{ width: '150px' }} href='/ui'>
               Rundom UI
             </Button>
           </div>

@@ -123,12 +123,21 @@ export const uiMenu: MenuItem[] = [
     ],
   },
   {
-    title: 'Feedback',
+    title: 'Popups',
     children: [
       {
         href: '/ui/message',
         children: '<Message>',
       },
+      {
+        href: '/ui/popover',
+        children: '<Popover>',
+      },
+    ],
+  },
+  {
+    title: 'Feedback',
+    children: [
       {
         href: '/ui/spin',
         children: '<Spin>',

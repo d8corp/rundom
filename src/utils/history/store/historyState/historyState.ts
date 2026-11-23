@@ -1,4 +1,4 @@
-import { SystemSlot } from '../../../SystemSlot'
+import { RDSlot } from '../../../RDSlot'
 
 export interface HistoryStep {
   /** URL of the step. */
@@ -23,7 +23,7 @@ export function getHistoryStateRaw (): HistoryState {
   }
 }
 
-export const historyState = new SystemSlot(getHistoryStateRaw)
+export const historyState = new RDSlot(getHistoryStateRaw)
 
 /** Refreshes the reactive `historyState` from the browser history. */
 export function updateHistoryState () {

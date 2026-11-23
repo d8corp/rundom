@@ -22,7 +22,7 @@ The state can be static or reactive, and the component inherits all [\<Box>](/ui
 | [**onChange**](#onchange) | `(checked: boolean) => void`                        | Callback fired when the radio state changes                       |
 
 In addition to the props listed above, `<RadioBox>` accepts all standard element attributes and the layout, color, size, and view props inherited from [\<Box>](/ui/box).
-By default it renders `element='label'`, `view='bordered'`, `size='s'`, and `color='primary'`.
+By default it renders `element='label'`, `view='soft'`, `size='s'`, and `color='primary'`.
 
 ## Basic usage
 ---
@@ -255,8 +255,12 @@ rundom(
         primary
       </Flex>
       <Flex element='label' gap={8} align='center'>
-        <RadioBox name='inherited' color='secondary' />
-        secondary
+        <RadioBox name='inherited' color='neutral' />
+        neutral
+      </Flex>
+      <Flex element='label' gap={8} align='center'>
+        <RadioBox name='inherited' color='info' />
+        info
       </Flex>
       <Flex element='label' gap={8} align='center'>
         <RadioBox name='inherited' color='accent' />
@@ -291,14 +295,15 @@ rundom(
 ---
 
 The default styles of `<RadioBox>` come from the theme and are configured with environment variables. Every variable is optional — set only the ones you need.
-The radio box itself is a `<Box>` with `view='bordered'` and `size='s'`, so its base styles come from the [Box theme](/ui/box#theme). Note that not all RadioBox variables mirror the Box ones.
+The radio box itself is a `<Box>` with `view='soft'` and `size='s'`, so its base styles come from the [Box theme](/ui/box#theme). Note that not all RadioBox variables mirror the Box ones.
 
 | Variable                            | Description                                                 |
 |-------------------------------------|-------------------------------------------------------------|
 | `RD_THEME_RADIO_BOX`                | CSS of the component that is added to the page              |
 | `RD_THEME_RADIO_BOX__ROOT`          | Class name(s) of the radio box, always applied              |
 | `RD_THEME_RADIO_BOX__PRIMARY`       | Class name(s) applied when `color` is `'primary'`           |
-| `RD_THEME_RADIO_BOX__SECONDARY`     | Class name(s) applied when `color` is `'secondary'`         |
+| `RD_THEME_RADIO_BOX__NEUTRAL`     | Class name(s) applied when `color` is `'neutral'`         |
+| `RD_THEME_RADIO_BOX__INFO`        | Class name(s) applied when `color` is `'info'`            |
 | `RD_THEME_RADIO_BOX__ACCENT`        | Class name(s) applied when `color` is `'accent'`            |
 | `RD_THEME_RADIO_BOX__SUCCESS`       | Class name(s) applied when `color` is `'success'`           |
 | `RD_THEME_RADIO_BOX__WARNING`       | Class name(s) applied when `color` is `'warning'`           |

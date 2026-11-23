@@ -3,7 +3,7 @@ import type { Slot } from 'rune-hub'
 import type { Component, JSXTypeProps, ObservableProp, Reactive } from '../../types'
 import { JSXNode } from '../../types'
 import type { LazyResult } from '../../utils'
-import { SystemSlot, use, viewTransition } from '../../utils'
+import { RDSlot, use, viewTransition } from '../../utils'
 
 export interface LazyProps<C extends Component = Component> {
   /** Component or promise of a lazy component to render. */
@@ -32,7 +32,7 @@ export function Lazy<C extends Component = Component> ({
   if (!show) return
 
   const lazyLoading = () => false
-  const loading = new SystemSlot(lazyLoading)
+  const loading = new RDSlot(lazyLoading)
 
   const lazyLoadingEffect = () => {
     if (!use(show)) return
@@ -52,7 +52,7 @@ export function Lazy<C extends Component = Component> ({
     }
   }
 
-  new SystemSlot(lazyLoadingEffect).on()
+  new RDSlot(lazyLoadingEffect).on()
 
   return () => {
     if (!use(show)) return null

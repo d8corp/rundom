@@ -1,10 +1,12 @@
 import { classes } from 'html-classes'
 
-import { useEffect, useStyles } from '../../../hooks'
-import type { HTMLRef, Merge, ObservableProp } from '../../../types'
-import { addUiCSS, getSlotEvent, inject, injectAll, Ref, SystemSlot, use } from '../../../utils'
-import type { BoxProps, BoxStyles, FlexElement } from '../../primitive'
-import { Box } from '../../primitive'
+import type { ControlBoxProps, ControlBoxStyles } from '../ControlBox'
+import { ControlBox } from '../ControlBox'
+
+import { useStyles } from '../../../hooks'
+import type { ObservableProp } from '../../../types'
+import { addUiCSS, inject, injectAll } from '../../../utils'
+import type { FlexElement } from '../../primitive'
 
 export type CheckBoxChecked = boolean | null
 
@@ -14,97 +16,35 @@ if (import.meta.env?.RD_THEME_CHECK_BOX) {
 
 export const checkBoxStyles = {
   root: import.meta.env?.RD_THEME_CHECK_BOX__ROOT,
-  primary: import.meta.env?.RD_THEME_CHECK_BOX__PRIMARY,
-  accent: import.meta.env?.RD_THEME_CHECK_BOX__ACCENT,
-  secondary: import.meta.env?.RD_THEME_CHECK_BOX__SECONDARY,
-  success: import.meta.env?.RD_THEME_CHECK_BOX__SUCCESS,
-  warning: import.meta.env?.RD_THEME_CHECK_BOX__WARNING,
-  danger: import.meta.env?.RD_THEME_CHECK_BOX__DANGER,
-  disabled: import.meta.env?.RD_THEME_CHECK_BOX__DISABLED,
-  input: import.meta.env?.RD_THEME_CHECK_BOX__INPUT,
   indeterminate: import.meta.env?.RD_THEME_CHECK_BOX__INDETERMINATE,
 }
 
-export type CheckBoxStyles = typeof checkBoxStyles
+export type CheckBoxStyles = typeof checkBoxStyles & ControlBoxStyles
 
 /** Props for `<CheckBox>`: box props plus native checkbox behavior. */
-export type CheckBoxProps<T extends FlexElement = 'div', S extends CheckBoxStyles = CheckBoxStyles> = Omit<Merge<BoxProps<T, S & BoxStyles>, {
-  /** Checked state; `null` renders the indeterminate state. */
+export type CheckBoxProps<T extends FlexElement = 'div', S extends CheckBoxStyles = CheckBoxStyles> = Omit<ControlBoxProps<T, S>, 'checked'> & {
   checked?: ObservableProp<CheckBoxChecked>
-  /** Reference to the underlying native checkbox input. */
-  inputRef?: HTMLRef<'input'>
-  /** Native input name used by forms. */
-  name?: ObservableProp<string>
-  /** Disables the checkbox and applies the disabled color. */
-  disabled?: ObservableProp<boolean>
-  /** Native input value used by forms. */
-  value?: ObservableProp<string>
-  /** Called with the new checked state. */
-  onChange?: (checked: boolean) => void
-}>, 'children'>
+}
 
 /**
  * Checkbox with a hidden native `<input type="checkbox">` for forms and accessibility.
  * Supports normal, checked and indeterminate states.
  */
-function CheckBoxComponent<T extends FlexElement = 'div', S extends CheckBoxStyles = CheckBoxStyles> ({
-  checked,
-  inputRef = new Ref<HTMLInputElement>(),
-  disabled,
-  name,
-  value,
-  color,
-  onChange,
-  ...props
-}: CheckBoxProps<T, S>) {
+function CheckBoxComponent<T extends FlexElement = 'div', S extends CheckBoxStyles = CheckBoxStyles> (
+  props: CheckBoxProps<T, S>,
+) {
   const styles = useStyles(checkBoxStyles, props.class)
-  const setChecked = getSlotEvent(checked, onChange)
-  let click = false
-
-  const handleChange = (e: any) => {
-    click = true
-    setChecked?.(e.target.checked)
-    click = false
-  }
 
   const root = injectAll([
     styles.root,
-    inject(checked, checked => checked === null && styles.indeterminate),
+    inject(props.checked, checked => checked === null && styles.indeterminate),
   ], classes)
 
-  if (checked && checked !== true) {
-    useEffect(() => {
-      new SystemSlot(() => {
-        const value = Boolean(use(checked))
-
-        if (!click) {
-          inputRef.value!.checked = value
-        }
-      }).on()
-    })
-  }
-
   return (
-    <Box
-      element='label'
-      view='bordered'
-      size='s'
-      interact={inject(disabled, disabled => disabled ? undefined : 'clickable')}
-      {...props as BoxProps<T, S & BoxStyles>}
-      color={inject(disabled, disabled => disabled ? 'disabled' : use(color) ?? 'primary')}
+    <ControlBox
+      {...props as ControlBoxProps<T, S>}
       class={{ ...styles, root }}
-    >
-      <input
-        type='checkbox'
-        class={styles.input}
-        ref={inputRef}
-        disabled={disabled}
-        name={name}
-        value={value}
-        checked={checked === true}
-        onchange={handleChange}
-      />
-    </Box>
+    />
   )
 }
 

@@ -14,7 +14,7 @@ import { Router, Try } from '../components'
 import { useUpdateHistory } from '../hooks'
 import { rundom } from '../rundom'
 import { Devtools } from '../ui'
-import { addUiCSS } from '../utils'
+import { addUiCSS, RDSlot } from '../utils'
 import { removeLoading, scrollToHash } from './helpers'
 import { ErrorPage } from './pages/system/ErrorPage'
 import { routing } from './routing'
@@ -44,7 +44,7 @@ if (import.meta.env?.RD_THEME__ROOT) {
 }
 
 if (import.meta.env?.DEV === 'true') {
-  rundom(<Devtools anon system />)
+  rundom(<Devtools anon filter={{ Rundom: RDSlot }} />)
 }
 
 rundom(<App />)

@@ -3,7 +3,7 @@ import { classes } from 'html-classes'
 import { type HTMLStyleProps, useStyles } from '../../../hooks'
 import type { Merge, ObservableProp } from '../../../types'
 import type { LinkToParams } from '../../../utils'
-import { addUiCSS, inject, linkTo, locationURL, startViewTransition, SystemSlot, use } from '../../../utils'
+import { addUiCSS, inject, linkTo, locationURL, RDSlot, startViewTransition, use } from '../../../utils'
 
 if (import.meta.env?.RD_THEME_LINK) {
   addUiCSS(import.meta.env.RD_THEME_LINK, 'link')
@@ -83,9 +83,9 @@ export function LinkComponent (props: LinkProps) {
     return `^${prefix}${clearHref(href)}${suffix}`
   }
 
-  const regString = new SystemSlot(linkRegString)
+  const regString = new RDSlot(linkRegString)
   const linkReg = () => new RegExp(regString.value)
-  const reg = new SystemSlot(linkReg)
+  const reg = new RDSlot(linkReg)
 
   const linkClass = () => {
     return classes([
@@ -94,7 +94,7 @@ export function LinkComponent (props: LinkProps) {
     ])
   }
 
-  const className = new SystemSlot(linkClass)
+  const className = new RDSlot(linkClass)
 
   function handleClick (e: MouseEvent) {
     if (use(rest.disabled)) {

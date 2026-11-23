@@ -19,11 +19,11 @@ export interface CodeProps<S extends CodeStyles = CodeStyles> extends BoxProps<'
   children?: ObservableProp<string | undefined>
 }
 
-/** Inline code element rendered as a bordered `<Box element="code">`. */
+/** Inline code element rendered as a soft `<Box element="code">`. */
 export function CodeComponent<S extends CodeStyles> (props: CodeProps<S>) {
   const styles = useStyles(codeStyles, props.class)
 
-  return <Box element='code' square view='bordered' {...props} class={styles} />
+  return <Box element='code' square view='soft' {...props} class={styles} />
 }
 
 export const Code = import.meta.env?.RD_UI_CODE

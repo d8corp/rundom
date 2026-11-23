@@ -3,12 +3,10 @@ import { get, set, slot } from 'rune-hub'
 
 import { message } from '../../../../helpers'
 import {
+  Body,
   Box,
   Button,
   Card,
-  CardContent,
-  CardHeader,
-  CardPreview,
   CardTitle,
   CheckBox,
   CheckIcon,
@@ -18,8 +16,10 @@ import {
   Divider,
   Eyebrow,
   Flex,
+  Header,
   Input,
   MoonIcon,
+  Preview,
   RadioBox,
   SearchIcon,
   SunIcon,
@@ -32,8 +32,8 @@ import {
 import { Meta, Page } from '../../../ui'
 import styles from './UIPage.scss'
 
-type UIColor = 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'danger'
-type UIView = 'filled' | 'bordered' | 'dashed' | 'ghost'
+type UIColor = 'primary' | 'accent' | 'neutral' | 'info' | 'success' | 'warning' | 'danger'
+type UIView = 'filled' | 'soft' | 'surface' | 'dashed' | 'ghost'
 type UISize = 's' | 'm' | 'l'
 
 interface StatProps {
@@ -42,8 +42,8 @@ interface StatProps {
   label: string
 }
 
-const colorOptions: UIColor[] = ['primary', 'secondary', 'accent', 'success', 'warning', 'danger']
-const viewOptions: UIView[] = ['filled', 'bordered', 'dashed', 'ghost']
+const colorOptions: UIColor[] = ['primary', 'accent', 'neutral', 'info', 'success', 'warning', 'danger']
+const viewOptions: UIView[] = ['filled', 'soft', 'surface', 'dashed', 'ghost']
 const sizeOptions: UISize[] = ['s', 'm', 'l']
 
 const color = (): UIColor => 'accent'
@@ -84,7 +84,7 @@ export default function UIPage () {
               <Button element='a' href='/ui/introduction' size='l' view='filled' color='accent'>
                 Start building
               </Button>
-              <Button element='a' href='/ui/components' size='l' view='bordered'>
+              <Button element='a' href='/ui/components' size='l' view='soft'>
                 Browse components
               </Button>
             </Flex>
@@ -104,17 +104,17 @@ export default function UIPage () {
               <TerminalIcon size={14} />
               <span>0 VDOM</span>
             </div>
-            <Card size='l' class={styles.window}>
-              <CardHeader>
+            <Card vertical class={styles.window}>
+              <Header>
                 <Flex gap={6} align='center'>
-                  <Box color='danger' circle size='xs' />
-                  <Box color='warning' circle size='xs' />
-                  <Box color='success' circle size='xs' />
+                  <Box color='danger' view='filled' circle size='xs' />
+                  <Box color='warning' view='filled' circle size='xs' />
+                  <Box color='success' view='filled' circle size='xs' />
                 </Flex>
                 <Flex flex justify='center'>ui-kit.tsx</Flex>
                 <MoonIcon size={13} />
-              </CardHeader>
-              <CardContent vertical gap={14}>
+              </Header>
+              <Body vertical gap={14}>
                 <Flex justify='space-between' align='center' gap={12}>
                   <div>
                     <Eyebrow size='xxs' color='dim'>Playground</Eyebrow>
@@ -146,19 +146,19 @@ export default function UIPage () {
                 <Divider />
                 <Flex justify='space-between' align='center'>
                   <Flex gap={6}>
-                    <Button size='s' square view='bordered' aria-label='Search'>
+                    <Button size='s' square view='soft' aria-label='Search'>
                       <SearchIcon size={13} />
                     </Button>
-                    <Button size='s' square view='bordered' aria-label='Light theme'>
+                    <Button size='s' square view='soft' aria-label='Light theme'>
                       <SunIcon size={13} />
                     </Button>
-                    <Button size='s' square view='bordered' aria-label='Dark theme'>
+                    <Button size='s' square view='soft' aria-label='Dark theme'>
                       <MoonIcon size={13} />
                     </Button>
                   </Flex>
                   <Text size='xxs' weight='600' color='dim'>NO VDOM</Text>
                 </Flex>
-              </CardContent>
+              </Body>
             </Card>
           </div>
         </div>
@@ -186,15 +186,15 @@ export default function UIPage () {
             element='a'
             href='/ui/button'
             size='l'
-            hoverable
+            vertical
             gap={6}
             class={`${styles.atlasCard} ${styles.atlasControls}`}
           >
-            <CardPreview class={styles.atlasPreview}>
+            <Preview class={styles.atlasPreview}>
               <Flex vertical gap={10} class={styles.previewStack}>
                 <Flex gap={6} wrap>
                   <Button size='s' view='filled' color='accent'>Create</Button>
-                  <Button size='s' view='bordered'>Cancel</Button>
+                  <Button size='s' view='soft'>Cancel</Button>
                 </Flex>
                 <Flex gap={8} align='center'>
                   <Input flex size='s' placeholder='Search' before={<SearchIcon />} />
@@ -202,8 +202,8 @@ export default function UIPage () {
                   <RadioBox checked />
                 </Flex>
               </Flex>
-            </CardPreview>
-            <CardContent vertical class={styles.atlasInfo}>
+            </Preview>
+            <Body vertical class={styles.atlasInfo}>
               <CardTitle class={styles.atlasTitle} justify='space-between' align='center'>
                 Controls
                 <span class={styles.atlasArrow}>↗</span>
@@ -217,17 +217,17 @@ export default function UIPage () {
                 <span class={styles.atlasTag}>CheckBox</span>
                 <span class={styles.atlasTag}>RadioBox</span>
               </Flex>
-            </CardContent>
+            </Body>
           </Card>
 
           <Card
             element='a'
             href='/ui/flex'
             size='l'
-            hoverable
+            vertical
             class={`${styles.atlasCard} ${styles.atlasLayout}`}
           >
-            <CardPreview class={styles.atlasPreview}>
+            <Preview class={styles.atlasPreview}>
               <Flex gap={8} class={styles.layoutPreview}>
                 <Flex vertical gap={8} flex>
                   <div class={styles.layoutBar} />
@@ -236,8 +236,8 @@ export default function UIPage () {
                 </Flex>
                 <div class={styles.layoutPanel} />
               </Flex>
-            </CardPreview>
-            <CardContent vertical class={styles.atlasInfo}>
+            </Preview>
+            <Body vertical class={styles.atlasInfo}>
               <CardTitle class={styles.atlasTitle} justify='space-between' align='center'>
                 Layout
                 <span class={styles.atlasArrow}>↗</span>
@@ -250,23 +250,23 @@ export default function UIPage () {
                 <span class={styles.atlasTag}>Box</span>
                 <span class={styles.atlasTag}>Divider</span>
               </Flex>
-            </CardContent>
+            </Body>
           </Card>
 
           <Card
             element='a'
             href='/ui/typography'
             size='l'
-            hoverable
+            vertical
             class={`${styles.atlasCard} ${styles.atlasTypography}`}
           >
-            <CardPreview class={styles.atlasPreview}>
+            <Preview class={styles.atlasPreview}>
               <Typography class={styles.typePreview}>
                 <h3>Type that reads</h3>
                 <p>A quiet rhythm for loud ideas.</p>
               </Typography>
-            </CardPreview>
-            <CardContent vertical class={styles.atlasInfo}>
+            </Preview>
+            <Body vertical class={styles.atlasInfo}>
               <CardTitle class={styles.atlasTitle} justify='space-between' align='center'>
                 Typography
                 <span class={styles.atlasArrow}>↗</span>
@@ -279,17 +279,17 @@ export default function UIPage () {
                 <span class={styles.atlasTag}>Text</span>
                 <span class={styles.atlasTag}>Markdown</span>
               </Flex>
-            </CardContent>
+            </Body>
           </Card>
 
           <Card
             element='a'
             href='/ui/icons'
             size='l'
-            hoverable
+            vertical
             class={`${styles.atlasCard} ${styles.atlasIcons}`}
           >
-            <CardPreview class={styles.atlasPreview}>
+            <Preview class={styles.atlasPreview}>
               <Flex gap={10} wrap justify='center' class={styles.iconRow}>
                 <span class={styles.iconTile}><SearchIcon size={20} /></span>
                 <span class={styles.iconTile}><SunIcon size={20} /></span>
@@ -298,8 +298,8 @@ export default function UIPage () {
                 <span class={styles.iconTile}><CheckIcon size={20} /></span>
                 <span class={styles.iconTile}><TerminalIcon size={20} /></span>
               </Flex>
-            </CardPreview>
-            <CardContent vertical class={styles.atlasInfo}>
+            </Preview>
+            <Body vertical class={styles.atlasInfo}>
               <CardTitle class={styles.atlasTitle} justify='space-between' align='center'>
                 Icons
                 <span class={styles.atlasArrow}>↗</span>
@@ -312,22 +312,22 @@ export default function UIPage () {
                 <span class={styles.atlasTag}>BaseIcon</span>
                 <span class={styles.atlasTag}>Reactive size</span>
               </Flex>
-            </CardContent>
+            </Body>
           </Card>
 
           <Card
             element='a'
             href='/ui/box'
             size='l'
-            hoverable
+            vertical
             class={`${styles.atlasCard} ${styles.atlasSurfaces}`}
           >
-            <CardPreview class={styles.atlasPreview}>
+            <Preview class={styles.atlasPreview}>
               <Flex gap={10} align='center'>
                 <Box view='filled' color='accent' size='xl' circle>
                   <SunIcon size={20} />
                 </Box>
-                <Box view='bordered' color='primary' size='xl' circle>
+                <Box view='soft' color='primary' size='xl' circle>
                   <MoonIcon size={20} />
                 </Box>
                 <Box view='dashed' color='success' size='xl' circle>
@@ -337,8 +337,8 @@ export default function UIPage () {
                   <TerminalIcon size={20} />
                 </Box>
               </Flex>
-            </CardPreview>
-            <CardContent vertical class={styles.atlasInfo}>
+            </Preview>
+            <Body vertical class={styles.atlasInfo}>
               <CardTitle class={styles.atlasTitle} justify='space-between' align='center'>
                 Surfaces
                 <span class={styles.atlasArrow}>↗</span>
@@ -351,25 +351,25 @@ export default function UIPage () {
                 <span class={styles.atlasTag}>Card</span>
                 <span class={styles.atlasTag}>Theme</span>
               </Flex>
-            </CardContent>
+            </Body>
           </Card>
 
           <Card
             element='a'
             href='/ui/markdown'
             size='l'
-            hoverable
+            vertical
             class={`${styles.atlasCard} ${styles.atlasContent}`}
           >
-            <CardPreview class={styles.atlasPreview}>
+            <Preview class={styles.atlasPreview}>
               <Flex vertical gap={10} align='flex-start' class={styles.contentPreview}>
                 <Code>npm i rundom</Code>
                 <Typography>
                   <p><strong>Reactive</strong> content with <em>Markdown</em>.</p>
                 </Typography>
               </Flex>
-            </CardPreview>
-            <CardContent vertical class={styles.atlasInfo}>
+            </Preview>
+            <Body vertical class={styles.atlasInfo}>
               <CardTitle class={styles.atlasTitle} justify='space-between' align='center'>
                 Content
                 <span class={styles.atlasArrow}>↗</span>
@@ -382,7 +382,7 @@ export default function UIPage () {
                 <span class={styles.atlasTag}>Markdown</span>
                 <span class={styles.atlasTag}>Link</span>
               </Flex>
-            </CardContent>
+            </Body>
           </Card>
         </Flex>
       </section>
@@ -411,14 +411,14 @@ export default function UIPage () {
             </Flex>
           </div>
 
-          <Card size='l' class={styles.playground}>
-            <Flex justify='space-between' align='center' class={styles.playgroundHead}>
+          <Card vertical size='l' class={styles.playground}>
+            <Header justify='space-between' align='center' class={styles.playgroundHead}>
               <Flex align='center' gap={8}>
-                <Box color='success' size='xxs' circle data-live />
+                <Box color='success' size='xxs' view='filled' circle data-live />
                 <Text size='xxs' weight='700' color='dim'>LIVE PREVIEW</Text>
               </Flex>
               <Text size='xxs' weight='600' color='dim'>@rundom/ui</Text>
-            </Flex>
+            </Header>
 
             <Flex align='center' justify='center' class={styles.previewCanvas}>
               <div class={styles.previewHalo} aria-hidden='true' />
@@ -442,7 +442,7 @@ export default function UIPage () {
               </Code>
             </div>
 
-            <Flex vertical gap={12} class={styles.controls}>
+            <Body vertical>
               <div class={styles.controlRow}>
                 <Text size='xxs' weight='700' color='dim' class={styles.controlLabel}>COLOR</Text>
                 <Flex gap={6} wrap flex>
@@ -450,7 +450,7 @@ export default function UIPage () {
                     <Button
                       size='s'
                       color={option}
-                      view={() => get(color) === option ? 'filled' : 'bordered'}
+                      view={() => get(color) === option ? 'filled' : 'soft'}
                       onclick={() => set(color, option)}
                     >
                       {option}
@@ -464,8 +464,8 @@ export default function UIPage () {
                   {viewOptions.map(option => (
                     <Button
                       size='s'
-                      color={() => get(view) === option ? 'primary' : 'secondary'}
-                      view={() => get(view) === option ? 'filled' : 'bordered'}
+                      color={() => get(view) === option ? 'primary' : 'neutral'}
+                      view={() => get(view) === option ? 'filled' : 'soft'}
                       onclick={() => set(view, option)}
                     >
                       {option}
@@ -479,8 +479,8 @@ export default function UIPage () {
                   {sizeOptions.map(option => (
                     <Button
                       size='s'
-                      color={() => get(size) === option ? 'primary' : 'secondary'}
-                      view={() => get(size) === option ? 'filled' : 'bordered'}
+                      color={() => get(size) === option ? 'primary' : 'neutral'}
+                      view={() => get(size) === option ? 'filled' : 'soft'}
                       onclick={() => set(size, option)}
                     >
                       {option.toUpperCase()}
@@ -498,13 +498,13 @@ export default function UIPage () {
                   <Text size='s'>Disabled</Text>
                 </Flex>
               </Flex>
-            </Flex>
+            </Body>
           </Card>
         </div>
       </section>
 
       <section class={styles.ctaSection}>
-        <Card size='l' class={classes([styles.cta, styles.reveal])}>
+        <Card vertical size='l' class={classes([styles.cta, styles.reveal])}>
           <div class={styles.ctaGlow} aria-hidden='true' />
           <Eyebrow style={kickerStyle}>Ready when you are</Eyebrow>
           <h2 class={styles.ctaTitle}>Build the next screen with Rundom UI.</h2>
@@ -515,7 +515,7 @@ export default function UIPage () {
             <Button element='a' href='/ui/introduction' size='l' view='filled' color='accent'>
               Get Started
             </Button>
-            <Button element='a' href='/ui/icons' size='l' view='bordered'>
+            <Button element='a' href='/ui/icons' size='l' view='soft'>
               Explore icons
             </Button>
           </Flex>

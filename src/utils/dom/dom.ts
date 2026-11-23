@@ -9,7 +9,7 @@ export class Content implements IContent {
   _last?: Child
 }
 
-function virtualRemove (target: Child) {
+export function virtualRemove (target: Child) {
   if (!target._parent) return
 
   if (target._parent._first === target) {
@@ -31,17 +31,25 @@ function virtualRemove (target: Child) {
   target._prev = target._next = target._parent = undefined
 }
 
-function getParentElement (target: Child): DocumentFragment | DomElement | undefined {
-  let parent: Parent | undefined = target._parent
+export function getElement (target: Child) {
+  while (target instanceof Content) {
+    if (!target._parent) {
+      return undefined
+    }
 
-  while (parent instanceof Content) {
-    parent = parent._parent
+    target = target._parent
   }
 
-  return parent
+  return target
 }
 
-function getFirstElement (target: Child): DomElement | Text | undefined {
+export function getParentElement (target: Child): DocumentFragment | DomElement | undefined {
+  if (!target._parent) return undefined
+
+  return getElement(target._parent) as DocumentFragment | DomElement
+}
+
+export function getFirstElement (target: Child): DomElement | Text | undefined {
   if (!(target instanceof Content)) {
     return target instanceof DocumentFragment ? undefined : target
   }
@@ -57,7 +65,7 @@ function getFirstElement (target: Child): DomElement | Text | undefined {
   }
 }
 
-function getLastElement (target: Child): DomElement | Text | undefined {
+export function getLastElement (target: Child): DomElement | Text | undefined {
   if (!(target instanceof Content)) {
     return target instanceof DocumentFragment ? undefined : target
   }
@@ -73,7 +81,7 @@ function getLastElement (target: Child): DomElement | Text | undefined {
   }
 }
 
-function getNextElement (target: Child): DomElement | Text | undefined {
+export function getNextElement (target: Child): DomElement | Text | undefined {
   if (target._next) {
     return getFirstElement(target._next) ?? getNextElement(target._next)
   }
@@ -81,7 +89,7 @@ function getNextElement (target: Child): DomElement | Text | undefined {
   return target._parent instanceof Content ? getNextElement(target._parent) : undefined
 }
 
-function getPrevElement (target: Child): DomElement | Text | undefined {
+export function getPrevElement (target: Child): DomElement | Text | undefined {
   if (target._prev) {
     return getLastElement(target._prev) ?? getPrevElement(target._prev)
   }
@@ -89,7 +97,27 @@ function getPrevElement (target: Child): DomElement | Text | undefined {
   return target._parent instanceof Content ? getPrevElement(target._parent) : undefined
 }
 
-function getElements (target: Content) {
+export function getNextDomElement (target: Child): DomElement | undefined {
+  let element = getNextElement(target)
+
+  while (element && element instanceof Text) {
+    element = getNextElement(target)
+  }
+
+  return element
+}
+
+export function getPrevDomElement (target: Child): DomElement | undefined {
+  let element = getPrevElement(target)
+
+  while (element && element instanceof Text) {
+    element = getPrevElement(target)
+  }
+
+  return element
+}
+
+export function getElements (target: Content) {
   const result: Array<DomElement | Text> = []
 
   let current = target._first

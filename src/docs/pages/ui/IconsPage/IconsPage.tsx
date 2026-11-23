@@ -5,10 +5,9 @@ import { message } from '../../../../helpers'
 import type { JSXElement } from '../../../../types'
 import {
   AsideIcon,
+  Body,
   BurgerIcon,
   Card,
-  CardContent,
-  CardPreview,
   CheckIcon,
   CloseIcon,
   CopyIcon,
@@ -19,6 +18,7 @@ import {
   LinkIcon,
   MonitorIcon,
   MoonIcon,
+  Preview,
   SearchIcon,
   SideIcon,
   SunIcon,
@@ -205,17 +205,17 @@ export default function IconsPage () {
                       <Card
                         element='button'
                         type='button'
-                        size='s'
+                        vertical
                         aria-label={`Copy <${item.value.name} />`}
                         onclick={copy(item.value.name)}
                       >
-                        <CardPreview>
+                        <Preview>
                           {() => item.value.icon}
-                        </CardPreview>
-                        <CardContent vertical>
+                        </Preview>
+                        <Body vertical>
                           <Title depth={3}>{() => item.value.name}</Title>
                           <Description>{() => item.value.description}</Description>
-                        </CardContent>
+                        </Body>
                       </Card>
                     )}
                   </For>

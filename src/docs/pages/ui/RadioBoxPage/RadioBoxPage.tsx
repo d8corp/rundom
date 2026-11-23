@@ -17,8 +17,8 @@ export default function RadioBoxPage () {
   const examples: HighlightExamples = {
     basic: (
       <Flex gap={8} wrap align='center'>
-        <RadioBox />
-        <RadioBox checked />
+        <RadioBox name='basic' />
+        <RadioBox name='basic' checked />
       </Flex>
     ),
     label: (
@@ -114,8 +114,12 @@ export default function RadioBoxPage () {
             primary
           </Flex>
           <Flex element='label' gap={8} align='center'>
-            <RadioBox name='inherited' color='secondary' />
-            secondary
+            <RadioBox name='inherited' color='neutral' />
+            neutral
+          </Flex>
+          <Flex element='label' gap={8} align='center'>
+            <RadioBox name='inherited' color='info' />
+            info
           </Flex>
           <Flex element='label' gap={8} align='center'>
             <RadioBox name='inherited' color='accent' />

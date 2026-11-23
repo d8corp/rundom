@@ -1,7 +1,7 @@
 import { useEffect } from '../useEffect'
 
 import type { ObservableProp } from '../../types'
-import { Ref, SystemSlot, use } from '../../utils'
+import { RDSlot, Ref, use } from '../../utils'
 
 export const documentElementRef = new Ref(document.documentElement)
 
@@ -31,16 +31,16 @@ export function useVirtualList<T> ({ scrollbar = documentElementRef, itemHeight,
   const virtualOffsetTop = () => `${scrollIndex.value * itemSize.value}px`
   const virtualOffsetBottom = () => `${(use(list).length - end.value) * itemSize.value}px`
 
-  const itemSize = new SystemSlot(virtualItemSize)
-  const scroll = new SystemSlot(virtualScroll)
-  const height = new SystemSlot(virtualHeight)
-  const heightCount = new SystemSlot(virtualHeightCount)
-  const scrollIndex = new SystemSlot(virtualScrollIndex)
-  const end = new SystemSlot(virtualEnd)
-  const offsetTop = new SystemSlot(virtualOffsetTop)
-  const offsetBottom = new SystemSlot(virtualOffsetBottom)
+  const itemSize = new RDSlot(virtualItemSize)
+  const scroll = new RDSlot(virtualScroll)
+  const height = new RDSlot(virtualHeight)
+  const heightCount = new RDSlot(virtualHeightCount)
+  const scrollIndex = new RDSlot(virtualScrollIndex)
+  const end = new RDSlot(virtualEnd)
+  const offsetTop = new RDSlot(virtualOffsetTop)
+  const offsetBottom = new RDSlot(virtualOffsetBottom)
 
-  const virtualList = new SystemSlot(function virtualList () {
+  const virtualList = new RDSlot(function virtualList () {
     return use(list).slice(scrollIndex.value, end.value)
   })
 

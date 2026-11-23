@@ -1,2 +1,3 @@
-export * from './CardHeader'
+export * from './Header'
 export * from './Message'
+export * from './Popover'

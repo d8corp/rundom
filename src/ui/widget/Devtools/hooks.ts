@@ -2,7 +2,7 @@ import { batch, Hub, type Slot } from 'rune-hub'
 
 import type { DevtoolsProps } from './Devtools'
 
-import { Context, SystemSlot } from '../../../utils'
+import { Context, RDSlot } from '../../../utils'
 
 export type DevtoolsStore = ReturnType<typeof useCreateDevtoolsStore>
 export const devtoolsStoreContext = new Context<DevtoolsStore | undefined>(undefined)
@@ -10,29 +10,43 @@ export const devtoolsStoreContext = new Context<DevtoolsStore | undefined>(undef
 export function useCreateDevtoolsStore (props: DevtoolsProps, devHub: Hub) {
   const hub = Hub.cur || Hub.root
 
-  const search = new SystemSlot(() => '', devHub)
-  const anonFilter = new SystemSlot<boolean | null>(() => false, devHub)
-  const systemFilter = new SystemSlot<boolean | null>(() => false, devHub)
-  const errorFilter = new SystemSlot<boolean | null>(() => null, devHub)
-  const selected = new SystemSlot<Slot | undefined>(() => {}, devHub)
-  const show = new SystemSlot(() => false, devHub)
-  const slots = new SystemSlot<Set<Slot>>(() => new Set(Array.from(hub.slots.values()).filter(slot => !(slot instanceof SystemSlot))), devHub)
+  const filterNames = Object.keys(props.filter || {})
+  const search = new RDSlot(() => '', devHub)
+  const anonFilter = new RDSlot<boolean | null>(() => false, devHub)
+  const errorFilter = new RDSlot<boolean | null>(() => null, devHub)
+  const selected = new RDSlot<Slot | undefined>(() => {}, devHub)
+  const show = new RDSlot(() => false, devHub)
+  const slots = new RDSlot<Set<Slot>>(() => new Set(Array.from(hub.slots.values()).filter(slot => !(slot instanceof RDSlot))), devHub)
 
-  const filteredSlots = new SystemSlot(() => {
-    const isSystem = systemFilter.value
+  const filter = new RDSlot<Record<string, boolean | null>>(() => filterNames.reduce((result, name) => {
+    result[name] = false
+
+    return result
+  }, {} as Record<string, boolean | null>), devHub)
+
+  const filteredSlots = new RDSlot(() => {
+    const filterMap = filter.value
     const isAnon = anonFilter.value
     const isError = errorFilter.value
 
-    if (isSystem === null && isAnon === null && isError === null) {
+    const isNotFiltered = filterNames.every(name => filterMap[name] === null)
+
+    if (isAnon === null && isError === null && isNotFiltered) {
       return Array.from(slots.value)
     }
 
     return Array.from(slots.value).filter(slot => {
-      if (isSystem !== null) {
-        const isSystemSlot = slot instanceof SystemSlot
+      if (!isNotFiltered && filterNames.some(name => {
+        const value = filterMap[name]
 
-        if (isSystem && !isSystemSlot) return false
-        if (!isSystem && isSystemSlot) return false
+        if (value === null) return false
+
+        const constructor = props.filter![name]
+        const isSystemSlot = slot instanceof constructor
+
+        return value !== isSystemSlot
+      })) {
+        return false
       }
 
       if (isAnon !== null) {
@@ -50,15 +64,15 @@ export function useCreateDevtoolsStore (props: DevtoolsProps, devHub: Hub) {
     })
   }, devHub)
 
-  const searchSlots = new SystemSlot(() => {
+  const searchSlots = new RDSlot(() => {
     const value = search.value.toLowerCase()
 
     return value ? filteredSlots.value.filter(slot => slot.rune.name.toLowerCase().includes(value)) : filteredSlots.value
   }, devHub)
 
-  const values = new SystemSlot<Map<Slot, unknown>>(() => new Map(Array.from(slots.raw).map(slot => [slot, slot.raw])), devHub)
-  const errors = new SystemSlot<Map<Slot, unknown>>(() => new Map(), devHub)
-  const ups = new SystemSlot<Map<Slot, boolean>>(() => new Map(Array.from(slots.raw).map(slot => [slot, slot.up])), devHub)
+  const values = new RDSlot<Map<Slot, unknown>>(() => new Map(Array.from(slots.raw).map(slot => [slot, slot.raw])), devHub)
+  const errors = new RDSlot<Map<Slot, unknown>>(() => new Map(), devHub)
+  const ups = new RDSlot<Map<Slot, boolean>>(() => new Map(Array.from(slots.raw).map(slot => [slot, slot.up])), devHub)
 
   let isWillUpdate = false
   const willUpdate = new Set<Slot>()
@@ -82,10 +96,7 @@ export function useCreateDevtoolsStore (props: DevtoolsProps, devHub: Hub) {
   }
 
   const check = (slot: Slot) => {
-    if (!props.system && slot instanceof SystemSlot) return true
-    if (!props.anon && !hub.slots.has(slot.rune)) return true
-
-    return false
+    return !props.anon && !hub.slots.has(slot.rune)
   }
 
   const clear = (slot: Slot) => {
@@ -171,7 +182,7 @@ export function useCreateDevtoolsStore (props: DevtoolsProps, devHub: Hub) {
     ups,
     hub,
     props,
-    systemFilter,
+    filter,
     errorFilter,
     anonFilter,
   }

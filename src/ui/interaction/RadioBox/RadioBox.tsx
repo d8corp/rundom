@@ -1,8 +1,9 @@
-import { useEffect, useStyles } from '../../../hooks'
-import type { HTMLRef, Merge, ObservableProp } from '../../../types'
-import { addUiCSS, getSlotEvent, inject, Ref, SystemSlot, use } from '../../../utils'
-import type { BoxProps, BoxStyles, FlexElement } from '../../primitive'
-import { Box } from '../../primitive'
+import type { ControlBoxProps, ControlBoxStyles } from '../ControlBox'
+import { ControlBox } from '../ControlBox'
+
+import { useStyles } from '../../../hooks'
+import { addUiCSS } from '../../../utils'
+import type { FlexElement } from '../../primitive'
 
 if (import.meta.env?.RD_THEME_RADIO_BOX) {
   addUiCSS(import.meta.env.RD_THEME_RADIO_BOX, 'radio-box')
@@ -10,92 +11,23 @@ if (import.meta.env?.RD_THEME_RADIO_BOX) {
 
 export const radioBoxStyles = {
   root: import.meta.env?.RD_THEME_RADIO_BOX__ROOT,
-  primary: import.meta.env?.RD_THEME_RADIO_BOX__PRIMARY,
-  accent: import.meta.env?.RD_THEME_RADIO_BOX__ACCENT,
-  secondary: import.meta.env?.RD_THEME_RADIO_BOX__SECONDARY,
-  success: import.meta.env?.RD_THEME_RADIO_BOX__SUCCESS,
-  warning: import.meta.env?.RD_THEME_RADIO_BOX__WARNING,
-  danger: import.meta.env?.RD_THEME_RADIO_BOX__DANGER,
-  disabled: import.meta.env?.RD_THEME_RADIO_BOX__DISABLED,
-  input: import.meta.env?.RD_THEME_RADIO_BOX__INPUT,
 }
 
-export type RadioBoxStyles = typeof radioBoxStyles
+export type RadioBoxStyles = typeof radioBoxStyles & ControlBoxStyles
 
 /** Props for `<RadioBox>`: box props plus native radio behavior. */
-export type RadioBoxProps<T extends FlexElement = 'div', S extends RadioBoxStyles = RadioBoxStyles> = Omit<Merge<BoxProps<T, S & BoxStyles>, {
-  /** Checked state of the radio input. */
-  checked?: ObservableProp<boolean>
-  /** Reference to the underlying native radio input. */
-  inputRef?: HTMLRef<'input'>
-  /** Native input name that groups radio buttons. */
-  name?: ObservableProp<string>
-  /** Disables the radio input and applies the disabled color. */
-  disabled?: ObservableProp<boolean>
-  /** Native input value used by forms. */
-  value?: ObservableProp<string>
-  /** Called with the new checked state. */
-  onChange?: (checked: boolean) => void
-}>, 'children'>
+export type RadioBoxProps<T extends FlexElement = 'div', S extends RadioBoxStyles = RadioBoxStyles> = ControlBoxProps<T, S>
 
 /**
  * Radio button with a hidden native `<input type="radio">` for forms and accessibility.
  * Group radios with the same `name`.
  */
-function RadioBoxComponent<T extends FlexElement = 'div', S extends RadioBoxStyles = RadioBoxStyles> ({
-  checked,
-  inputRef = new Ref<HTMLInputElement>(),
-  disabled,
-  name,
-  value,
-  color,
-  onChange,
-  ...props
-}: RadioBoxProps<T, S>) {
+function RadioBoxComponent<T extends FlexElement = 'div', S extends RadioBoxStyles = RadioBoxStyles> (
+  props: RadioBoxProps<T, S>,
+) {
   const styles = useStyles(radioBoxStyles, props.class)
-  const setChecked = getSlotEvent(checked, onChange)
-  let click = false
 
-  const handleChange = (e: any) => {
-    click = true
-    setChecked?.(e.target.checked)
-    click = false
-  }
-
-  if (checked && checked !== true) {
-    useEffect(() => {
-      new SystemSlot(() => {
-        const value = Boolean(use(checked))
-
-        if (!click) {
-          inputRef.value!.checked = value
-        }
-      }).on()
-    })
-  }
-
-  return (
-    <Box
-      element='label'
-      view='bordered'
-      size='s'
-      interact={inject(disabled, disabled => disabled ? undefined : 'clickable')}
-      {...props as BoxProps<T, S & BoxStyles>}
-      color={inject(disabled, disabled => disabled ? 'disabled' : use(color) ?? 'primary')}
-      class={styles}
-    >
-      <input
-        type='radio'
-        class={styles.input}
-        ref={inputRef}
-        disabled={disabled}
-        name={name}
-        value={value}
-        checked={checked === true}
-        onchange={handleChange}
-      />
-    </Box>
-  )
+  return <ControlBox {...props} inputProps={{ ...props.inputProps, type: 'radio' }} class={styles} />
 }
 
 export const RadioBox = import.meta.env?.RD_UI_RADIO_BOX

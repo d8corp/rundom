@@ -2,7 +2,7 @@ import { Portal } from '../../components'
 import { rundom } from '../../rundom'
 import type { MessageProps } from '../../ui'
 import { Message } from '../../ui'
-import { addUiCSS, Ref, SystemSlot, viewTransition } from '../../utils'
+import { addUiCSS, RDSlot, Ref, viewTransition } from '../../utils'
 
 if (import.meta.env?.RD_THEME_MESSAGES) {
   addUiCSS(import.meta.env.RD_THEME_MESSAGES, 'messages')
@@ -89,7 +89,7 @@ export function baseMessage (text: string, { timeout = text.length / 13 + 1, typ
     })
   }
 
-  const slot = new SystemSlot(() => {
+  const slot = new RDSlot(() => {
     rundom(
       <Portal to={messagesRef.value}>
         <Message

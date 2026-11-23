@@ -1,7 +1,7 @@
 import { locationSearch } from '../locationSearch'
 
-import { SystemSlot } from '../../../SystemSlot'
+import { RDSlot } from '../../../RDSlot'
 
-export const urlSearchParams = new SystemSlot(function urlSearchParams () {
+export const urlSearchParams = new RDSlot(function urlSearchParams () {
   return new URLSearchParams(locationSearch.value)
 })

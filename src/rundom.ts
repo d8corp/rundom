@@ -4,7 +4,7 @@ import { catchContext, parentContext } from './constants'
 import { useClear } from './hooks'
 import type { JSXElement, JSXIntrinsicElements, JSXSource, ReactiveProp } from './types'
 import { JSXNode } from './types'
-import { append, Content, Context, observablePropToStaticOrReactive, remove, SystemSlot, use } from './utils'
+import { append, Content, Context, observablePropToStaticOrReactive, RDSlot, remove, use } from './utils'
 
 Context.render = rundom
 
@@ -32,7 +32,7 @@ export function runReactive (target: ReactiveProp<JSXElement>) {
     }, context)
   }
 
-  new SystemSlot(reactiveContent).on()
+  new RDSlot(reactiveContent).on()
 }
 
 /** Appends a DOM node to the current parent and registers its removal on cleanup. */
@@ -118,7 +118,7 @@ export function runNode (target: JSXNode) {
               prev = value
             }
 
-            new SystemSlot(styleParamEffect).on()
+            new RDSlot(styleParamEffect).on()
           } else if (rawValue !== undefined) {
             element.style.setProperty(property, rawValue)
           }
@@ -145,7 +145,7 @@ export function runNode (target: JSXNode) {
           }
         }
 
-        new SystemSlot(attributeEffect).on()
+        new RDSlot(attributeEffect).on()
 
         continue
       }

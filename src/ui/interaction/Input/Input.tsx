@@ -4,7 +4,7 @@ import SyncTimer from 'sync-timer'
 import { Show } from '../../../components'
 import { useClear, useDebounceSlotEvent, useEffect, useStyles } from '../../../hooks'
 import type { HTMLRef, Merge, ObservableProp } from '../../../types'
-import { addUiCSS, getSlotEvent, inject, Ref, SystemSlot, use } from '../../../utils'
+import { addUiCSS, getSlotEvent, inject, RDSlot, Ref, use } from '../../../utils'
 import type { FieldProps, FieldStyles } from '../../block'
 import { Field } from '../../block'
 import { CloseIcon } from '../../icons'
@@ -20,7 +20,8 @@ export const inputStyles = {
   root: import.meta.env?.RD_THEME_INPUT__ROOT,
   primary: import.meta.env?.RD_THEME_INPUT__PRIMARY,
   accent: import.meta.env?.RD_THEME_INPUT__ACCENT,
-  secondary: import.meta.env?.RD_THEME_INPUT__SECONDARY,
+  neutral: import.meta.env?.RD_THEME_INPUT__NEUTRAL,
+  info: import.meta.env?.RD_THEME_INPUT__INFO,
   success: import.meta.env?.RD_THEME_INPUT__SUCCESS,
   warning: import.meta.env?.RD_THEME_INPUT__WARNING,
   danger: import.meta.env?.RD_THEME_INPUT__DANGER,
@@ -97,7 +98,7 @@ function InputComponent<T extends string = '', S extends InputStyles = InputStyl
   }
 
   useEffect(() => {
-    new SystemSlot(() => {
+    new RDSlot(() => {
       inputRef!.value!.value = use(value)
     }).on()
   })
@@ -118,7 +119,7 @@ function InputComponent<T extends string = '', S extends InputStyles = InputStyl
   )
 
   return (
-    <Field element='label' view='bordered' interact='hoverable' {...props} after={[clearContent, props.after]} class={styles}>
+    <Field element='label' view='surface' interact='hoverable' {...props} after={[clearContent, props.after]} class={styles}>
       <input
         placeholder={placeholder}
         name={name}

@@ -6,7 +6,7 @@ import { parentContext } from '../../constants'
 import { useClear } from '../../hooks'
 import { rundom } from '../../rundom'
 import type { Ref } from '../../utils'
-import { append, Content, Context, dissolve, SystemSlot } from '../../utils'
+import { append, Content, Context, dissolve, RDSlot } from '../../utils'
 
 export const delayContext = new Context<undefined | Slot<boolean>>(undefined)
 
@@ -58,7 +58,7 @@ export function Delay ({ show = 0, hide = 0, ref, children }: DelayProps) {
 
   if (hide > 0) {
     const delayHide = () => false
-    const hideSlot = new SystemSlot(delayHide)
+    const hideSlot = new RDSlot(delayHide)
 
     delayContext.set(hideSlot, context)
 
@@ -66,7 +66,7 @@ export function Delay ({ show = 0, hide = 0, ref, children }: DelayProps) {
       ref.value = hideSlot
     }
 
-    const watcher = new SystemSlot(delayContent)
+    const watcher = new RDSlot(delayContent)
 
     useClear(() => {
       hideSlot.set(true)

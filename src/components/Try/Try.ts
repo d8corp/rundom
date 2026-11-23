@@ -1,7 +1,7 @@
 import { catchContext } from '../../constants'
 import type { ChildrenProps, JSXElement } from '../../types'
 import { JSXNode } from '../../types'
-import { Context, SystemSlot } from '../../utils'
+import { Context, RDSlot } from '../../utils'
 
 export interface ErrorProps {
   /** Error thrown while rendering the children. */
@@ -21,14 +21,14 @@ export interface TryProps extends ChildrenProps {
  */
 export function Try (props: TryProps) {
   const tryError = () => {}
-  const errorSlot = new SystemSlot<unknown>(tryError)
+  const errorSlot = new RDSlot<unknown>(tryError)
 
   const retry = () => {
     errorSlot.set(undefined)
   }
 
   const tryCatch = () => !errorSlot.value ? props.children : props.catch ? props.catch({ error: errorSlot.value, retry }) : undefined
-  const tryCatchSlot = new SystemSlot(tryCatch)
+  const tryCatchSlot = new RDSlot(tryCatch)
 
   const handleError = (error: unknown) => {
     errorSlot.set(error)

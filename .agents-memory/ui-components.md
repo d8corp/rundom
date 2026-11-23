@@ -1,6 +1,6 @@
 ---
 description: component folder layout, theme styles, props typing, implementation pattern, env overrides. Read before adding or changing a UI component.
-updated: 2026-11-15
+updated: 2026-11-26
 ---
 
 # UI Component Architecture (using `Box` as an example)
@@ -29,12 +29,14 @@ export type BoxStyles = typeof boxStyles
 ## 2. Props typing
 
 - Public props are built with `Merge<ParentProps, OwnProps>`.
+- Keep props ordered alphabetically: regular props first, then event/callback props such as `onChangeRect` at the end, also alphabetically.
 - Inheritance comes from the underlying primitive (`BoxProps<T, S>` extends `FlexProps<T, S>`).
+- `Box` uses its own `BoxColor`, `BoxView` and `BoxInteract` unions instead of the shared `RDColor` (`Text` keeps `RDColor`).
 - All configurable props are wrapped in `ObservableProp<T>`:
 
 ```tsx
 export type BoxProps<T extends FlexElement = 'div', S extends BoxStyles = BoxStyles> = Merge<FlexProps<T, S>, {
-  color?: ObservableProp<RDColor>
+  color?: ObservableProp<BoxColor>
   size?: ObservableProp<BoxSize>
   view?: ObservableProp<BoxView>
   square?: ObservableProp<boolean | 'left' | 'right'>
@@ -42,6 +44,8 @@ export type BoxProps<T extends FlexElement = 'div', S extends BoxStyles = BoxSty
   interact?: ObservableProp<BoxInteract | undefined>
 }>
 ```
+
+`BoxColor` is `primary | accent | neutral | info | success | warning | danger`, `BoxView` is `filled | soft | surface | dashed | ghost`, and `BoxInteract` is `hoverable | clickable | disabled`. `surface` is the neutral view for cards and inputs; `soft` is the old `bordered` view, and `neutral` replaces `secondary`.
 
 ## 3. Component implementation (`XxxComponent`)
 

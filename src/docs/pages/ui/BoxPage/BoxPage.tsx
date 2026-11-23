@@ -4,7 +4,7 @@ import { Box, CheckIcon, Flex } from '../../../../ui'
 import { MarkdownTemplate } from '../../../templates'
 import description from './BoxPage.md'
 
-const colors = ['primary', 'secondary', 'accent', 'success', 'warning', 'danger', 'disabled'] as const
+const colors = ['neutral', 'primary', 'accent', 'info', 'success', 'warning', 'danger'] as const
 
 export default function BoxPage () {
   const examples: HighlightExamples = {
@@ -19,7 +19,8 @@ export default function BoxPage () {
     view: (
       <Flex gap={8} align='center' wrap>
         <Box view='filled'>filled</Box>
-        <Box view='bordered'>bordered</Box>
+        <Box view='soft'>soft</Box>
+        <Box view='surface'>surface</Box>
         <Box view='dashed'>dashed</Box>
         <Box view='ghost'>ghost</Box>
       </Flex>
@@ -29,16 +30,26 @@ export default function BoxPage () {
         <Flex gap={8} wrap>
           hoverable:
           <Box interact='hoverable' view='filled'>filled</Box>
-          <Box interact='hoverable' view='bordered'>bordered</Box>
+          <Box interact='hoverable' view='soft'>soft</Box>
+          <Box interact='hoverable' view='surface'>surface</Box>
           <Box interact='hoverable' view='dashed'>dashed</Box>
           <Box interact='hoverable' view='ghost'>ghost</Box>
         </Flex>
         <Flex gap={8} wrap>
           clickable:
           <Box interact='clickable' view='filled'>filled</Box>
-          <Box interact='clickable' view='bordered'>bordered</Box>
+          <Box interact='clickable' view='soft'>soft</Box>
+          <Box interact='clickable' view='surface'>surface</Box>
           <Box interact='clickable' view='dashed'>dashed</Box>
           <Box interact='clickable' view='ghost'>ghost</Box>
+        </Flex>
+        <Flex gap={8} wrap>
+          disabled:
+          <Box interact='disabled' view='filled'>filled</Box>
+          <Box interact='disabled' view='soft'>soft</Box>
+          <Box interact='disabled' view='surface'>surface</Box>
+          <Box interact='disabled' view='dashed'>dashed</Box>
+          <Box interact='disabled' view='ghost'>ghost</Box>
         </Flex>
       </Flex>
     ),
@@ -51,9 +62,15 @@ export default function BoxPage () {
           ))}
         </Flex>
         <Flex gap={8} wrap>
-          bordered:
+          soft:
           {colors.map(color => (
-            <Box view='bordered' interact='clickable' color={color}>{color}</Box>
+            <Box view='soft' interact='clickable' color={color}>{color}</Box>
+          ))}
+        </Flex>
+        <Flex gap={8} wrap>
+          surface:
+          {colors.map(color => (
+            <Box view='surface' interact='clickable' color={color}>{color}</Box>
           ))}
         </Flex>
         <Flex gap={8} wrap>
@@ -105,19 +122,19 @@ export default function BoxPage () {
     ),
     radiobox: (
       <Flex gap={8} align='center'>
-        <Box interact='clickable' circle view='bordered' size='s' />
-        <Box interact='clickable' circle view='bordered' size='s'>
+        <Box interact='clickable' circle view='soft' size='s' />
+        <Box interact='clickable' circle view='soft' size='s'>
           <Box circle size='xxs' />
         </Box>
       </Flex>
     ),
     checkbox: (
       <Flex gap={8} align='center'>
-        <Box interact='clickable' view='bordered' size='s' />
-        <Box interact='clickable' view='bordered' size='s'>
+        <Box interact='clickable' view='soft' size='s' />
+        <Box interact='clickable' view='soft' size='s'>
           <Box size='xxs' />
         </Box>
-        <Box interact='clickable' view='bordered' square size='s'>
+        <Box interact='clickable' view='soft' square size='s'>
           <CheckIcon stroke-width='4' />
         </Box>
         <Box interact='clickable' square size='s'>
@@ -127,15 +144,15 @@ export default function BoxPage () {
     ),
     toggle: (
       <Flex gap={8} align='center' wrap>
-        <Box circle interact='clickable' view='bordered' size='s'>
-          <Box size='xs' circle />
-          <Box size='xs' view='ghost' />
-        </Box>
         <Box circle interact='clickable' size='s'>
+          <Box size='xs' circle view='surface' />
           <Box size='xs' view='ghost' />
-          <Box size='xs' circle style={{ background: '#fff' }} />
         </Box>
-        <Box circle color='danger' interact='clickable' view='bordered' size='s'>
+        <Box circle interact='clickable' color='primary' size='s'>
+          <Box size='xs' view='ghost' />
+          <Box size='xs' circle view='surface' color='primary' />
+        </Box>
+        <Box circle color='danger' interact='clickable' view='soft' size='s'>
           <Box size='xs' circle color='danger' />
           <Box size='xs' view='ghost' />
         </Box>
@@ -143,7 +160,7 @@ export default function BoxPage () {
           <Box size='xs' view='ghost' />
           <Box size='xs' circle color='danger' style={{ background: '#fff' }} />
         </Box>
-        <Box circle interact='clickable' view='bordered' square>
+        <Box circle interact='clickable' view='soft' square>
           <Box size='s' circle />
           <Box size='s' view='ghost' />
         </Box>
