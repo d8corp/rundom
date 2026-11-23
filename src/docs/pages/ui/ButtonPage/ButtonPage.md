@@ -10,7 +10,7 @@ It offers color themes, sizes, shapes, fine-grained reactivity, and built-in man
 | **children** | `JSX.Element`                                                                                          | Content to render inside the button                                                                                |
 | [**circle**](#square-and-circle) | `ObservableProp<boolean>`                                                                              | Gives the button fully rounded edges: a circle with `square`, a pill otherwise (default: `false`)                  |
 | **class**    | `ObservableProp<string \| Partial<ButtonStyles>>`                                                      | CSS class name(s) or an object that overrides styles                                                               |
-| [**color**](#color) | `'primary'` \| `'secondary'` \| `'accent'` \| `'success'` \| `'warning'` \| `'danger'` \| `'disabled'` | Color theme that reflects the purpose of the action, e.g. `'danger'` for destructive ones (default: `'secondary'`) |
+| [**color**](#color) | `'primary'` \| `'accent'` \| `'neutral'` \| `'info'` \| `'success'` \| `'warning'` \| `'danger'` | Color theme that reflects the purpose of the action, e.g. `'danger'` for destructive ones (default: `'primary'`) |
 | [**disabled**](#disabled) | `ObservableProp<boolean>`                                                                              | Disables user interactions and applies the disabled style (default: `false`)                                       |
 | [**element**](#element) | `keyof HTMLElementTagNameMap`                                                                          | Tag name to render, e.g. `'button'` or `'a'` (default: `'button'`)                                                 |
 | **href**     | `string`                                                                                               | Link address, used when `element` is `'a'`                                                                         |
@@ -93,13 +93,15 @@ rundom(
 The `color` prop describes the purpose of the action.
 The exact colors and effects depend on the active theme, so choose a value by meaning rather than by appearance:
 
-- `'secondary'` (default): a regular action that doesn't need special emphasis, e.g. "Cancel" or "Back".
-- `'primary'`: the main action in a view, e.g. "Save" or "Continue".
+- `'primary'` (default): the main action in a view, e.g. "Save" or "Continue".
 - `'accent'`: a promoted action that should stand out even more than the primary one, e.g. a call to action like "Get Started".
+- `'neutral'`: a regular action that doesn't need special emphasis, e.g. "Cancel" or "Back".
+- `'info'`: an action that provides additional information or a hint.
 - `'success'`: an action that confirms or completes something, e.g. "Approve" or "Done".
 - `'warning'`: an action that requires caution but is not destructive, e.g. "Reset filters".
 - `'danger'`: a destructive or irreversible action, e.g. "Delete" or "Remove account".
-- `'disabled'`: an action that is currently unavailable.
+
+Use the `disabled` prop to make an action unavailable.
 
 ```tsx
 //! View
@@ -110,8 +112,9 @@ import { rundom, Button, Flex } from 'rundom'
 rundom(
   <Flex gap={8} wrap>
     <Button color="primary">Primary</Button>
-    <Button color="secondary">Secondary</Button>
     <Button color="accent">Accent</Button>
+    <Button color='neutral'>Neutral</Button>
+    <Button color="info">Info</Button>
     <Button color="success">Success</Button>
     <Button color="warning">Warning</Button>
     <Button color="danger">Danger</Button>
@@ -261,7 +264,7 @@ rundom(
 ---
 
 Customize the styling with a regular CSS class name, or pass an object to override the styles of specific parts and states of the button.
-The object keys are `root`, `primary`, `secondary`, `accent`, `success`, `warning`, `danger`, `disabled`, `square`, `circle`, `loading`, `spin`, `s`, `m` and `l`:
+The object keys are `root`, `primary`, `accent`, `neutral`, `info`, `success`, `warning`, `danger`, `disabled`, `square`, `soft`, `surface`, `filled`, `dashed`, `ghost`, `circle`, `loading`, `spin`, `s`, `m` and `l`:
 
 ```tsx
 //! src/index.tsx
@@ -320,12 +323,18 @@ The `class` prop overrides them for a particular button.
 | `RD_THEME_BUTTON`               | CSS of the component that is added to the page                 |
 | `RD_THEME_BUTTON__ROOT`         | Class name(s) of the button itself, always applied             |
 | `RD_THEME_BUTTON__PRIMARY`      | Applied when `color` is `'primary'`                            |
-| `RD_THEME_BUTTON__SECONDARY`    | Applied when `color` is `'secondary'`                          |
 | `RD_THEME_BUTTON__ACCENT`       | Applied when `color` is `'accent'`                             |
+| `RD_THEME_BUTTON__NEUTRAL`      | Applied when `color` is `'neutral'`                            |
+| `RD_THEME_BUTTON__INFO`         | Applied when `color` is `'info'`                               |
 | `RD_THEME_BUTTON__SUCCESS`      | Applied when `color` is `'success'`                            |
 | `RD_THEME_BUTTON__WARNING`      | Applied when `color` is `'warning'`                            |
 | `RD_THEME_BUTTON__DANGER`       | Applied when `color` is `'danger'`                             |
-| `RD_THEME_BUTTON__DISABLED`     | Applied when `color` is `'disabled'` or the button is disabled |
+| `RD_THEME_BUTTON__DISABLED`     | Applied when the button is disabled                            |
+| `RD_THEME_BUTTON__FILLED`       | Applied when `view` is `'filled'`                              |
+| `RD_THEME_BUTTON__SOFT`         | Applied when `view` is `'soft'`                                |
+| `RD_THEME_BUTTON__SURFACE`      | Applied when `view` is `'surface'`                             |
+| `RD_THEME_BUTTON__DASHED`       | Applied when `view` is `'dashed'`                              |
+| `RD_THEME_BUTTON__GHOST`        | Applied when `view` is `'ghost'`                               |
 | `RD_THEME_BUTTON__S`            | Applied when `size` is `'s'`                                   |
 | `RD_THEME_BUTTON__M`            | Applied when `size` is `'m'`                                   |
 | `RD_THEME_BUTTON__L`            | Applied when `size` is `'l'`                                   |

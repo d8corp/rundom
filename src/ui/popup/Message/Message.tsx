@@ -1,7 +1,7 @@
 import { useStyles } from '../../../hooks'
 import type { Merge } from '../../../types'
 import { addUiCSS, inject } from '../../../utils'
-import type { FlexElement, FlexProps } from '../../primitive'
+import type { FlexElement, FlexProps, FlexStyles } from '../../primitive'
 import { Flex } from '../../primitive'
 
 export type MessageType = 'success' | 'error' | 'warning' | 'info'
@@ -19,7 +19,7 @@ export const messageStyles = {
   timeout: import.meta.env?.RD_THEME_MESSAGE__TIMEOUT,
 }
 
-export type MessageStyles = typeof messageStyles
+export type MessageStyles = typeof messageStyles & FlexStyles
 
 /** Props for `<Message>`: flex props plus message semantics. */
 export type MessageProps<T extends FlexElement = 'div', S extends MessageStyles = MessageStyles> = Merge<FlexProps<T, S>, {

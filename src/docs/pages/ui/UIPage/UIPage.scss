@@ -593,12 +593,6 @@ $max-width: 1280px;
   backdrop-filter: blur(14px);
 }
 
-.playgroundHead {
-  padding: 14px 18px;
-  border-bottom: $border;
-  background: light-dark(#F7F5FC99, #FFFFFF05);
-}
-
 .previewCanvas {
   position: relative;
   min-height: 190px;
@@ -647,10 +641,6 @@ $max-width: 1280px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-}
-
-.controls {
-  padding: 16px 18px 20px;
 }
 
 .controlRow {

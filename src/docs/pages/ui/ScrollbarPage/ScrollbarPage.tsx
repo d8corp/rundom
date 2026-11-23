@@ -24,10 +24,10 @@ export default function ScrollbarPage () {
     stable: (
       <Flex gap={8} vertical>
         <Flex gap={8} wrap>
-          <Button onclick={toggleStable} view={() => stable.value ? 'filled' : 'bordered'}>
+          <Button onclick={toggleStable} view={() => stable.value ? 'filled' : 'soft'}>
             Stable
           </Button>
-          <Button onclick={toggleScrollbar} view={() => scrollbar.value ? 'filled' : 'bordered'}>
+          <Button onclick={toggleScrollbar} view={() => scrollbar.value ? 'filled' : 'soft'}>
             Scrollbar
           </Button>
         </Flex>

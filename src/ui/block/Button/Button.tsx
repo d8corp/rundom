@@ -16,7 +16,8 @@ export const buttonStyles = {
   root: import.meta.env?.RD_THEME_BUTTON__ROOT,
   primary: import.meta.env?.RD_THEME_BUTTON__PRIMARY,
   accent: import.meta.env?.RD_THEME_BUTTON__ACCENT,
-  secondary: import.meta.env?.RD_THEME_BUTTON__SECONDARY,
+  neutral: import.meta.env?.RD_THEME_BUTTON__NEUTRAL,
+  info: import.meta.env?.RD_THEME_BUTTON__INFO,
   success: import.meta.env?.RD_THEME_BUTTON__SUCCESS,
   warning: import.meta.env?.RD_THEME_BUTTON__WARNING,
   danger: import.meta.env?.RD_THEME_BUTTON__DANGER,
@@ -32,7 +33,8 @@ export const buttonStyles = {
   m: import.meta.env?.RD_THEME_BUTTON__M,
   l: import.meta.env?.RD_THEME_BUTTON__L,
   filled: import.meta.env?.RD_THEME_BUTTON__FILLED,
-  bordered: import.meta.env?.RD_THEME_BUTTON__BORDERED,
+  soft: import.meta.env?.RD_THEME_BUTTON__SOFT,
+  surface: import.meta.env?.RD_THEME_BUTTON__SURFACE,
   ghost: import.meta.env?.RD_THEME_BUTTON__GHOST,
   dashed: import.meta.env?.RD_THEME_BUTTON__DASHED,
 }
@@ -51,7 +53,7 @@ export type ButtonProps<T extends FlexElement = 'button', S extends ButtonStyles
   size?: ObservableProp<SMLSize>
   /** Shows a spinner and blocks interaction while set. */
   loading?: ObservableProp<boolean>
-  /** Disables the button and applies the disabled color. */
+  /** Disables the button and applies the disabled style. */
   disabled?: ObservableProp<boolean>
   /** Click handler; returning a promise enables the loading state automatically. */
   onclick?: (e: MouseEvent) => void | Promise<void>
@@ -65,7 +67,6 @@ function ButtonComponent<T extends keyof HTMLElementTagNameMap = 'button', S ext
   loading = new SystemSlot(() => false),
   onclick,
   children,
-  color,
   size = 'm',
   disabled,
   interact = 'clickable',
@@ -76,6 +77,7 @@ function ButtonComponent<T extends keyof HTMLElementTagNameMap = 'button', S ext
   const root = injectAll([
     styles.root,
     inject(loading, loading => loading && styles.loading),
+    inject(disabled, disabled => disabled && styles.disabled),
   ], classes)
 
   function handleClick (e: MouseEvent) {
@@ -93,10 +95,10 @@ function ButtonComponent<T extends keyof HTMLElementTagNameMap = 'button', S ext
   return (
     <Box
       element='button'
-      view='bordered'
+      view='soft'
+      color='primary'
       {...(props as BoxProps<T, S & BoxStyles>)}
-      interact={injectAll([interact, disabled], ([interact, disabled]) => disabled ? undefined : interact)}
-      color={injectAll([color, disabled], ([color, disabled]) => disabled ? 'disabled' : color)}
+      interact={injectAll([interact, disabled], ([interact, disabled]) => disabled ? 'disabled' : interact)}
       size={inject(size, size => buttonSizeMap[size])}
       class={{ ...styles, m: styles.s, l: styles.m, xl: styles.l, root }}
       onclick={handleClick}

@@ -24,7 +24,7 @@ import { Slot } from 'rune-hub'
 
 const saving = new Slot(() => false)
 
-<Button loading={saving} color={saving.value ? 'disabled' : 'accent'}>
+<Button loading={saving} disabled={saving} color='accent'>
   Save
 </Button>
 ```
@@ -67,7 +67,7 @@ rundom(
       <Button view="filled" color="accent">
         Create
       </Button>
-      <Button view="bordered">
+      <Button view='soft'>
         Cancel
       </Button>
     </Flex>
@@ -156,7 +156,7 @@ import { Button, Divider, Flex, Spin, Text, Title } from 'rundom'
   <Text color='muted'>Fetching the latest data...</Text>
   <Flex gap={8} align='center'>
     <Spin />
-    <Button view='bordered'>Cancel</Button>
+    <Button view='soft'>Cancel</Button>
   </Flex>
   <Divider />
 </Flex>

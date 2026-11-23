@@ -1,5 +1,5 @@
+export * from './Body'
 export * from './Card'
-export * from './CardContent'
-export * from './CardPreview'
 export * from './CardTitle'
+export * from './Preview'
 export * from './Scrollbar'

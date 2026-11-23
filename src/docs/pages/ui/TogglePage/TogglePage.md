@@ -20,7 +20,7 @@ The state can be static or reactive, and the component inherits all [\\<Box>](/u
 | [**onChange**](#onchange) | `(checked: boolean) => void`                    | Callback fired when the toggle state changes               |
 
 In addition to the props listed above, `<Toggle>` accepts all standard element attributes and the layout, color, size, and view props inherited from [\<Box>](/ui/box).
-By default it renders `element='label'`, `view='bordered'`, `size='s'`, and `color='primary'`.
+By default it renders `element='label'`, `view='soft'`, `size='s'`, and `color='primary'`.
 
 ## Basic usage
 ---
@@ -181,7 +181,7 @@ rundom(
 ## Inheritance
 ---
 
-`<Toggle>` extends [\\<Box>](/ui/box), so all Box props are available: the `color` theme and the box `size`:
+`<Toggle>` extends [\<Box>](/ui/box), so all Box props are available: the `color` theme and the box `size`:
 
 ```tsx
 //! View
@@ -193,7 +193,8 @@ rundom(
   <Flex vertical gap={16}>
     <Flex gap={16} align='center' wrap>
       <Flex gap={8} align='center'><Toggle checked color='primary' />primary</Flex>
-      <Flex gap={8} align='center'><Toggle checked color='secondary' />secondary</Flex>
+      <Flex gap={8} align='center'><Toggle checked color='neutral' />neutral</Flex>
+      <Flex gap={8} align='center'><Toggle checked color='info' />info</Flex>
       <Flex gap={8} align='center'><Toggle checked color='accent' />accent</Flex>
       <Flex gap={8} align='center'><Toggle checked color='success' />success</Flex>
       <Flex gap={8} align='center'><Toggle checked color='warning' />warning</Flex>
@@ -212,7 +213,7 @@ rundom(
 ---
 
 The default styles of `<Toggle>` come from the theme and are configured with environment variables. Every variable is optional — set only the ones you need.
-The toggle is a `<Box>` with `view='bordered'` and `size='s'`, so its colors and sizes come from the [Box theme](/ui/box#theme).
+The toggle is a `<Box>` with `view='soft'` and `size='s'`, so its colors and sizes come from the [Box theme](/ui/box#theme).
 
 | Variable                      | Description                                          |
 |-------------------------------|------------------------------------------------------|

@@ -70,17 +70,18 @@ export default function TogglePage () {
     inherited: (
       <Flex vertical gap={16}>
         <Flex gap={16} align='center' wrap>
-          <Flex gap={8} align='center'><Toggle checked color='primary' />primary</Flex>
-          <Flex gap={8} align='center'><Toggle checked color='secondary' />secondary</Flex>
-          <Flex gap={8} align='center'><Toggle checked color='accent' />accent</Flex>
-          <Flex gap={8} align='center'><Toggle checked color='success' />success</Flex>
-          <Flex gap={8} align='center'><Toggle checked color='warning' />warning</Flex>
-          <Flex gap={8} align='center'><Toggle checked color='danger' />danger</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='neutral' />neutral</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='primary' />primary</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='info' />info</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='accent' />accent</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='success' />success</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='warning' />warning</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle color='danger' />danger</Flex>
         </Flex>
         <Flex gap={16} align='center' wrap>
-          <Flex gap={8} align='center'><Toggle size='xs' />xs</Flex>
-          <Flex gap={8} align='center'><Toggle size='m' />m</Flex>
-          <Flex gap={8} align='center'><Toggle size='l' />l</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle size='xs' />xs</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle size='m' />m</Flex>
+          <Flex element='label' gap={8} align='center'><Toggle size='l' />l</Flex>
         </Flex>
       </Flex>
     ),

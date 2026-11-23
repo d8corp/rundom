@@ -1,3 +1,5 @@
+import { classes } from 'html-classes'
+
 import type { BaseLinkProps } from '../Link'
 import { Link } from '../Link'
 
@@ -17,6 +19,10 @@ if (import.meta.env?.RD_THEME_FLEX) {
 
 const flexStyles = {
   root: import.meta.env?.RD_THEME_FLEX__ROOT,
+  vertical: import.meta.env?.RD_THEME_FLEX__VERTICAL,
+  reverse: import.meta.env?.RD_THEME_FLEX__REVERSE,
+  inline: import.meta.env?.RD_THEME_FLEX__INLINE,
+  wrap: import.meta.env?.RD_THEME_FLEX__WRAP,
 }
 
 export type FlexStyles = typeof flexStyles
@@ -76,17 +82,22 @@ export function FlexComponent<T extends FlexElement = 'div', S extends FlexStyle
   const styles = useStyles(flexStyles, props.class)
   const Element = element === 'a' ? Link as any : element as string
 
+  const root = injectAll([
+    styles.root,
+    inject(vertical, vertical => vertical && styles.vertical),
+    inject(reverse, reverse => reverse && styles.reverse),
+    inject(inline, inline => inline && styles.inline),
+    inject(wrap, wrap => wrap && styles.wrap),
+  ], classes)
+
   return (
     <Element
       {...props}
-      class={styles.root}
+      class={root}
       style={{
         'justify-content': injectAsIs(justify),
         'align-items': injectAsIs(align),
-        'flex-wrap': inject(wrap, wrap => wrap ? 'wrap' : undefined),
         flex: inject(flex, flex => String(flex === true ? 1 : flex || undefined)),
-        display: inject(inline, inline => inline ? 'inline-flex' : undefined),
-        'flex-direction': injectAll([vertical, reverse], ([vertical, reverse]) => vertical ? (reverse ? 'column-reverse' : 'column') : reverse ? 'row-reverse' : ''),
         padding: inject(padding, padding => padding === undefined ? undefined : Array.isArray(padding) ? `${padding.join('px ')}px` : `${padding}px`),
         gap: inject(gap, gap => gap === undefined ? undefined : Array.isArray(gap) ? `${gap[0]}px ${gap[1]}px` : `${gap}px`),
         ...style,

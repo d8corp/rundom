@@ -23,7 +23,7 @@ The state can be static or reactive, and the component inherits all [\<Box>](/ui
 | [**onChange**](#onchange) | `(checked: boolean) => void`                        | Callback fired when the checkbox state changes                               |
 
 In addition to the props listed above, `<CheckBox>` accepts all standard element attributes and the layout, color, size, and view props inherited from [\<Box>](/ui/box).
-By default it renders `element='label'`, `view='bordered'`, `size='s'`, and `color='primary'`.
+By default it renders `element='label'`, `view='soft'`, `size='s'`, and `color='primary'`.
 
 ## Basic usage
 ---
@@ -308,7 +308,8 @@ rundom(
   <Flex vertical gap={16}>
     <Flex gap={16} align='center' wrap>
       <Flex gap={8} align='center'><CheckBox checked color='primary' />primary</Flex>
-      <Flex gap={8} align='center'><CheckBox checked color='secondary' />secondary</Flex>
+      <Flex gap={8} align='center'><CheckBox checked color='neutral' />neutral</Flex>
+      <Flex gap={8} align='center'><CheckBox checked color='info' />info</Flex>
       <Flex gap={8} align='center'><CheckBox checked color='accent' />accent</Flex>
       <Flex gap={8} align='center'><CheckBox checked color='success' />success</Flex>
       <Flex gap={8} align='center'><CheckBox checked color='warning' />warning</Flex>
@@ -326,14 +327,15 @@ rundom(
 ---
 
 The default styles of `<CheckBox>` come from the theme and are configured with environment variables. Every variable is optional — set only the ones you need.
-The checkbox itself is a `<Box>` with `view='bordered'` and `size='s'`, so its base styles come from the [Box theme](/ui/box#theme). Note that not all CheckBox variables mirror the Box ones.
+The checkbox itself is a `<Box>` with `view='soft'` and `size='s'`, so its base styles come from the [Box theme](/ui/box#theme). Note that not all CheckBox variables mirror the Box ones.
 
 | Variable                            | Description                                                 |
 |-------------------------------------|-------------------------------------------------------------|
 | `RD_THEME_CHECK_BOX`                 | CSS of the component that is added to the page              |
 | `RD_THEME_CHECK_BOX__ROOT`           | Class name(s) of the checkbox, always applied               |
 | `RD_THEME_CHECK_BOX__PRIMARY`        | Class name(s) applied when `color` is `'primary'`           |
-| `RD_THEME_CHECK_BOX__SECONDARY`      | Class name(s) applied when `color` is `'secondary'`         |
+| `RD_THEME_CHECK_BOX__NEUTRAL`      | Class name(s) applied when `color` is `'neutral'`         |
+| `RD_THEME_CHECK_BOX__INFO`         | Class name(s) applied when `color` is `'info'`            |
 | `RD_THEME_CHECK_BOX__ACCENT`         | Class name(s) applied when `color` is `'accent'`            |
 | `RD_THEME_CHECK_BOX__SUCCESS`        | Class name(s) applied when `color` is `'success'`           |
 | `RD_THEME_CHECK_BOX__WARNING`        | Class name(s) applied when `color` is `'warning'`           |

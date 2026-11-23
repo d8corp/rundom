@@ -1,14 +1,14 @@
 import type { HighlightExamples } from '@docs/ui'
 
 import {
+  Body,
   Card,
-  CardContent,
-  CardHeader,
-  CardPreview,
   CardTitle,
   CopyIcon,
   Description,
   Flex,
+  Header,
+  Preview,
   SearchIcon,
   SunIcon,
 } from '../../../../ui'
@@ -26,95 +26,95 @@ export default function CardPage () {
     ),
     content: (
       <Card>
-        <CardContent>
+        <Body>
           Card content goes here.
-        </CardContent>
+        </Body>
       </Card>
     ),
     preview: (
-      <Card width={220}>
-        <CardPreview>
+      <Card vertical width={220}>
+        <Preview>
           <SearchIcon size={24} />
-        </CardPreview>
-        <CardContent vertical>
+        </Preview>
+        <Body vertical>
           <CardTitle>Search</CardTitle>
           <Description>Find anything in the documentation.</Description>
-        </CardContent>
+        </Body>
       </Card>
     ),
     header: (
-      <Card width={260}>
-        <CardHeader>
+      <Card vertical width={260}>
+        <Header>
           Card header
-        </CardHeader>
-        <CardContent vertical>
+        </Header>
+        <Body vertical>
           <Description>Card content goes here.</Description>
-        </CardContent>
+        </Body>
       </Card>
     ),
     size: (
       <Flex gap={16} align='center' wrap>
-        <Card size='s' width={180}>
-          <CardPreview>
+        <Card vertical size='s' width={180}>
+          <Preview>
             <SunIcon size={20} />
-          </CardPreview>
-          <CardContent>
+          </Preview>
+          <Body>
             <CardTitle>Small</CardTitle>
-          </CardContent>
+          </Body>
         </Card>
-        <Card size='m' width={220}>
-          <CardPreview>
+        <Card vertical size='m' width={220}>
+          <Preview>
             <CopyIcon size={24} />
-          </CardPreview>
-          <CardContent>
+          </Preview>
+          <Body>
             <CardTitle>Medium</CardTitle>
-          </CardContent>
+          </Body>
         </Card>
-        <Card size='l' width={260}>
-          <CardPreview>
+        <Card vertical size='l' width={260}>
+          <Preview>
             <SearchIcon size={28} />
-          </CardPreview>
-          <CardContent>
+          </Preview>
+          <Body>
             <CardTitle>Large</CardTitle>
-          </CardContent>
+          </Body>
         </Card>
       </Flex>
     ),
     clickable: (
       <Card width={220} onclick={handleOpen}>
-        <CardContent vertical>
+        <Body vertical>
           <CardTitle>Open</CardTitle>
           <Description>Click the card to trigger the handler.</Description>
-        </CardContent>
+        </Body>
       </Card>
     ),
     hoverable: (
-      <Card hoverable width={220}>
-        <CardPreview>
+      <Card interact='hoverable' width={220}>
+        <Preview>
           <SunIcon size={24} />
-        </CardPreview>
-        <CardContent vertical>
+        </Preview>
+        <Body vertical>
           <CardTitle>Hoverable</CardTitle>
           <Description>Hover the card to see the lift.</Description>
-        </CardContent>
+        </Body>
       </Card>
     ),
     width: (
       <Card width={120} height={120}>
-        <CardContent>
+        <Body>
           Card content goes here.
-        </CardContent>
+        </Body>
       </Card>
     ),
     link: (
-      <Card element='a' href='/ui/components' hoverable width={220}>
-        <CardPreview>
+      <Card element='a' href='/ui/components' interact='clickable' width={220}>
+        <Preview>
           <SearchIcon size={24} />
-        </CardPreview>
-        <CardContent vertical>
+        </Preview>
+        <Body vertical>
           <CardTitle>Components</CardTitle>
           <Description>Browse all components from a single page.</Description>
-        </CardContent>
+        </Body>
       </Card>
     ),
   }

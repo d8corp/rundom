@@ -5,16 +5,15 @@ import { SlotStatus } from '../SlotStatus'
 
 import { Show } from '../../../../../components'
 import { useStyles } from '../../../../../hooks'
-import type { RDColor } from '../../../../../types'
 import { addUiCSS, stringify, viewTransition } from '../../../../../utils'
 import { Button } from '../../../../block'
 import { CloseIcon, SearchIcon } from '../../../../icons'
 import { Divider } from '../../../../inline'
 import { Input, Option, Options } from '../../../../interaction'
-import type { CardProps } from '../../../../layout'
-import { Card, CardContent } from '../../../../layout'
-import { CardHeader } from '../../../../popup'
-import type { FlexElement } from '../../../../primitive'
+import type { CardProps, CardStyles } from '../../../../layout'
+import { Body, Card } from '../../../../layout'
+import { Header } from '../../../../popup'
+import type { BoxColor, FlexElement } from '../../../../primitive'
 import { Box, Flex } from '../../../../primitive'
 import { Description, Text } from '../../../../typography'
 import { devtoolsStoreContext } from '../../hooks'
@@ -40,7 +39,7 @@ export const devtoolsWindowStyles = {
   filterOffButton: import.meta.env?.RD_THEME_DEVTOOLS_WINDOW__FILTER_OFF_BUTTON,
 }
 
-export type DevtoolsWindowStyles = typeof devtoolsWindowStyles
+export type DevtoolsWindowStyles = typeof devtoolsWindowStyles & CardStyles
 
 export type DevtoolsWindowProps<T extends FlexElement = 'div', S extends DevtoolsWindowStyles = DevtoolsWindowStyles> = CardProps<T, S>
 
@@ -58,7 +57,7 @@ export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends
     }
   }
 
-  const colorHandler = (slot: Slot<boolean | null>) => (): RDColor => {
+  const colorHandler = (slot: Slot<boolean | null>) => (): BoxColor => {
     return slot.value ? 'success' : slot.value === false ? 'danger' : 'primary'
   }
 
@@ -78,16 +77,16 @@ export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends
   }
 
   return (
-    <Card {...props} class={styles.root}>
-      <CardHeader>
-        <Box size='xs' color='danger' circle interact='clickable' onclick={close}>
+    <Card size='l' vertical {...props} class={styles.root}>
+      <Header>
+        <Box size='xs' color='danger' view='filled' circle interact='clickable' onclick={close}>
           <CloseIcon size={8} />
         </Box>
         <Flex flex justify='center' padding={[0, 24, 0, 0]}>
           Devtools
         </Flex>
-      </CardHeader>
-      <CardContent>
+      </Header>
+      <Body>
         <div class={styles.aside}>
           <div class={styles.asideHeader}>
             <Input
@@ -161,7 +160,7 @@ export function DevtoolsWindowComponent<T extends FlexElement = 'div', S extends
           </div>
           <DevtoolsSlotPanel />
         </div>
-      </CardContent>
+      </Body>
     </Card>
   )
 }

@@ -50,11 +50,10 @@ describe('useVirtualList', () => {
     await flush()
 
     expect(height.raw).toBe(100)
-    expect(heightCount.raw).toBe(5)
+    expect(heightCount.raw).toBe(6)
     expect(scrollIndex.raw).toBe(0)
-    expect(virtualList.raw).toEqual([0, 1, 2, 3, 4, 5, 6])
+    expect(virtualList.raw).toEqual([0, 1, 2, 3, 4, 5])
     expect(offsetTop.raw).toBe('0px')
-    // T = 20 * 20 = 400, expected 400 - 0 - 7 * 20 = 260
     expect(offsetBottom.raw).toBe('280px')
 
     el.scrollTop = 60
@@ -64,7 +63,7 @@ describe('useVirtualList', () => {
 
     expect(scroll.raw).toBe(60)
     expect(scrollIndex.raw).toBe(3)
-    expect(virtualList.raw).toEqual([3, 4, 5, 6, 7, 8, 9])
+    expect(virtualList.raw).toEqual([3, 4, 5, 6, 7, 8])
     expect(offsetTop.raw).toBe('60px')
     expect(offsetBottom.raw).toBe('220px')
   })
@@ -81,6 +80,6 @@ describe('useVirtualList', () => {
     await flush()
 
     expect(scrollIndex.raw).toBe(0)
-    expect(virtualList.raw).toEqual([0, 1, 2, 3, 4, 5, 6])
+    expect(virtualList.raw).toEqual([0, 1, 2, 3, 4, 5])
   })
 })

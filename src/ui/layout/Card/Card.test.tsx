@@ -1,6 +1,6 @@
-import { CardContent } from '../CardContent'
-import { CardPreview } from '../CardPreview'
+import { Body } from '../Body'
 import { CardTitle } from '../CardTitle'
+import { Preview } from '../Preview'
 import { Card } from './Card'
 
 import { rundom } from '../../../rundom'
@@ -20,13 +20,13 @@ describe('Card', () => {
   it('should compose with card parts', () => {
     rundom(
       <Card>
-        <CardPreview>
+        <Preview>
           <span>Preview</span>
-        </CardPreview>
-        <CardContent>
+        </Preview>
+        <Body>
           <CardTitle>Title</CardTitle>
           <Description>Description</Description>
-        </CardContent>
+        </Body>
       </Card>,
     )
 

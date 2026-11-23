@@ -150,16 +150,17 @@ export default function CheckBoxPage () {
     inherited: (
       <Flex vertical gap={16}>
         <Flex gap={16} align='center' wrap>
-          <Flex gap={8} align='center'><CheckBox checked color='primary' />primary</Flex>
-          <Flex gap={8} align='center'><CheckBox checked color='secondary' />secondary</Flex>
-          <Flex gap={8} align='center'><CheckBox checked color='accent' />accent</Flex>
-          <Flex gap={8} align='center'><CheckBox checked color='success' />success</Flex>
-          <Flex gap={8} align='center'><CheckBox checked color='warning' />warning</Flex>
-          <Flex gap={8} align='center'><CheckBox checked color='danger' />danger</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='neutral' />neutral</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='primary' />primary</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='accent' />accent</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='info' />info</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='success' />success</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='warning' />warning</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox color='danger' />danger</Flex>
         </Flex>
         <Flex gap={16} align='center' wrap>
-          <Flex gap={8} align='center'><CheckBox size='xs' />xs</Flex>
-          <Flex gap={8} align='center'><CheckBox view='dashed' />dashed</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox size='xs' />xs</Flex>
+          <Flex element='label' gap={8} align='center'><CheckBox view='dashed' />dashed</Flex>
         </Flex>
       </Flex>
     ),

@@ -1,6 +1,6 @@
 import { useStyles } from '../../../hooks'
 import type { ObservableProp } from '../../../types'
-import { addUiCSS, inject, injectAll } from '../../../utils'
+import { addUiCSS, inject } from '../../../utils'
 import type { BoxProps, BoxStyles } from '../../primitive'
 import { Box } from '../../primitive'
 
@@ -19,7 +19,7 @@ export interface OptionProps<V = unknown> extends BoxProps {
   value: V
   /** Highlights the option as selected. */
   selected?: ObservableProp<boolean>
-  /** Disables the option and applies the disabled color. */
+  /** Disables the option and applies the disabled style. */
   disabled?: ObservableProp<boolean>
 }
 
@@ -32,16 +32,16 @@ export function OptionComponent<V = unknown> ({
   selected,
   disabled,
   children,
-  color = 'primary',
+  color = 'neutral',
   ...props
 }: OptionProps<V>) {
   const styles = useStyles(optionStyles, props.class)
 
   return (
     <Box
-      interact={inject(disabled, disabled => disabled ? undefined : 'clickable')}
+      interact={inject(disabled, disabled => disabled ? 'disabled' : 'clickable')}
       view={inject(selected, selected => selected ? 'filled' : 'ghost')}
-      color={injectAll([disabled, color], ([disabled, color]) => disabled ? 'disabled' : color)}
+      color={color}
       {...props}
       class={styles}
     >
