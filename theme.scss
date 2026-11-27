@@ -1312,10 +1312,6 @@ h3.title {
   }
 }
 
-::view-transition-group(messages) {
-  z-index: 3;
-}
-
 .messages {
   font-size: 12px;
   position: fixed;
@@ -1330,7 +1326,6 @@ h3.title {
   transform-origin: top center;
   pointer-events: none;
   z-index: 3;
-  view-transition-name: messages;
 
   @media (max-width: $laptop) {
     right: 14px;
@@ -1357,53 +1352,7 @@ h3.title {
   }
 }
 
-@keyframes show-message {
-  from {
-    opacity: 0;
-    top: -20px;
-
-    @supports not (-apple-pay-button-style: black) {
-      filter: blur(8px);
-    }
-  }
-}
-
-@keyframes hide-message {
-  from {
-    opacity: 1;
-    top: 0;
-    filter: blur(0);
-  }
-  to {
-    filter: blur(8px);
-    opacity: 0;
-    top: 20px;
-  }
-}
-
-::view-transition-group(.message_1) {
-  z-index: 4;
-}
-
-::view-transition-group(.message_2) {
-  z-index: 3;
-}
-
-::view-transition-group(.message_3) {
-  z-index: 2;
-}
-
-::view-transition-old(.message):only-child {
-  animation: hide-message .2s ease both;
-}
-
-::view-transition-new(.message):only-child {
-  animation: show-message .2s ease both;
-}
-
 .message {
-  view-transition-class: message message_1;
-  display: flex;
   align-items: center;
   gap: 8px;
   user-select: none;
@@ -1420,25 +1369,40 @@ h3.title {
   color: white;
   text-align: center;
   overflow: hidden;
+  transform: translateZ(0);
+  filter: blur(0);
+
+  @include transition;
+
+  @starting-style {
+    opacity: 0;
+    filter: blur(8px);
+    top: -20px !important;
+  }
+
+  &_hide {
+    opacity: 0;
+    filter: blur(8px);
+    top: 20px;
+  }
 
   & ~ & {
     pointer-events: none;
   }
 
-  & + .message {
+  &:not(&_hide) + .message {
     z-index: 2;
     top: 5px;
     transform: translateZ(-100px);
-    view-transition-class: message message_2;
 
     & + .message {
       top: 0;
       z-index: 1;
       transform: translateZ(-200px);
-      view-transition-class: message message_3;
 
       & ~ .message {
-        display: none;
+        transform: translateZ(-300px);
+        opacity: 0;
       }
     }
   }

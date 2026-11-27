@@ -1,8 +1,10 @@
+import SyncTimer from 'sync-timer'
+
 import { Portal } from '../../components'
 import { rundom } from '../../rundom'
 import type { MessageProps } from '../../ui'
 import { Message } from '../../ui'
-import { addUiCSS, RDSlot, Ref, viewTransition } from '../../utils'
+import { addUiCSS, RDSlot, Ref } from '../../utils'
 
 if (import.meta.env?.RD_THEME_MESSAGES) {
   addUiCSS(import.meta.env.RD_THEME_MESSAGES, 'messages')
@@ -83,10 +85,8 @@ export function baseMessage (text: string, { timeout = text.length / 13 + 1, typ
     : undefined
 
   const handleClick = (e: MouseEvent) => {
-    viewTransition(() => {
-      destroy()
-      props.onclick?.(e)
-    })
+    destroy()
+    props.onclick?.(e)
   }
 
   const slot = new RDSlot(() => {
@@ -109,17 +109,17 @@ export function baseMessage (text: string, { timeout = text.length / 13 + 1, typ
   slot.on()
 
   function destroy () {
-    viewTransition(() => {
-      slot.off()
+    slot.off()
 
-      if (timer instanceof Timer) {
-        timer.destroy()
-      }
+    if (timer instanceof Timer) {
+      timer.destroy()
+    }
 
-      if (timer) {
-        messageTimers.delete(timer)
-      }
+    if (timer) {
+      messageTimers.delete(timer)
+    }
 
+    new SyncTimer(() => {
       if (!messageTimers.size) {
         messagesRef.value?.remove()
         messagesRef.value = undefined
@@ -130,7 +130,7 @@ export function baseMessage (text: string, { timeout = text.length / 13 + 1, typ
           next.play()
         }
       }
-    })
+    }, Number(import.meta.env?.RD_UI_MESSAGE__HIDE_DELAY ?? 200))
   }
 }
 
@@ -140,5 +140,5 @@ export function baseMessage (text: string, { timeout = text.length / 13 + 1, typ
  * @param props - Message styling and auto-hide options.
  */
 export function message (text: string, props?: MessageProps) {
-  viewTransition(() => baseMessage(text, props))
+  baseMessage(text, props)
 }

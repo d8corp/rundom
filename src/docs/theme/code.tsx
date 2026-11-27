@@ -1,5 +1,5 @@
 import type { CodeProps } from '../..'
-import { CodeComponent, message, viewTransition } from '../..'
+import { CodeComponent, message } from '../..'
 
 export function Code (props: CodeProps) {
   return (
@@ -8,11 +8,8 @@ export function Code (props: CodeProps) {
       {...props}
       onclick={(e) => {
         navigator.clipboard.writeText((e.target as HTMLDivElement).innerText)
-
-        viewTransition(() => {
-          message('Copied to clipboard')
-          props.onclick?.(e)
-        })
+        message('Copied to clipboard')
+        props.onclick?.(e)
       }}
     />
   )
