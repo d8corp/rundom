@@ -1,11 +1,11 @@
-import type { PopoverProps } from '../Popover'
+import type { PopoverProps, PopoverStyles } from '../Popover'
 import { Popover } from '../Popover'
 
 import type { ForKey } from '../../../components'
 import { useStyles } from '../../../hooks'
 import type { JSXElement, Merge, ObservableProp, SMLSize } from '../../../types'
-import { addUiCSS, getSlotEvent, RDSlot, use } from '../../../utils'
-import type { GetOptionValue, RenderOption, SelectOnSelect } from '../../interaction'
+import { addUiCSS, getSlotEvent, inject, RDSlot, use } from '../../../utils'
+import type { GetOptionValue, OptionsProps, RenderOption, SelectOnSelect } from '../../interaction'
 import { Options } from '../../interaction'
 
 if (import.meta.env?.RD_THEME_DROPDOWN) {
@@ -14,10 +14,22 @@ if (import.meta.env?.RD_THEME_DROPDOWN) {
 
 export const dropdownStyles = {
   root: import.meta.env?.RD_THEME_DROPDOWN__ROOT,
-  options: import.meta.env?.RD_THEME_DROPDOWN__OPTIONS,
 }
 
-export type DropdownStyles = typeof dropdownStyles
+export type DropdownStyles = typeof dropdownStyles & PopoverStyles
+
+/**
+ * Props forwarded to the `<Options>` list inside `<Dropdown>`.
+ * The selection props are excluded because the dropdown controls them.
+ */
+export type DropdownOptionsProps<
+  T = unknown,
+  M extends boolean = false,
+  K extends ForKey<T[]> | undefined = undefined,
+> = Omit<
+  OptionsProps<T, M, K>,
+  'children' | 'values' | 'key' | 'selected' | 'size' | 'multiple' | 'onSelect'
+>
 
 /**
  * Props for `<Dropdown>`: popover props plus the options list props.
@@ -26,7 +38,8 @@ export type DropdownProps<
   T = unknown,
   M extends boolean = false,
   K extends ForKey<T[]> | undefined = undefined,
-> = Merge<PopoverProps, {
+  S extends DropdownStyles = DropdownStyles,
+> = Merge<PopoverProps<S>, {
   /** Values rendered as selectable rows inside the list. */
   values: ObservableProp<T[]>
   /** Field name or function that identifies each row. */
@@ -45,6 +58,8 @@ export type DropdownProps<
   before?: JSXElement
   /** Content rendered after the list, inside the popover. */
   after?: JSXElement
+  /** Extra props forwarded to the inner `<Options>` list. */
+  optionsProps?: DropdownOptionsProps<T, M, K>
 }>
 
 /**
@@ -56,20 +71,24 @@ export function DropdownComponent<
   T = unknown,
   M extends boolean = false,
   K extends ForKey<T[]> | undefined = undefined,
+  S extends DropdownStyles = DropdownStyles,
 > ({
   values,
   key,
-  selected,
-  size,
   multiple,
+  selected = new RDSlot(() => (use(multiple) ? [] : undefined) as GetOptionValue<T, M, K>),
+  size,
   onSelect,
   children,
   before,
   after,
+  height,
+  style,
+  optionsProps,
   opened = new RDSlot(() => false),
   onChangeOpened,
   ...props
-}: DropdownProps<T, M, K>) {
+}: DropdownProps<T, M, K, S>) {
   const styles = useStyles(dropdownStyles, props.class)
   const setOpened = getSlotEvent(opened, onChangeOpened)
 
@@ -77,17 +96,18 @@ export function DropdownComponent<
     onSelect?.(selected)
 
     if (!use(multiple)) {
-      // The card reopens itself on click, so close after the click has bubbled.
-      queueMicrotask(() => setOpened?.(false))
+      setOpened?.(false)
     }
   }
 
   return (
     <Popover
-      align='stretch'
-      padding={4}
       vertical
       {...props}
+      style={{
+        'max-height': inject(height, height => typeof height === 'number' ? `${height}px` : height),
+        ...style,
+      }}
       opened={opened}
       onChangeOpened={onChangeOpened}
       class={styles}
@@ -101,7 +121,7 @@ export function DropdownComponent<
         multiple={multiple}
         onSelect={handleSelect}
         children={children}
-        class={styles.options}
+        {...optionsProps}
       />
       {after}
     </Popover>

@@ -5,8 +5,8 @@ import { Popover } from './Popover'
 
 import { rundom } from '../../../rundom'
 
-const flush = async () => {
-  for (let i = 0; i < 10; i++) await Promise.resolve()
+const flush = async (time?: number) => {
+  await new Promise(resolve => setTimeout(resolve, time))
 }
 
 const rect = {
@@ -67,12 +67,12 @@ describe('Popover', () => {
 
     isOpen.value = true
 
-    const clone = document.body.children[1] as HTMLElement
+    const popover = document.body.children[1] as HTMLElement
 
-    expect(clone.style.left).toBe('10px')
-    expect(clone.style.top).toBe('20px')
-    expect(clone.style.width).toBe('30px')
-    expect(clone.style.height).toBe('40px')
+    expect(popover.style.getPropertyValue('--rd-popover-left')).toBe('10px')
+    expect(popover.style.getPropertyValue('--rd-popover-top')).toBe('20px')
+    expect(popover.style.getPropertyValue('--rd-popover-width')).toBe('30px')
+    expect(popover.style.getPropertyValue('--rd-popover-height')).toBe('40px')
   })
 
   it('the body receives close by click', async () => {
@@ -89,7 +89,7 @@ describe('Popover', () => {
 
     const trigger = document.querySelector('button')!
 
-    trigger.dispatchEvent(new MouseEvent('click'))
+    trigger.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     await flush()
 
@@ -116,13 +116,13 @@ describe('Popover', () => {
 
     const trigger = document.querySelector('button')!
 
-    trigger.dispatchEvent(new MouseEvent('click'))
+    trigger.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     await flush()
 
     expect(changes).toEqual([true])
 
-    trigger.dispatchEvent(new MouseEvent('click'))
+    trigger.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     await flush()
 
@@ -150,15 +150,21 @@ describe('Popover', () => {
     const trigger = document.querySelector('button')!
 
     trigger.click()
+
     await flush()
 
-    const card = (document.body.children[1] as HTMLElement).firstElementChild as HTMLElement
-    card.dispatchEvent(new MouseEvent('click'))
+    const card = document.body.children[1] as HTMLElement
+
+    card.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
     await flush()
 
     expect(changes).toEqual([true])
 
-    document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    await flush()
+
+    document.body.dispatchEvent(new MouseEvent('click'))
+
     await flush()
 
     expect(changes).toEqual([true, false])

@@ -357,12 +357,11 @@ export default function ComponentsPage () {
           description: 'Shows a selectable list of options next to a trigger.',
           keywords: 'dropdown select menu list choices options picker',
           preview: (
-            <Card padding={4} style={{ width: '140px' }}>
+            <Card vertical size='s' padding={4} width={140}>
               <Options
                 values={['Apple', 'Banana', 'Cherry']}
                 selected='Apple'
                 size='s'
-                style={{ height: '86px' }}
               />
             </Card>
           ),

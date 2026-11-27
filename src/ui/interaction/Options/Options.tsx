@@ -7,12 +7,12 @@ import { Option } from '../Option'
 import type { ForKey, GetForKey } from '../../../components'
 import { For, getForKey } from '../../../components'
 import { useStyles, useVirtualList } from '../../../hooks'
-import type { ObservableProp, SMLSize } from '../../../types'
+import type { ObservableProp, Reactive, SMLSize } from '../../../types'
 import { addUiCSS, getSlotEvent, inject, injectAll, Ref, use } from '../../../utils'
-import type { ScrollbarProps } from '../../layout'
+import type { ScrollbarProps, ScrollbarStyles } from '../../layout'
 import { Scrollbar } from '../../layout'
 
-export type RenderOption<T = unknown> = (props: OptionProps<Slot<T>>) => JSX.Element
+export type RenderOption<T = unknown> = (props: OptionProps<Slot<T>>, index: Reactive<number>) => JSX.Element
 
 export type SelectOnSelect<
   T,
@@ -38,7 +38,7 @@ export const optionsStyles = {
   l: import.meta.env?.RD_THEME_OPTIONS__L,
 }
 
-export type OptionsStyles = typeof optionsStyles
+export type OptionsStyles = typeof optionsStyles & ScrollbarStyles
 
 export const optionSizeMap = {
   s: Number(import.meta.env?.RD_UI_OPTIONS__S ?? 34),
@@ -58,7 +58,8 @@ export interface OptionsProps<
   T = unknown,
   M extends boolean = false,
   K extends ForKey<T[]> | undefined = undefined,
-> extends Omit<ScrollbarProps, 'children'> {
+  S extends OptionsStyles = OptionsStyles,
+> extends Omit<ScrollbarProps<'div', S>, 'children'> {
   /** Values rendered as selectable rows. */
   values: ObservableProp<T[]>
   /** Field name or function that identifies each row. */
@@ -79,7 +80,12 @@ export interface OptionsProps<
  * Virtualized list of `<Option>` rows inside a `<Scrollbar>`.
  * Supports single and multiple selection and a custom row renderer.
  */
-export function OptionsComponent<T = unknown, M extends boolean = false, K extends ForKey<T[]> | undefined = undefined> ({
+export function OptionsComponent<
+  T = unknown,
+  M extends boolean = false,
+  K extends ForKey<T[]> | undefined = undefined,
+  S extends OptionsStyles = OptionsStyles,
+> ({
   values,
   ref = new Ref<HTMLDivElement>(),
   size = 'm',
@@ -89,11 +95,11 @@ export function OptionsComponent<T = unknown, M extends boolean = false, K exten
   selected = new Slot(() => (use(multiple) ? [] : undefined) as GetOptionValue<T, M, K>),
   onSelect,
   ...props
-}: OptionsProps<T, M, K>) {
+}: OptionsProps<T, M, K, S>) {
   const styles = useStyles(optionsStyles, props.class)
   const setSelected = getSlotEvent(selected, onSelect)
 
-  const { virtualList, offsetTop, offsetBottom } = useVirtualList({
+  const { virtualList, offsetTop, offsetBottom, scrollIndex } = useVirtualList({
     list: values,
     scrollbar: ref,
     itemHeight: inject(size, size => optionSizeMap[size]),
@@ -108,7 +114,7 @@ export function OptionsComponent<T = unknown, M extends boolean = false, K exten
     >
       <div class={styles.options} style={{ 'padding-top': offsetTop, 'padding-bottom': offsetBottom }}>
         <For of={virtualList} key={key}>
-          {item => {
+          {(item, index) => {
             return children({
               selected: () => use(multiple) ? Boolean(use(selected as T[])?.includes(getForKey(key, item.value))) : getForKey(key, item.value) === use(selected),
               size,
@@ -128,7 +134,7 @@ export function OptionsComponent<T = unknown, M extends boolean = false, K exten
                   setSelected?.(itemValue as any)
                 }
               },
-            })
+            }, () => scrollIndex.value + index.value)
           }}
         </For>
       </div>

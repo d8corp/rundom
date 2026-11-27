@@ -23,17 +23,33 @@ export const popoverClickAdapter: PopoverAdapter = (params) => {
 
   if (!trigger) return
 
+  let stopBodyClose = false
+
   context?.(params)
 
   new Slot(() => {
     if (hidden.value) {
-      trigger.addEventListener('click', open)
-      useClear(() => trigger.removeEventListener('click', open))
+      const triggerClickListener = () => {
+        stopBodyClose = true
+        open()
+      }
+
+      trigger.addEventListener('click', triggerClickListener)
+      useClear(() => trigger.removeEventListener('click', triggerClickListener))
     } else {
       const cardElement = card.value!
 
-      document.body.addEventListener('click', close, true)
-      cardElement.addEventListener('click', open)
+      const bodyClickListener = () => {
+        if (!stopBodyClose) close()
+        stopBodyClose = false
+      }
+
+      const cardClickListener = () => {
+        stopBodyClose = true
+      }
+
+      document.body.addEventListener('click', bodyClickListener)
+      cardElement.addEventListener('click', cardClickListener)
 
       if (target) {
         usePopoverBaseObserver(target, close, () => {
@@ -43,8 +59,8 @@ export const popoverClickAdapter: PopoverAdapter = (params) => {
       }
 
       useClear(() => {
-        document.body.removeEventListener('click', close, true)
-        cardElement.removeEventListener('click', open)
+        document.body.removeEventListener('click', bodyClickListener)
+        cardElement.removeEventListener('click', cardClickListener)
       })
     }
   }).on()
@@ -55,9 +71,14 @@ export const popoverClickAdapter: PopoverAdapter = (params) => {
     new Slot(() => {
       if (!childParams.hidden.value) {
         const cardElement = childParams.card.value!
-        cardElement.addEventListener('click', open)
 
-        useClear(() => cardElement.removeEventListener('click', open))
+        const cardClickListener = () => {
+          stopBodyClose = true
+        }
+
+        cardElement.addEventListener('click', cardClickListener)
+
+        useClear(() => cardElement.removeEventListener('click', cardClickListener))
       }
     }).on()
   }
@@ -78,17 +99,36 @@ export const popoverClickOpenAdapter: PopoverAdapter = (params) => {
 
   if (!trigger) return
 
+  let stopBodyClose = false
+
   context?.(params)
 
-  trigger.addEventListener('click', open)
-  useClear(() => trigger.removeEventListener('click', open))
+  const triggerClickListener = () => {
+    stopBodyClose = true
+
+    if (hidden.raw) {
+      open()
+    }
+  }
+
+  trigger.addEventListener('click', triggerClickListener)
+  useClear(() => trigger.removeEventListener('click', triggerClickListener))
 
   new Slot(() => {
     if (!hidden.value) {
       const cardElement = card.value!
 
-      document.body.addEventListener('click', close, true)
-      cardElement.addEventListener('click', open)
+      const bodyClickListener = () => {
+        if (!stopBodyClose) close()
+        stopBodyClose = false
+      }
+
+      const cardClickListener = () => {
+        stopBodyClose = true
+      }
+
+      document.body.addEventListener('click', bodyClickListener)
+      cardElement.addEventListener('click', cardClickListener)
 
       if (target) {
         usePopoverBaseObserver(target, close, () => {
@@ -101,8 +141,8 @@ export const popoverClickOpenAdapter: PopoverAdapter = (params) => {
       }
 
       useClear(() => {
-        document.body.removeEventListener('click', close, true)
-        cardElement.removeEventListener('click', open)
+        document.body.removeEventListener('click', bodyClickListener)
+        cardElement.removeEventListener('click', cardClickListener)
       })
     }
   }).on()
@@ -113,9 +153,14 @@ export const popoverClickOpenAdapter: PopoverAdapter = (params) => {
     new Slot(() => {
       if (!childParams.hidden.value) {
         const cardElement = childParams.card.value!
-        cardElement.addEventListener('click', open)
 
-        useClear(() => cardElement.removeEventListener('click', open))
+        const cardClickListener = () => {
+          stopBodyClose = true
+        }
+
+        cardElement.addEventListener('click', cardClickListener)
+
+        useClear(() => cardElement.removeEventListener('click', cardClickListener))
       }
     }).on()
   }

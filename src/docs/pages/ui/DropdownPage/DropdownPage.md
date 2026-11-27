@@ -8,15 +8,16 @@ The popover renders the card through [\<Portal>](/portal), so the list is not cl
 
 | Prop                                | Type                                      | Description                                                       |
 |-------------------------------------|-------------------------------------------|-------------------------------------------------------------------|
-| [**values**](#values)               | `ObservableProp<T[]>`                     | Values to display; every value becomes a row                      |
-| [**selected**](#selected)           | `ObservableProp<GetOptionValue<T, M, K>>` | Selection: a single value, or an array when `multiple` is `true`  |
-| [**multiple**](#multiple-selection) | `ObservableProp<M>`                       | Allows selecting several values at once                           |
-| [**onSelect**](#onselect)           | `SelectOnSelect<T, M, K>`                 | Called after the selection changes                                |
-| [**children**](#children)           | `RenderOption<T>`                         | Replaces the default row renderer                                 |
-| [**before**](#before-and-after)     | `JSXElement`                              | Content rendered above the list                                   |
 | [**after**](#before-and-after)      | `JSXElement`                              | Content rendered below the list                                   |
-| [**size**](#size)                   | `ObservableProp<SMLSize>`                 | Row size: `'s'`, `'m'` (default), or `'l'`                        |
+| [**before**](#before-and-after)     | `JSXElement`                              | Content rendered above the list                                   |
+| [**children**](#children)           | `RenderOption<T>`                         | Replaces the default row renderer                                 |
 | [**key**](#key)                     | `ForKey<T[]>`                             | Row identity: a field name or a function                          |
+| [**multiple**](#multiple-selection) | `ObservableProp<M>`                       | Allows selecting several values at once                           |
+| [**selected**](#selected)           | `ObservableProp<GetOptionValue<T, M, K>>` | Selection: a single value, or an array when `multiple` is `true`  |
+| [**size**](#size)                   | `ObservableProp<SMLSize>`                 | Row size: `'s'`, `'m'` (default), or `'l'`                        |
+| [**values**](#values)               | `ObservableProp<T[]>`                     | Values to display; every value becomes a row                      |
+| [**optionsProps**](#optionsprops)   | `DropdownOptionsProps<T, M, K>`           | Extra props forwarded to the inner options list                   |
+| [**onSelect**](#onselect)           | `SelectOnSelect<T, M, K>`                 | Called after the selection changes                                |
 
 In addition to the props listed above, `<Dropdown>` accepts all [\<Popover>](/ui/popover) props, including `placement`, `opened`, `adapter`, `target` and `trigger`, as well as the inherited [\<Card>](/ui/card) props such as `width`, `vertical` and `class`.
 
@@ -30,18 +31,13 @@ Place `<Dropdown>` inside the element that should open it. The default `popoverC
 //> basic
 //! Code
 import { rundom, Button, Dropdown } from 'rundom'
-import { Slot } from 'rune-hub'
 
-const fruits = [
-  'Apple', 'Banana', 'Cherry', 'Dragon fruit',
-  'Elderberry', 'Fig', 'Grape', 'Kiwi', 'Lemon', 'Mango',
-]
-const selected = new Slot<string>(() => 'Banana')
+const frameworks = ['Angular', 'React', 'Svelte', 'Vue']
 
 rundom(
   <Button>
-    Choose a fruit
-    <Dropdown values={fruits} selected={selected} />
+    Choose a framework
+    <Dropdown values={frameworks} />
   </Button>
 )
 ```
@@ -54,6 +50,29 @@ In single-selection mode the dropdown closes as soon as a row is picked, so the 
 `values` is the data source of the list: every entry becomes a row of [\<Option>](/ui/option). The prop is reactive, so a plain array, a getter, or a `Slot` works, and the list applies only the additions and removals when the array changes.
 
 The list is virtualized and measures its scroll container, so it needs a bounded height. Set it with the theme or with a `class`, so a long list scrolls while a short list shrinks to its content.
+
+```tsx
+//! View
+//> values
+//! Code
+import { rundom, Button, Dropdown } from 'rundom'
+
+const fruits = [
+  'Apple', 'Banana', 'Cherry', 'Dragon fruit',
+  'Elderberry', 'Fig', 'Grape', 'Kiwi', 'Lemon', 'Mango',
+]
+
+rundom(
+  <Button>
+    Choose a fruit
+    <Dropdown 
+      values={fruits}
+      height={200}
+      width={200}
+    />
+  </Button>
+)
+```
 
 ## Selected
 ---
@@ -71,15 +90,21 @@ const fruits = [
   'Apple', 'Banana', 'Cherry', 'Dragon fruit',
   'Elderberry', 'Fig', 'Grape', 'Kiwi', 'Lemon', 'Mango',
 ]
-const selected = new Slot<string>(() => 'Banana')
+
+const selected = new Slot(() => 'Banana')
 
 rundom(
   <Flex vertical gap={8} align='start'>
     <Button>
-      Choose a fruit
-      <Dropdown values={fruits} selected={selected} />
+      Selected: {selected}
+      <Dropdown
+        values={fruits}
+        selected={selected}
+        height={150}
+        width={150}
+        placement='vertical-center'
+      />
     </Button>
-    <Text>Selected: {() => selected.value ?? 'none'}</Text>
   </Flex>
 )
 ```
@@ -292,6 +317,38 @@ rundom(
   </Flex>
 )
 ```
+
+## optionsProps
+---
+
+`optionsProps` forwards extra props to the inner [\<Options>](/ui/options) list, for the cases the dedicated props do not cover. The type excludes the selection props — `values`, `key`, `selected`, `size`, `multiple`, `onSelect` and `children` — because `<Dropdown>` sets them itself, and accepts the rest of the options props, such as `overflow`, `stable`, `padding`, `class` and `style`:
+
+```tsx
+//! View
+//> optionsProps
+//! Code
+import { rundom, Button, Dropdown } from 'rundom'
+import { Slot } from 'rune-hub'
+
+const fruits = [
+  'Apple', 'Banana', 'Cherry', 'Dragon fruit',
+  'Elderberry', 'Fig', 'Grape', 'Kiwi', 'Lemon', 'Mango',
+]
+const selected = new Slot<string>(() => 'Banana')
+
+rundom(
+  <Button>
+    Choose a fruit
+    <Dropdown
+      values={fruits}
+      selected={selected}
+      optionsProps={{ overflow: 'scroll' }}
+    />
+  </Button>
+)
+```
+
+Here `overflow: 'scroll'` keeps the scrollbar visible even when the list fits, so the rows do not shift when the list starts to overflow. `stable: true` reserves the scrollbar gutter for the same reason.
 
 ## Placement
 ---

@@ -9,7 +9,7 @@ Read a file in full only if the task touches its topic. After working, update th
 
 <!-- agents-memory:index:start -->
 - [.agents-memory/runtime.md](.agents-memory/runtime.md) — no-VDOM execution model, reactive types (Slot, ObservableProp) and inject/injectAll/use. Read when touching the runtime, JSX mounting or reactivity.
-- [.agents-memory/ui-components.md](.agents-memory/ui-components.md) — component folder layout, theme styles, props typing, implementation pattern, env overrides. Read before adding or changing a UI component.
+- [.agents-memory/ui-components.md](.agents-memory/ui-components.md) — component folder layout, theme styles, props typing, implementation pattern, composition prop forwarding, env overrides. Read before adding or changing a UI component.
 - [.agents-memory/structure.md](.agents-memory/structure.md) — repository layout: built-in components, UI layers, hooks, utils, docs and theme. Read when adding files or locating code.
 - [.agents-memory/docs-pages.md](.agents-memory/docs-pages.md) — docs page content conventions: per-prop sections, table anchors, example markers. Read before editing pages in src/docs/pages.
 - [.agents-memory/workflow.md](.agents-memory/workflow.md) — npm scripts and development rules (comments, JSDoc, styles, verification). Read before running commands or finishing a change.

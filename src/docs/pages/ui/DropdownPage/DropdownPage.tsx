@@ -1,7 +1,7 @@
 import type { HighlightExamples } from '@docs/ui'
 import { Slot } from 'rune-hub'
 
-import { Button, Dropdown, Flex, Option, Text } from '../../../../ui'
+import { Button, Description, Dropdown, Flex, Option, Text } from '../../../../ui'
 import { MarkdownTemplate } from '../../../templates'
 import description from './DropdownPage.md'
 
@@ -13,7 +13,7 @@ interface City {
 
 export default function DropdownPage () {
   const fruits = ['Apple', 'Banana', 'Cherry', 'Dragon fruit', 'Elderberry', 'Fig', 'Grape', 'Kiwi', 'Lemon', 'Mango']
-  const selectedFruit = new Slot<string>(() => 'Banana')
+  const selectedFruit = new Slot(() => 'Banana')
 
   const frameworks = ['Angular', 'React', 'Svelte', 'Vue']
   const selectedFrameworks = new Slot<string[]>(() => ['React', 'Vue'])
@@ -36,17 +36,28 @@ export default function DropdownPage () {
   const examples: HighlightExamples = {
     basic: (
       <Button>
+        Choose a framework
+        <Dropdown values={frameworks} />
+      </Button>
+    ),
+    values: (
+      <Button>
         Choose a fruit
-        <Dropdown values={fruits} selected={selectedFruit} />
+        <Dropdown values={fruits} height={200} width={200} />
       </Button>
     ),
     selected: (
       <Flex vertical gap={8} align='start'>
         <Button>
-          Choose a fruit
-          <Dropdown values={fruits} selected={selectedFruit} />
+          Selected: {selectedFruit}
+          <Dropdown
+            values={fruits}
+            selected={selectedFruit}
+            height={150}
+            width={150}
+            placement='vertical-center'
+          />
         </Button>
-        <Text>Selected: {() => selectedFruit.value ?? 'none'}</Text>
       </Flex>
     ),
     multiple: (
@@ -96,15 +107,22 @@ export default function DropdownPage () {
       <Flex gap={8} wrap>
         <Button>
           s
-          <Dropdown values={fruits} size='s' />
+          <Dropdown height={150} width={100} values={fruits} size='s' />
         </Button>
         <Button>
           m
-          <Dropdown values={fruits} size='m' />
+          <Dropdown height={150} width={150} values={fruits} size='m' />
         </Button>
         <Button>
           l
-          <Dropdown values={fruits} size='l' />
+          <Dropdown height={200} width={200} values={fruits} size='l'>
+            {(props, index) => (
+              <Option align='start' vertical {...props}>
+                <Text>#{index} {props.value}</Text>
+                <Description>Some description</Description>
+              </Option>
+            )}
+          </Dropdown>
         </Button>
       </Flex>
     ),
@@ -137,6 +155,16 @@ export default function DropdownPage () {
           <Dropdown values={fruits} placement='bottom-end' />
         </Button>
       </Flex>
+    ),
+    optionsProps: (
+      <Button>
+        Choose a fruit
+        <Dropdown
+          values={fruits}
+          selected={selectedFruit}
+          optionsProps={{ overflow: 'scroll' }}
+        />
+      </Button>
     ),
     controlled: (
       <Flex vertical gap={8} align='start'>

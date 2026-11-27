@@ -1,6 +1,6 @@
 ---
-description: component folder layout, theme styles, props typing, implementation pattern, env overrides. Read before adding or changing a UI component.
-updated: 2026-11-26
+description: component folder layout, theme styles, props typing, implementation pattern, composition prop forwarding, env overrides. Read before adding or changing a UI component.
+updated: 2026-11-27
 ---
 
 # UI Component Architecture (using `Box` as an example)
@@ -29,7 +29,7 @@ export type BoxStyles = typeof boxStyles
 ## 2. Props typing
 
 - Public props are built with `Merge<ParentProps, OwnProps>`.
-- Keep props ordered alphabetically: regular props first, then event/callback props such as `onChangeRect` at the end, also alphabetically.
+- Keep props ordered alphabetically: regular props first, then composition props (`xxxProps`), then event/callback props such as `onChangeRect` at the end; sort each group alphabetically.
 - Inheritance comes from the underlying primitive (`BoxProps<T, S>` extends `FlexProps<T, S>`).
 - `Box` uses its own `BoxColor`, `BoxView` and `BoxInteract` unions instead of the shared `RDColor` (`Text` keeps `RDColor`).
 - All configurable props are wrapped in `ObservableProp<T>`:
@@ -96,3 +96,9 @@ Contains only a re-export: `export * from './Box'`.
 - When possible, set default values where the base component is rendered, not as destructured defaults in the derived component's props.
 - Props passed by the caller remain overrides.
 - The derived component does not duplicate the base component's variant styles in its own theme block.
+
+## 8. Composing other components
+
+- When a component composes other components internally, forward their props through a dedicated `xxxProps` prop (for example, `Dropdown` renders `Options` and exposes `optionsProps`).
+- Type `xxxProps` from the nested component's props, omitting what the wrapper controls or conflicts with (for example `children`).
+- Destructure `xxxProps` and spread it onto the nested component last, so the caller's values override the wrapper's defaults.
