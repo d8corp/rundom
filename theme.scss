@@ -881,6 +881,17 @@ body {
   }
 }
 
+.dropdown {
+  --dropdown-min-width: 160px;
+  --dropdown-options-max-height: 260px;
+
+  min-width: var(--dropdown-min-width);
+
+  &_options {
+    max-height: var(--dropdown-options-max-height);
+  }
+}
+
 .preview {
   align-items: center;
   justify-content: center;

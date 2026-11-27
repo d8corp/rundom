@@ -22,7 +22,7 @@ updated: 2026-11-17
   - `inline/` (`Code`, `Divider`)
   - `interaction/` (`Input`, `CheckBox`, `RadioBox`, `Toggle`, `Option`, `Options`)
   - `typography/` (`Description`, `Eyebrow`, `Text`, `Typography`, `Markdown`)
-  - `popup/` (`CardHeader`, `Message`, `Popover`)
+  - `popup/` (`CardHeader`, `Dropdown`, `Message`, `Popover`)
   - `widget/` (`Devtools`, ...)
   - `icons/`
 - `src/hooks/`: lifecycle and style hooks (`useStyles`, `useEffect`, `useOnce`, `useClear`, `useCtx`, `useUIProps`).

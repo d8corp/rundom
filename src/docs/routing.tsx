@@ -146,6 +146,11 @@ export const routing = createRouting([
           },
           {
             index: true,
+            path: 'dropdown',
+            component: lazy(() => import('./pages/ui/DropdownPage')),
+          },
+          {
+            index: true,
             path: 'spin',
             component: lazy(() => import('./pages/ui/SpinPage')),
           },

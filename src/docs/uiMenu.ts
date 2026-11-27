@@ -133,6 +133,10 @@ export const uiMenu: MenuItem[] = [
         href: '/ui/popover',
         children: '<Popover>',
       },
+      {
+        href: '/ui/dropdown',
+        children: '<Dropdown>',
+      },
     ],
   },
   {

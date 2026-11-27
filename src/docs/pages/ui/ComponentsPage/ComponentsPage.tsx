@@ -352,6 +352,22 @@ export default function ComponentsPage () {
           ),
         },
         {
+          title: 'Dropdown',
+          href: '/ui/dropdown',
+          description: 'Shows a selectable list of options next to a trigger.',
+          keywords: 'dropdown select menu list choices options picker',
+          preview: (
+            <Card padding={4} style={{ width: '140px' }}>
+              <Options
+                values={['Apple', 'Banana', 'Cherry']}
+                selected='Apple'
+                size='s'
+                style={{ height: '86px' }}
+              />
+            </Card>
+          ),
+        },
+        {
           title: 'Message',
           href: '/ui/message',
           description: 'Shows a temporary notification with a semantic color.',
